@@ -1,3 +1,4 @@
+natsort
 networkx
 torch
 groq
