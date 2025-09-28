@@ -57,7 +57,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## How to Get Gemini API Key
 1. Visit https://aistudio.google.com/app/apikey.
-2. Accept Terms and Conditions.
+2. Accept the Terms and Conditions.
 3. Click "Create API key".
 4. Name your key.
 5. Choose project > Create project.
