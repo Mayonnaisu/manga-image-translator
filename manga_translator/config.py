@@ -152,7 +152,7 @@ class Upscaler(str, Enum):
     upscler4xultrasharp = "4xultrasharp"
 
 class RenderConfig(BaseModel):
-    renderer: Renderer = Renderer.default
+    renderer: Renderer = Renderer.manga2Eng
     """Render english text translated from manga with some additional typesetting. Ignores some other argument options"""
     alignment: Alignment = Alignment.auto
     """Align rendered text"""
@@ -231,7 +231,7 @@ class TranslatorConfig(BaseModel):
     """Select a translator based on detected language in image. Note the first translation service acts as default if the language isn\'t defined. Example: --translator-chain "google:JPN;sugoi:ENG".'"""
     
     # 译后检查配置项
-    enable_post_translation_check: bool = True
+    enable_post_translation_check: bool = False
     """Enable post-translation validation check"""
     post_check_max_retry_attempts: int = 3
     """Maximum retry attempts for failed translation validation"""
