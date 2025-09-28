@@ -11,6 +11,9 @@ This fork doesn't change the core functions of the original program. This is sti
 - Use recommended configurations by default
 - Disable some functions in order to bypass errors
 
+> [!WARNING]
+> **The installer only supports Windows 10 & 11.**
+
 ## Download
 1. Click on the green button on the top.
 2. Select "Download ZIP".
