@@ -8,7 +8,6 @@ ocrs
 Manga
 Manga-translated
 /models
-.env
 *.local
 *.local.*
 test/testdata
