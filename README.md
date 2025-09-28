@@ -35,7 +35,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## Configuration
 ### Required
-1. Open `.env` file with text/code editor.
+1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
 2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
 4. Open `MIT-local-launcher.ps1` with text/code editor.
