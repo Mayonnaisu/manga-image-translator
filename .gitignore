@@ -8,6 +8,7 @@ ocrs
 Manga
 Manga-translated
 /models
+.env
 *.local
 *.local.*
 test/testdata
@@ -50,3 +51,4 @@ MANIFEST
 # SSL Used for running server locally
 cert.pem
 key.pem
+
