@@ -46,11 +46,12 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 2. Select "Run with PowerShell".
 
 ## How to Get Gemini API Key
-1. Visit https://aistudio.google.com/app/apikey
-2. Click "Create API key".
-3. Name your key.
-4. Choose project > Create project.
-5. Select the newly created project.
-6. Click "Create key".
-7. Click the code in the "Key" column.
-8. Click "Copy key".
+1. Visit https://aistudio.google.com/app/apikey.
+2. Accept Terms and Conditions.
+3. Click "Create API key".
+4. Name your key.
+5. Choose project > Create project.
+6. Select the newly created project.
+7. Click "Create key".
+8. Click the code in the "Key" column.
+9. Click "Copy key".
