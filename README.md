@@ -12,15 +12,20 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-5. Right click on `MIT-installer.ps1`.
-6. Select "Run with PowerShell".
+> [!NOTE]
+> The installer is for Windows 11. If you use Windows 10:
+> - open `MIT-installer.ps1` with text/code editor (Notepad, VS Code, etc).
+> - Change `Windows11SDK.26100` to `Windows10SDK`.
+> - Save.
+6. Right click on `MIT-installer.ps1`.
+7. Select "Run with PowerShell".
 
 ## Configuration
 ### Required
-1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
-2. Paste your Gemini API key between the quotation marks.
+1. Open `.env` file with text/code editor.
+2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
-4. Open `MIT-local-launcher.ps1` file with text/code editor.
+4. Open `MIT-local-launcher.ps1` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
     > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\naruto`, then change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\naruto`
 6. Save.
@@ -38,4 +43,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Web Mode
 1. Right click on `MIT-web-launcher.ps1`.
-2. Select "Run with PowerShell". 
+2. Select "Run with PowerShell".
+
+## How to Get Gemini API Key
+1. Visit https://aistudio.google.com/app/apikey.
+2. Accept Terms and Conditions.
+3. Click "Create API key".
+4. Name your key.
+5. Choose project > Create project.
+6. Select the newly created project.
+7. Click "Create key".
+8. Click the code in the "Key" column.
+9. Click "Copy key".
