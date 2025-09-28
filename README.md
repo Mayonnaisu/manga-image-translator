@@ -6,7 +6,7 @@
 
 ## Installation
 1. Open PowerShell as Administrator.
-2. Change PowerShell execution policy by entering command below:
+2. Change PowerShell execution policy by entering the command below:
 ```powershell
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
@@ -15,7 +15,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 5. Right click on `MIT-installer.ps1`.
 6. Select "Run with PowerShell".
 7. Select "Yes" when UAC prompt pops up.
-8. Wait until you get "<span style="color: LightGreen;">INSTALLATION COMPLETED!</span>" message.
+8. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message. 
 
 ## Configuration
 ### Required
