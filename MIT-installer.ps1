@@ -11,7 +11,7 @@ if (Test-Path $MsixBundlePath) {
     Write-Host "`nFile not found. Initiating download..."
     try {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile $MsixBundlePath -ErrorAction Stop
-        Write-Host "`nDownload completed successfully to '$destinationPath'."
+        Write-Host "`nDownload completed successfully to '$MsixBundlePath'."
     } catch {
         Write-Host "`nError during download: $($_.Exception.Message)"
     }
@@ -25,7 +25,7 @@ if (Test-Path $DependencyZipPath) {
     Write-Host "`nFile not found. Initiating download..."
     try {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile $DependencyZipPath -ErrorAction Stop
-        Write-Host "`nDownload completed successfully to '$destinationPath'."
+        Write-Host "`nDownload completed successfully to '$DependencyZipPath'."
     } catch {
         Write-Host "`nError during download: $($_.Exception.Message)"
     }
