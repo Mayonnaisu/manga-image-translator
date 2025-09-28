@@ -12,15 +12,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-> [!NOTE]
-> The installer is for Windows 11. If you use Windows 10:
-> - open `MIT-installer.ps1` with text/code editor (Notepad, VS Code, etc).
-> - Change `Windows11SDK.26100` to `Windows10SDK`.
-> - Save.
-6. Right click on `MIT-installer.ps1`.
-7. Select "Run with PowerShell".
-9. Select "Yes" when UAC prompt pops up.
-10. Wait until you get "<span style="color: LightGreen;">INSTALLATION COMPLETED!</span>" message.
+5. Right click on `MIT-installer.ps1`.
+6. Select "Run with PowerShell".
+7. Select "Yes" when UAC prompt pops up.
+8. Wait until you get "<span style="color: LightGreen;">INSTALLATION COMPLETED!</span>" message.
 
 ## Configuration
 ### Required
