@@ -23,7 +23,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## Configuration
 ### Required
 1. Open `.env` file with text/code editor.
-2. Paste your Gemini API key between the quotation marks.
+2. Paste your [Gemini API key]() between the quotation marks.
 3. Save.
 4. Open `MIT-local-launcher.ps1` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
@@ -43,4 +43,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Web Mode
 1. Right click on `MIT-web-launcher.ps1`.
-2. Select "Run with PowerShell". 
+2. Select "Run with PowerShell".
+
+## How to Get Gemini API Key
+1. Visit https://aistudio.google.com/app/apikey
+2. Click "Create API key".
+3. Name your key.
+4. Choose project > Create project.
+5. Select the newly created project.
+6. Click the code in "Key" column.
+7. Click "Copy key".
