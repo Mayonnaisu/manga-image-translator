@@ -41,17 +41,12 @@ Add-AppxPackage -Path $MsixBundlePath -DependencyPath $Dependencies -Confirm:$Fa
 
 winget upgrade --accept-source-agreements
 
-
-
 $myOS = systeminfo | findstr /B /C:"OS Name"
 if ($myOS.Contains("11")) {
     winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100" --accept-source-agreements --accept-package-agreements
 } else {
     winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK" --accept-source-agreements --accept-package-agreements  
 }
-
-
-
 
 Write-Host "`nMicrosoft C++ Build Tools Installed." -ForegroundColor DarkGreen
 
@@ -64,9 +59,9 @@ Write-Host "`nPyenv Windows Installed." -ForegroundColor DarkGreen
 # Since it's required to reopen PowerShell after installing Pyenv Windows, I'll just launch PowerShell in a new window to install Python 3.10.11 with Pyenv, set up Python virtual environment, & install MIT dependencies.
 Write-Host "`nInstalling Python, Setting Up Python Virtual Environment, & Installing MIT Dependencies..." -ForegroundColor Yellow
 
-$ScriptPath2 = "$env:Temp\commands2.ps1"
+$ScriptPath = "$env:Temp\commands.ps1"
 
-$Commands2 = @"
+$Commands = @"
 Write-Host '$PWD'
 Write-Host "`nInstalling Python 3.10.11." -ForegroundColor DarkGreen
 pyenv --version
@@ -82,11 +77,11 @@ pip install -r requirements.txt
 Write-Host "`nMIT Dependencies Installed." -ForegroundColor DarkGreen
 "@
 
-Set-Content -Path $ScriptPath2 -Value $Commands2
+Set-Content -Path $ScriptPath -Value $Commands
 
-Start-Process powershell -ArgumentList '-Command', '& "$env:Temp\commands2.ps1"; Start-Sleep -Seconds 1' -Wait
+Start-Process powershell -ArgumentList '-Command', '& "$env:Temp\commands.ps1"; Start-Sleep -Seconds 1' -Wait
 
-Remove-Item -Path $ScriptPath2 -Force
+Remove-Item -Path $ScriptPath -Force
 
 Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed." -ForegroundColor DarkGreen
 
