@@ -12,12 +12,17 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-5. Right click on `MIT-installer.ps1`.
-6. Select "Run with PowerShell".
+> [!NOTE]
+> The installer is for Windows 11. If you use Windows 10:
+> - open `MIT-installer.ps1` with text/code editor (Notepad, VS Code, etc).
+> - Change `Windows11SDK.26100` to `Windows10SDK`.
+> - Save.
+6. Right click on `MIT-installer.ps1`.
+7. Select "Run with PowerShell".
 
 ## Configuration
 ### Required
-1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
+1. Open `.env` file with text/code editor.
 2. Paste your Gemini API key between the quotation marks.
 3. Save.
 4. Open `MIT-local-launcher.ps1` with text/code editor.
