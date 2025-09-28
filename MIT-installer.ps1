@@ -31,7 +31,7 @@ if (Test-Path $DependencyZipPath) {
     }
 }
 
-Expand-Archive -Path "C:\Temp\DesktopAppInstaller_Dependencies.zip" -DestinationPath "C:\Temp\DesktopAppInstaller_Dependencies" -Force
+Expand-Archive -Path $DependencyZipPath -DestinationPath "C:\Temp\DesktopAppInstaller_Dependencies" -Force
 
 $DependencyFolderPath = "C:\Temp\DesktopAppInstaller_Dependencies\x64"
 
