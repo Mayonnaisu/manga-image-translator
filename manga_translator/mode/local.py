@@ -16,6 +16,8 @@ from ..translators import (
 )
 from ..utils import natural_sort, replace_prefix, get_color_name, rgb2hex, get_logger
 
+from natsort import natsorted
+
 # 使用专用的local logger
 logger = get_logger('local')
 
@@ -157,7 +159,7 @@ class MangaTranslatorLocal(MangaTranslator):
                 # 原有的逐个处理方式
                 start_time = time.time()  # 记录开始时间
                 translated_count = 0
-                for root, subdirs, files in os.walk(path):
+                for root, subdirs, files in natsorted(os.walk(path)):
                     files = natural_sort(files)
                     dest_root = replace_prefix(root, path, _dest)
                     os.makedirs(dest_root, exist_ok=True)
