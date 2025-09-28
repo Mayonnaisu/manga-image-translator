@@ -20,9 +20,9 @@ if (Test-Path $destinationPath) {
 
 Add-AppxPackage "C:\Temp\WinGet.msixbundle"
 
-winget source update
+winget upgrade --accept-source-agreements
 
-winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100" --accept-source-agreements --accept-package-agreements # Replace 'Windows11SDK.26100' with 'Windows10SDK' for Windows 10
+winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100" --accept-source-agreements --accept-package-agreements
 
 Write-Host "`nMicrosoft C++ Build Tools Installed." -ForegroundColor DarkGreen
 
