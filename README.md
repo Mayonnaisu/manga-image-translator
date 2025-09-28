@@ -1,3 +1,11 @@
+## About
+This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up & use. The changes:
+- Add installer
+- Add launchers
+- Add .env file
+- Use recommended configurations by default
+- Disable some functions that cause negligible errors
+
 ## Download
 1. Click on the green button on the top.
 2. Select "Download ZIP".
