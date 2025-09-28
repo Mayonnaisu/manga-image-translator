@@ -3,22 +3,29 @@ Write-Host "Installing Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
 New-Item -Path "C:\Temp" -ItemType Directory -Force
 
-$sourceUrl = "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
-$destinationPath = "C:\Temp\WinGet.msixbundle"
+$MsixBundlePath = "C:\Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
-if (Test-Path $destinationPath) {
-    Write-Host "File '$destinationPath' already exists. Skipping download."
+if (Test-Path $MsixBundlePath) {
+    Write-Host "File '$MsixBundlePath' already exists. Skipping download."
 } else {
     Write-Host "File not found. Initiating download..."
     try {
-        Invoke-WebRequest -Uri $sourceUrl -OutFile $destinationPath -ErrorAction Stop
+        Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile $MsixBundlePath -ErrorAction Stop
         Write-Host "Download completed successfully to '$destinationPath'."
     } catch {
         Write-Host "Error during download: $($_.Exception.Message)"
     }
 }
 
-Add-AppxPackage "C:\Temp\WinGet.msixbundle"
+Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile "C:\Temp\DesktopAppInstaller_Dependencies.zip"
+
+Expand-Archive -Path "C:\Temp\DesktopAppInstaller_Dependencies.zip" -DestinationPath "C:\Temp\DesktopAppInstaller_Dependencies"
+
+$DependencyFolderPath = "C:\Temp\DesktopAppInstaller_Dependencies\x64"
+
+$Dependencies = Get-ChildItem -Path $DependencyFolderPath -Filter "*.appx*" | Select-Object -ExpandProperty FullName
+
+Add-AppxPackage -Path $MsixBundlePath -DependencyPath $Dependencies -Confirm:$False
 
 winget upgrade --accept-source-agreements
 
@@ -27,7 +34,7 @@ winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait
 Write-Host "`nMicrosoft C++ Build Tools Installed." -ForegroundColor DarkGreen
 
 # Install Pyenv Windows
-Write-Host "`nInstalling Pyenv & Python 3.10.11..." -ForegroundColor Yellow
+Write-Host "`nInstalling Pyenv Windows..." -ForegroundColor Yellow
 Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "$env:USERPROFILE/install-pyenv-win.ps1"; &"$env:USERPROFILE/install-pyenv-win.ps1"
 
 Write-Host "`nPyenv Windows Installed." -ForegroundColor DarkGreen
