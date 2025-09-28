@@ -1,10 +1,15 @@
 ## About
-This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up & use. The changes:
+This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
+> [!NOTE]
+> For more info about the main usage of MIT, always refer to https://github.com/zyddnys/manga-image-translator.
+
+#### The Changes:
 - Add installer
 - Add launchers
 - Add .env file
+- Sort input folders in natural order
 - Use recommended configurations by default
-- Disable some functions that cause negligible errors
+- Disable some functions in order to bypass errors
 
 ## Download
 1. Click on the green button on the top.
