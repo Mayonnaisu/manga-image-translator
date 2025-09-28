@@ -257,8 +257,8 @@ class CommonGPTTranslator(ConfigGPT, CommonTranslator):
         if not new_translations[0].strip():  
             new_translations = new_translations[1:]  
 
-        if len(queries) == 1 and len(new_translations) == 1 and not re.match(r'^\s*<\|\d+\|>', response):  
-            raise Warning('Single query response does not contain prefix.')  
+        # if len(queries) == 1 and len(new_translations) == 1 and not re.match(r'^\s*<\|\d+\|>', response):  
+        #     raise Warning('Single query response does not contain prefix.')  
         
         return new_translations
 
