@@ -4,7 +4,7 @@
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 
-## Installation (Not Tested Yet)
+## Installation
 1. Open PowerShell as Administrator.
 2. Change PowerShell execution policy by entering command below:
 ```powershell
