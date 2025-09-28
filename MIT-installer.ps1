@@ -1,25 +1,37 @@
 # Install Microsoft C++ Build Tools
-Write-Host "Installing Microsoft C++ Build Tools..." -ForegroundColor Yellow
+Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
 New-Item -Path "C:\Temp" -ItemType Directory -Force
 
 $MsixBundlePath = "C:\Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
 if (Test-Path $MsixBundlePath) {
-    Write-Host "File '$MsixBundlePath' already exists. Skipping download."
+    Write-Host "`nFile '$MsixBundlePath' already exists. Skipping download."
 } else {
-    Write-Host "File not found. Initiating download..."
+    Write-Host "`nFile not found. Initiating download..."
     try {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile $MsixBundlePath -ErrorAction Stop
-        Write-Host "Download completed successfully to '$destinationPath'."
+        Write-Host "`nDownload completed successfully to '$destinationPath'."
     } catch {
-        Write-Host "Error during download: $($_.Exception.Message)"
+        Write-Host "`nError during download: $($_.Exception.Message)"
     }
 }
 
-Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile "C:\Temp\DesktopAppInstaller_Dependencies.zip"
+$DependencyZipPath = "C:\Temp\DesktopAppInstaller_Dependencies.zip"
 
-Expand-Archive -Path "C:\Temp\DesktopAppInstaller_Dependencies.zip" -DestinationPath "C:\Temp\DesktopAppInstaller_Dependencies"
+if (Test-Path $DependencyZipPath) {
+    Write-Host "`nFile '$DependencyZipPath' already exists. Skipping download."
+} else {
+    Write-Host "`nFile not found. Initiating download..."
+    try {
+        Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile $DependencyZipPath -ErrorAction Stop
+        Write-Host "`nDownload completed successfully to '$destinationPath'."
+    } catch {
+        Write-Host "`nError during download: $($_.Exception.Message)"
+    }
+}
+
+Expand-Archive -Path "C:\Temp\DesktopAppInstaller_Dependencies.zip" -DestinationPath "C:\Temp\DesktopAppInstaller_Dependencies" -Force
 
 $DependencyFolderPath = "C:\Temp\DesktopAppInstaller_Dependencies\x64"
 
@@ -62,7 +74,7 @@ Write-Host "`nMIT Dependencies Installed." -ForegroundColor DarkGreen
 
 Set-Content -Path $ScriptPath2 -Value $Commands2
 
-Start-Process powershell -ArgumentList '-Command', '& "$env:Temp\commands2.ps1"; Start-Sleep -Seconds 3' -Wait
+Start-Process powershell -ArgumentList '-Command', '& "$env:Temp\commands2.ps1"; Start-Sleep -Seconds 1' -Wait
 
 Remove-Item -Path $ScriptPath2 -Force
 
