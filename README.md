@@ -19,6 +19,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Save.
 6. Right click on `MIT-installer.ps1`.
 7. Select "Run with PowerShell".
+8. Enter y or yes if asked.
+9. Select "Yes" when UAC prompt pops up.
 
 ## Configuration
 ### Required
