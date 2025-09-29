@@ -1,5 +1,6 @@
 # Activate Python venv with another PowerShell script
 Write-Host "Activating Virtual Environment..." -ForegroundColor Yellow
+
 .\venv\Scripts\Activate.ps1
 
 Write-Host "`nVirtual Environment Activated." -ForegroundColor Green
