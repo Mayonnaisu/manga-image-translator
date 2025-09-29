@@ -45,7 +45,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Optional
 1. Go to examples folder.
-2. Open `my-config.json` with text/code editor.
+2. Open `my-config.json` & `gpt_config-example` with text/code editor.
 3. Change the settings as you see fit.
 4. Save.
 
