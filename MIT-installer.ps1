@@ -52,6 +52,7 @@ Write-Host "`nMicrosoft C++ Build Tools Installed." -ForegroundColor DarkGreen
 
 # Install Pyenv Windows
 Write-Host "`nInstalling Pyenv Windows..." -ForegroundColor Yellow
+
 Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "$env:USERPROFILE/install-pyenv-win.ps1"; &"$env:USERPROFILE/install-pyenv-win.ps1"
 
 Write-Host "`nPyenv Windows Installed." -ForegroundColor DarkGreen
