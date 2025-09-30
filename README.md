@@ -58,7 +58,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Local Webtoon Mode
 > [!NOTE]
-> If you downloaded the .zip file before 9:43 PM on 30 September 2025 (UTC+7), update the dependency list first:
+> If you downloaded the .zip file before 9:43 PM on 30 September 2025 (UTC+7), update the dependency list first. If **NOT**, skip to step 6.
 1. Download `MIT-deplist-updater.ps1` & `MIT-local-webtoon-launcher.ps1`.
     > You may also need to re-download `image-merger_all.py` in my_tools folder if you have downloaded it before.
 2. Move the scripts to  your `manga-image-translator-main` folder.
