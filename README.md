@@ -8,7 +8,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add launchers
 - Add .env file
 - Add dependency list updater
-- Improve handling of webtoon format
+- Improve handling of webtoon format (🛠️in progress)
 - Sort input folders in natural order
 - Use recommended configurations by default
 - Disable some functions in order to bypass errors
@@ -96,4 +96,5 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
+- Prone to server overloaded error. (just retry it XD)
 - Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.
