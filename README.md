@@ -59,8 +59,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ### Local Webtoon Mode
 > [!NOTE]
 > If you downloaded the .zip file before 7:50 PM on 30 September 2025 (UTC+7), update the dependency list first:
-1. Download `MIT-deplist-updater.ps1`, `MIT-local-webtoon-launcher.ps1`.
-2. Move the files to  your `manga-image-translator-main` folder.
+1. Download `MIT-deplist-updater.ps1` & `MIT-local-webtoon-launcher.ps1`.
+2. Move the scripts to  your `manga-image-translator-main` folder.
 3. Right click on `MIT-deplist-updater.ps1`.
 4. Select "Run with PowerShell".
 5. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message. 
