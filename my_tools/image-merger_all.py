@@ -83,4 +83,4 @@ if __name__ == "__main__":
         input_root_folder = sys.argv[1]
         combine_images_in_subfolders(input_root_folder)
     else:
-        print('Usage: python image_merger.py "input path"')
+        print('Usage: python image-merger_all.py "input path"')
