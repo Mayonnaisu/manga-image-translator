@@ -56,10 +56,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
 
-### Local Webtoon Mode (Still Need Improvement)
+### Local Webtoon Mode
 > [!NOTE]
 > If you downloaded the .zip file before 9:43 PM on 30 September 2025 (UTC+7), update the dependency list first:
 1. Download `MIT-deplist-updater.ps1` & `MIT-local-webtoon-launcher.ps1`.
+    > You may also need to re-download `image-merger_all.py` in `my_apps` folder if you have downloaded it before.
 2. Move the scripts to  your `manga-image-translator-main` folder.
 3. Right click on `MIT-deplist-updater.ps1`.
 4. Select "Run with PowerShell".
@@ -89,9 +90,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > This mode will attempt to merge all images in each chapter folder into one really long image respectively, so it will consume a lot more RAM and time than regular mode.
 
 ### Pros
-- Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives texts from only one page at a time.
+- Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
 - Better OCR result as there is no splitted speech bubbles resulting in incomplete text detection.
 
 ### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
+- Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.
