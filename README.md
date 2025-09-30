@@ -62,7 +62,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-deplist-updater.ps1`.
 2. Select "Run with PowerShell".
 > [!WARNING]
-> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#local-webtoon-mode)
+> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#webtoon-mode)
 3. Right click on `MIT-local-webtoon-launcher.ps1`.
 4. Select "Run with PowerShell".
 
@@ -81,7 +81,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 8. Click the code in the "Key" column.
 9. Click "Copy key".
 
-## Local Webtoon Mode
+## Webtoon Mode
 > [!WARNING]
 > This mode will attempt to merge all images in each chapter folder into one really long image respectively, so it will consume a lot more of RAM and time than regular local mode.
 
