@@ -18,7 +18,7 @@ if (Test-Path $ToolsPath) {
     Write-Host "`nFile not found. Initiating download..."
     New-Item -Path ".\my_tools" -ItemType Directory -Force
     try {
-        Invoke-WebRequest -Uri "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-merger_all.py" -OutFile $ToolsPath -ErrorAction Stop
+        Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-merger_all.py" -OutFile $ToolsPath -ErrorAction Stop
         Write-Host "`nDownload completed successfully to '$([System.IO.Path]::GetFullPath($ToolsPath))'."
     } catch {
         Write-Host "`nError during download: $($_.Exception.Message)"
