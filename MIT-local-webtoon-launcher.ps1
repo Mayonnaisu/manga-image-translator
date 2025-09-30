@@ -25,12 +25,19 @@ if (Test-Path $ToolsPath) {
     }
 }
 
-Write-Host "`nAll Images Merged and Saved to $InputPath_combined." -ForegroundColor Green
+Write-Host "`nAll Images Merged and Saved to $($InputPath)_combined." -ForegroundColor Green
 
 # Run Manga Image Translator in local (batch) mode
 Write-Host "`nRunning Manga Image Translator in Local Mode... " -ForegroundColor Yellow
 
-python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json"
+python -m manga_translator local -v -i "$($InputPath)_combined" --config-file ".\examples\my-config.json"
+
+# Remove combined images
+Write-Host "`nDeleting Merged Images... " -ForegroundColor Yellow
+
+Remove-Item -Path "$($InputPath)_combined" -Force
+
+Write-Host "`nMerged Images Deleted... " -ForegroundColor Green
 
 # Show exit confirmation
 Write-Host "`nPress Enter to exit" -ForegroundColor Cyan -NoNewLine
