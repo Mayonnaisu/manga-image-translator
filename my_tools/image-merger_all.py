@@ -51,7 +51,7 @@ def combine_images_in_subfolders(input_root_folder):
                     total_height -= (img.height - new_height)
                     img = img.resize((most_common_width, new_height), Image.Resampling.LANCZOS)
 
-                combined_image.paste(img, paste_position)
+                combined_image.paste(img, (x_offset, y_offset))
                 y_offset += img.height
 
                 newer_width = paste_position[0] + img.width
