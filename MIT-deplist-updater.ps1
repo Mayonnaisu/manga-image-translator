@@ -16,7 +16,7 @@ Write-Host "Activating Virtual Environment..." -ForegroundColor Yellow
 Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
 
 # Install new dependencies
-Write-Host "`nInstalling the New Dependencies..." -ForegroundColor Yellow
+Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
 
 pip install -r requirements.txt
 
