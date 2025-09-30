@@ -35,7 +35,7 @@ python -m manga_translator local -v -i "$($InputPath)_combined" --config-file ".
 # Remove combined images
 Write-Host "`nDeleting Merged Images... " -ForegroundColor Yellow
 
-Remove-Item -Path "$($InputPath)_combined" -Force
+Remove-Item -Path "$($InputPath)_combined" -Recurse -Force
 
 Write-Host "`nMerged Images Deleted... " -ForegroundColor Green
 
