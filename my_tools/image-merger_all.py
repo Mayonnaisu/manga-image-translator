@@ -48,7 +48,7 @@ def combine_images_in_subfolders(input_root_folder):
                 if img.width != most_common_width:
                     aspect_ratio = most_common_width / img.width
                     new_height = int((img.height * aspect_ratio))
-                    total_height -= (img.height - new_height)
+                    total_height -= (img.height - new_height) # adjust total height for cropping after resizing width, removing black area
                     img = img.resize((most_common_width, new_height), Image.Resampling.LANCZOS)
 
                 combined_image.paste(img, (x_offset, y_offset))
@@ -71,7 +71,7 @@ def combine_images_in_subfolders(input_root_folder):
 
             # Save the combined image
             subfolder_name = os.path.basename(subdir)
-            output_filename = f"combined_{subfolder_name}.png"  # Or .jpg
+            output_filename = f"combined_{subfolder_name}.png"  # .jpg dimension support is too limited for long image
             output_path = os.path.join(output_subdir, output_filename)
             final_image.save(output_path)
             print(f"Combined images in '{subdir}' and saved to '{output_path}'")
