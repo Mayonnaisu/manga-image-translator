@@ -56,7 +56,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
 
-### Local Webtoon Mode
+### Local Webtoon Mode (Buggy)
 > [!NOTE]
 > If you downloaded the .zip file before 7:50 PM on 30 September 2025 (UTC+7), update the dependency list first:
 1. Download `MIT-deplist-updater.ps1` & `MIT-local-webtoon-launcher.ps1`.
