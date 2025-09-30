@@ -8,6 +8,13 @@ Invoke-WebRequest -UseBasicParsing -Uri $sourceUrl -OutFile $filePath
 
 Write-Host "`nrequirements.txt Saved to $([System.IO.Path]::GetFullPath($filePath))." -ForegroundColor DarkGreen
 
+# Activate Python venv
+Write-Host "Activating Virtual Environment..." -ForegroundColor Yellow
+
+.\venv\Scripts\Activate.ps1
+
+Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
+
 # Install new dependencies
 Write-Host "`nInstalling the New Dependencies..." -ForegroundColor Yellow
 
