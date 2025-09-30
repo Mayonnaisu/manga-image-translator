@@ -7,6 +7,8 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add installer
 - Add launchers
 - Add .env file
+- Add dependency list updater
+- Improve handling of webtoon format
 - Sort input folders in natural order
 - Use recommended configurations by default
 - Disable some functions in order to bypass errors
@@ -54,6 +56,16 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
 
+### Local Webtoon Mode
+> [!NOTE]
+> If you downloaded the .zip file before 7:50 PM on 30 September 2025 (UTC+7), update the dependency list first:
+1. Right click on `MIT-deplist-updater.ps1`.
+2. Select "Run with PowerShell".
+> [!WARNING]
+> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#local-webtoon-mode)
+3. Right click on `MIT-local-webtoon-launcher.ps1`.
+4. Select "Run with PowerShell".
+
 ### Web Mode
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
@@ -68,3 +80,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 7. Click "Create key".
 8. Click the code in the "Key" column.
 9. Click "Copy key".
+
+## Local Webtoon Mode
+> [!WARNING]
+> This mode will attempt to merge all images in each chapter folder into one really long image respectively, so it will consume a lot more of RAM and time than regular local mode.
+
+### Pros
+- More contextual translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it only receives texts from one page at a time.
+- Better OCR result as there is no splitted speech bubbles resulting in incomplete text detection.
+
+### Cons
+- Slower and heavier.
+- Speech bubles are dirtier.
