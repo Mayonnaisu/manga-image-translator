@@ -40,7 +40,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
 2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
-4. Open `MIT-local-launcher.ps1` with text/code editor.
+4. Open `MIT-local-launcher.ps1` & `MIT-local-webtoon-launcher.ps1` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
     > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\naruto`, then change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\naruto`
 6. Save.
