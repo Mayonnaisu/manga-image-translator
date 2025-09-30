@@ -91,4 +91,4 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Cons
 - Slower and heavier.
-- Speech bubles are dirtier.
+- Speech bubbles are dirtier.
