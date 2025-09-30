@@ -86,7 +86,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > This mode will attempt to merge all images in each chapter folder into one really long image respectively, so it will consume a lot more RAM and time than regular mode.
 
 ### Pros
-- More contextual translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it only receives texts from one page at a time.
+- Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives texts from only one page at a time.
 - Better OCR result as there is no splitted speech bubbles resulting in incomplete text detection.
 
 ### Cons
