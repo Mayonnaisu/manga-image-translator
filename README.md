@@ -87,7 +87,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into one really long image respectively, so it will consume a lot more RAM and time than regular mode.
+> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode.
 
 ### Pros
 - Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
