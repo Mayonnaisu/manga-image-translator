@@ -6,7 +6,7 @@
     *   [Required](#required)
     *   [Optional](#optional)   
 *   [Usage (CPU Mode)](#usage-cpu-mode)
-    *   [Local Mode](#local-batch-mode)
+    *   [Local Mode](#local-mode)
     *   [Local Webtoon Mode](#local-webtoon-mode)
     *   [Web Mode](#web-mode)
 *   [Update](#update)
