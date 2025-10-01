@@ -25,14 +25,18 @@ This fork doesn't change the core functions of the original program. This is sti
 ## Update
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure you back up the files you have modified before.
-> Impacted files:
+
+> **Impacted files:**
 > - `MIT-installer.ps1`
+> - `MIT-updater.ps1`
 > - `MIT-local-launcher.ps1`
 > - `MIT-local-webtoon-launcher.ps1`
 > - `MIT-web-launcher.ps1`
+> - `requirements.txt`
 > - Files inside `my_tools` folder.
 1. Download `MIT-updater.ps1`.
-2. Right click > Run with PowerShell.
+2. Move it to your `manga-image-translator-main` folder.
+2. Right click on it > Run with PowerShell.
 3. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
 
 ## Installation
