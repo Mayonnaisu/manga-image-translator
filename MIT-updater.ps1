@@ -1,4 +1,11 @@
-$sourceUrl = @(
+# Change warning color to red
+$host.PrivateData.WarningForegroundColor = 'Red'
+
+# Download new files from my repo
+
+$urlListFile = ".\urls.txt"
+
+$Urls = @"
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-updater.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-launcher.ps1
@@ -7,23 +14,43 @@ https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/m
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/requirements.txt
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-merger_all.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-splitter.py
-)
+"@
 
-foreach ($Url in $sourceUrl) {
-    $uri = New-Object System.Uri($url)
+Set-Content -Path $urlListFile -Value $Urls
+
+$urls = Get-Content $urlListFile
+
+$currentLocation = Get-Location
+
+foreach ($Url in $urls) {
+    $uri = New-Object System.Uri($Url)
     $filename = $uri.Segments[-1]
-    $outputPath = ".\$($filename)"
-    Write-Host "Downloading $filename from $Url..." -ForegroundColor Yellow
+
+    $delimiter = "refs/heads/main"
+    $index = $Url.IndexOf($delimiter)
+    $partAfterString = $Url.Substring($index + $delimiter.Length)
+
+    $outputPath = ".$partAfterString"
+
+    $fullTargetPath = Join-Path -Path $currentLocation.Path -ChildPath $outputPath
+
+    $directoryPath = Split-Path -Path $fullTargetPath -Parent
+
+    New-Item -ItemType Directory -Path $directoryPath -Force | Out-Null
+
+    Write-Host "`nDownloading $filename from $Url..." -ForegroundColor Yellow
     try {
         Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $outputPath -ErrorAction Stop
-        Write-Host "Successfully Downloaded to $([System.IO.Path]::GetFullPath($outputPath))." -ForegroundColor DarkGreen
+        Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
     } catch {
-        Write-Warning "Failed to Download $filename. Error: $($_.Exception.Message)"
+        Write-Warning "`nFailed to Download $filename. Error: $($_.Exception.Message)"
     }
 }
 
+Remove-Item -Path $urlListFile -Force
+
 # Activate Python venv
-Write-Host "Activating Virtual Environment..." -ForegroundColor Yellow
+Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
 
 .\venv\Scripts\Activate.ps1
 
@@ -32,7 +59,7 @@ Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
 # Install new dependencies
 Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
 
-pip install -r requirements.txt
+# pip install -r requirements.txt
 
 Write-Host "`nThe New Dependencies Installed." -ForegroundColor DarkGreen
 
