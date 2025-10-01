@@ -18,6 +18,24 @@ def combine_images_in_subfolders(input_root_folder):
         if subdir == input_root_folder:
             continue  # Skip the root folder itself
 
+        # Create corresponding output subfolder
+        relative_path = os.path.relpath(subdir, input_root_folder)
+        output_subdir = os.path.join(output_root_folder, relative_path)
+        if not os.path.exists(output_subdir):
+            os.makedirs(output_subdir)
+
+        # Get the name of the current subfolder
+        subfolder_name = os.path.basename(subdir)
+
+        # Define the output subfolder and combined image path using os.path.join
+        output_filename = f"combined_{subfolder_name}.png"  # .jpg dimension support is too limited for long image
+        output_path = os.path.join(output_subdir, output_filename)
+
+        # Skip if the combined image already exists in the output subfolder
+        if os.path.exists(output_path):
+            print(f"  --> Combined image already exists at '{output_path}'. Skipping.")
+            continue
+
         images_to_combine = []
         for file in files:
             if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
@@ -63,16 +81,7 @@ def combine_images_in_subfolders(input_root_folder):
             
                 final_image = combined_image.crop(cropped_region)
 
-            # Create corresponding output subfolder
-            relative_path = os.path.relpath(subdir, input_root_folder)
-            output_subdir = os.path.join(output_root_folder, relative_path)
-            if not os.path.exists(output_subdir):
-                os.makedirs(output_subdir)
-
             # Save the combined image
-            subfolder_name = os.path.basename(subdir)
-            output_filename = f"combined_{subfolder_name}.png"  # .jpg dimension support is too limited for long image
-            output_path = os.path.join(output_subdir, output_filename)
             final_image.save(output_path)
             print(f"Combined images in '{subdir}' and saved to '{output_path}'")
         else:
