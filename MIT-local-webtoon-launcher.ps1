@@ -5,7 +5,7 @@ Write-Host "Activating Virtual Environment..." -ForegroundColor Yellow
 
 .\venv\Scripts\Activate.ps1
 
-Write-Host "`nVirtual Environment Activated" -ForegroundColor Green
+Write-Host "`nVirtual Environment Activated." -ForegroundColor Green
 
 # Merge all images in each chapter folder into one respectively
 Write-Host "`nMerging All Images in Each Subfolder..." -ForegroundColor Yellow
@@ -33,12 +33,23 @@ Write-Host "`nRunning Manga Image Translator in Local Mode... " -ForegroundColor
 
 python -m manga_translator local -v -i "$($InputPath)_combined" --config-file ".\examples\my-config.json"
 
-# Remove combined images
-Write-Host "`nDeleting Merged Images... " -ForegroundColor Yellow
+# Show delete confirmation for merged images
+while ($true) {
+    Write-Host "`nDo you want to delete merged images in '$($InputPath)_combined'?" -ForegroundColor Black -BackgroundColor Yellow
+    $confirmRemoval = Read-Host -Prompt "ENTER y or n"
 
-Remove-Item -Path "$($InputPath)_combined" -Recurse -Force
-
-Write-Host "`nMerged Images Deleted... " -ForegroundColor Green
+    if ($confirmRemoval -ieq 'y') {
+        Write-Host "`nDeleting Merged Images... " -ForegroundColor Yellow
+        Remove-Item -Path "$($InputPath)_combined" -Recurse -Force -Confirm:$false
+        Write-Host "`nMerged Images Deleted." -ForegroundColor Green
+        break
+    } ElseIf ($confirmRemoval -ieq 'n') {
+        Write-Host "`nMerged Images Retained." -ForegroundColor Yellow
+        break
+    } else {
+        Write-Host "`nInvalid input. Please type 'y' or 'n', then press ENTER." -ForegroundColor Red
+    }
+}
 
 # Show exit confirmation
 Write-Host "`nPress Enter to exit" -ForegroundColor Cyan -NoNewLine
