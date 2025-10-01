@@ -58,7 +58,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 3. Save.
 4. Open `MIT-input-path.txt` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
-    > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\Naruto`, then change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\Naruto`
+    > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\Naruto`, change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\Naruto` or simply `C:\Users\mayonnaisu\Downloads\Naruto`.
 6. Save.
 
 ### Optional
@@ -124,5 +124,5 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - Prone to server overloaded error. (just retry it XD)
-- Image size gets significantly bigger because images are converted to .png format to better handle large dimension since the supported maximum dimension for .jpg format is limited.
+- Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~
