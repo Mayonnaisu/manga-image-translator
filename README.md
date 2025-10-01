@@ -22,6 +22,19 @@ This fork doesn't change the core functions of the original program. This is sti
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 
+## Update
+> [!WARNING]
+> This updater will replace the old files with the newer ones, so make sure you back up the files you have modified before.
+> Impacted files:
+> - `MIT-installer.ps1`
+> - `MIT-local-launcher.ps1`
+> - `MIT-local-webtoon-launcher.ps1`
+> - `MIT-web-launcher.ps1`
+> - Files inside `my_tools` folder.
+1. Download `MIT-updater.ps1`.
+2. Right click > Run with PowerShell.
+3. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
+
 ## Installation
 1. Open PowerShell as Administrator.
 2. Change PowerShell execution policy by entering the command below:
@@ -42,7 +55,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 3. Save.
 4. Open `MIT-local-launcher.ps1` & `MIT-local-webtoon-launcher.ps1` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
-    > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\naruto`, then change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\naruto`
+    > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\Naruto`, then change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\Naruto`
 6. Save.
 
 ### Optional
@@ -57,18 +70,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 2. Select "Run with PowerShell".
 
 ### Local Webtoon Mode
-> [!NOTE]
-> If you downloaded the .zip file before 9:43 PM on 30 September 2025 (UTC+7), update the dependency list first. If **NOT**, skip to step 6.
-1. Download `MIT-deplist-updater.ps1` & `MIT-local-webtoon-launcher.ps1`.
-    > You may also need to re-download `image-merger_all.py` in my_tools folder if you have downloaded it before.
-2. Move the scripts to  your `manga-image-translator-main` folder.
-3. Right click on `MIT-deplist-updater.ps1`.
-4. Select "Run with PowerShell".
-5. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message. 
 > [!WARNING]
 > This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#webtoon-mode)
-6. Right click on `MIT-local-webtoon-launcher.ps1`.
-7. Select "Run with PowerShell".
+1. Right click on `MIT-local-webtoon-launcher.ps1`.
+2. Select "Run with PowerShell".
 
 ### Web Mode
 1. Right click on `MIT-web-launcher.ps1`.
@@ -87,7 +92,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode.
+> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Not only that, it will also split all translated images into the number of original images in each folder (the height and the split position won't be identical tho). 
 
 ### Pros
 - Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
@@ -97,4 +102,4 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - Prone to server overloaded error. (just retry it XD)
-- Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.
+- ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~
