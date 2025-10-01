@@ -1,4 +1,4 @@
-$InputPath = "$env:USERPROFILE\Downloads\manga-folder"
+$InputPath = Get-Content -Path ".\MIT-input-path.txt"
 
 # Activate Python venv with another PowerShell script
 Write-Host "Activating Virtual Environment..." -ForegroundColor Yellow
