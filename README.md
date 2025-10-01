@@ -69,7 +69,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## Usage (CPU Mode)
 > [!NOTE]
-> Local mode supports batch translation.
+> All local modes support batch translation.
 ### Local Mode
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
