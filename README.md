@@ -1,3 +1,19 @@
+## 📂 Directory
+*   [About](#about)
+*   [Download](#download)
+*   [Installation](#installation)
+*   [Configuration](#configuration)
+    *   [Required](#required)
+    *   [Optional](#optional)   
+*   [Usage (CPU Mode)](#usage-cpu-mode)
+    *   [Local Mode](#local-batch-mode)
+    *   [Local Webtoon Mode](#local-webtoon-mode)
+    *   [Web Mode](#web-mode)
+*   [Update](#update)
+*   [Extra Info](extra-info)
+    *   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
+    *   [Webtoon Mode](#webtoon-mode)
+
 ## About
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
 > [!NOTE]
@@ -21,23 +37,6 @@ This fork doesn't change the core functions of the original program. This is sti
 2. Select "Download ZIP".
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
-
-## Update
-> [!WARNING]
-> This updater will replace the old files with the newer ones, so make sure you back up the files you have modified before.
-
-> **Impacted files:**
-> - `MIT-installer.ps1`
-> - `MIT-updater.ps1`
-> - `MIT-local-launcher.ps1`
-> - `MIT-local-webtoon-launcher.ps1`
-> - `MIT-web-launcher.ps1`
-> - `requirements.txt`
-> - Files inside `my_tools` folder.
-1. Download `MIT-updater.ps1`.
-2. Move it to your `manga-image-translator-main` folder.
-2. Right click on it > Run with PowerShell.
-3. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
 
 ## Installation
 1. Open PowerShell as Administrator.
@@ -69,7 +68,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 4. Save.
 
 ## Usage (CPU Mode)
-### Local (Batch) Mode
+> [!NOTE]
+> Local mode supports batch translation.
+### Local Mode
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
 
@@ -83,7 +84,25 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
 
-## How to Get Gemini API Key
+## Update
+> [!WARNING]
+> This updater will replace the old files with the newer ones, so make sure that you back up the files you have modified first.
+
+> **Impacted files:**
+> - `MIT-installer.ps1`
+> - `MIT-updater.ps1`
+> - `MIT-local-launcher.ps1`
+> - `MIT-local-webtoon-launcher.ps1`
+> - `MIT-web-launcher.ps1`
+> - `requirements.txt`
+> - Files inside `my_tools` folder.
+1. Download `MIT-updater.ps1`.
+2. Move it to your `manga-image-translator-main` folder.
+2. Right click on it > Run with PowerShell.
+3. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
+
+## Extra Info
+### How to Get Gemini API Key
 1. Visit https://aistudio.google.com/app/apikey.
 2. Accept the Terms and Conditions.
 3. Click "Create API key".
@@ -94,15 +113,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 8. Click the code in the "Key" column.
 9. Click "Copy key".
 
-## Webtoon Mode
+### Webtoon Mode
 > [!WARNING]
 > This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Not only that, it will also split all translated images into the number of original images in each folder (the height and the split position won't be identical tho). 
 
-### Pros
+#### Pros
 - Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
 - Better OCR result in a way as there is no splitted speech bubble resulting in incomplete text detection.
 
-### Cons
+#### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - Prone to server overloaded error. (just retry it XD)
