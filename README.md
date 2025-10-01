@@ -22,8 +22,8 @@ This fork doesn't change the core functions of the original program. This is sti
 #### The Changes:
 - Add installer
 - Add launchers
+- Add updater
 - Add .env file
-- Add dependency list updater
 - Improve handling of webtoon format (🛠️in progress)
 - Sort input folders in natural order
 - Use recommended configurations by default
