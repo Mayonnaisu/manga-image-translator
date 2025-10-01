@@ -86,7 +86,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## Update
 > [!WARNING]
-> This updater will replace the old files with the newer ones, so make sure that you back up the files you have modified first.<br>
+> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.<br>
 > **Impacted files:**
 > - `MIT-installer.ps1`
 > - `MIT-updater.ps1`
