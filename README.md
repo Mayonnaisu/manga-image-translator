@@ -95,7 +95,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `MIT-update-content.ps1`
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
-1. Download `MIT-updater.ps1`.
+1. Download `MIT-updater.ps1` (if you haven't yet or if yours is the old version).
 2. Move it to your `manga-image-translator-main` folder.
 2. Right click on it > Run with PowerShell.
 3. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
