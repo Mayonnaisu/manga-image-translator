@@ -2,10 +2,9 @@
 $host.PrivateData.WarningForegroundColor = 'Red'
 
 # Download new files from my repo
-
 $urlListFile = ".\urls.txt"
 
-$Urls = @"
+$urlList = @"
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-updater.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-launcher.ps1
@@ -16,19 +15,19 @@ https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/m
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-splitter.py
 "@
 
-Set-Content -Path $urlListFile -Value $Urls
+Set-Content -Path $urlListFile -Value $urlList
 
 $urls = Get-Content $urlListFile
 
 $currentLocation = Get-Location
 
-foreach ($Url in $urls) {
-    $uri = New-Object System.Uri($Url)
+foreach ($url in $urls) {
+    $uri = New-Object System.Uri($url)
     $filename = $uri.Segments[-1]
 
     $delimiter = "refs/heads/main"
-    $index = $Url.IndexOf($delimiter)
-    $partAfterString = $Url.Substring($index + $delimiter.Length)
+    $index = $url.IndexOf($delimiter)
+    $partAfterString = $url.Substring($index + $delimiter.Length)
 
     $outputPath = ".$partAfterString"
 
@@ -38,9 +37,9 @@ foreach ($Url in $urls) {
 
     New-Item -ItemType Directory -Path $directoryPath -Force | Out-Null
 
-    Write-Host "`nDownloading $filename from $Url..." -ForegroundColor Yellow
+    Write-Host "`nDownloading $filename from $url..." -ForegroundColor Yellow
     try {
-        Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile $outputPath -ErrorAction Stop
+        Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $outputPath -ErrorAction Stop
         Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
     } catch {
         Write-Warning "`nFailed to Download $filename. Error: $($_.Exception.Message)"
