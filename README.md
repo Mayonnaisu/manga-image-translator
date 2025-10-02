@@ -124,5 +124,5 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - Prone to server overloaded error. (just retry it XD)
-- Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.
+- ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~
