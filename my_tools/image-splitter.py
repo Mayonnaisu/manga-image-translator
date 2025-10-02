@@ -26,12 +26,30 @@ def split_images_horizontally(input_root_folder):
     """
     image_extensions = ('jpg', 'jpeg', 'png', '.gif', 'bmp')
 
-    if not os.path.isdir(input_root_folder):
-        raise FileNotFoundError(f"The input path '{input_root_folder}' does not exist.")
+    # Check if input path exists
+    if not os.path.exists(input_root_folder):
+        raise Exception(f"The path '{input_root_folder}' does not exist.")
+    
+    # Check if image even exists at all
+    has_images = False
+    walker = os.walk(input_root_folder)
+    try:
+        next(walker)
+    except StopIteration:
+        pass
+    
+    for _, _, files in walker:
+        for filename in files:
+            if filename.lower().endswith(image_extensions):
+                has_images = True
+                break
+        if has_images:
+            break
 
-    if not os.listdir(input_root_folder):
-        raise ValueError(f"The input path '{input_root_folder}' is empty.")
+    if not has_images:
+        raise Exception(f"No image files found in any subfolder of '{input_root_folder}'.")
 
+    # 
     input_root_path = Path(input_root_folder)
 
     output_root_path = replace_string_from_folder_name(input_root_path, "_combined-translated", "-translated")
@@ -65,6 +83,9 @@ def split_images_horizontally(input_root_folder):
             image_counts[p] = count
 
             parts = image_counts[p]
+        # Raise error if input path is empty
+        if parts == 0:
+            raise Exception(f"Can't split into the number of parts as the original images in '{original_root_path}' since it's empty.")
 
         # Create the corresponding output subdirectory structure
         current_output_dir = output_root_path / relative_path
@@ -75,7 +96,7 @@ def split_images_horizontally(input_root_folder):
             # Only process known image file types
             if file_extension in image_extensions:
                 input_image_path = current_input_dir / filename
-                
+
                 try:
                     with Image.open(input_image_path) as img:
                         width, height = img.size
@@ -116,6 +137,10 @@ def split_images_horizontally(input_root_folder):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         input_root_folder = sys.argv[1]
-        split_images_horizontally(input_root_folder)
+        try:
+            split_images_horizontally(input_root_folder)
+        except Exception as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            sys.exit(1)
     else:
         print('Usage: python image-splitter.py "input path"')

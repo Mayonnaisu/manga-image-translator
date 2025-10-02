@@ -10,14 +10,38 @@ def combine_images_in_subfolders(input_root_folder):
     Combines all images vertically within each subfolder of the input_root_folder
     and saves the combined image in the corresponding subfolder of the output_root_folder.
     """
+    image_extensions = ('.png', '.jpg', '.jpeg', '.gif', '.bmp')
+
+    # Check if input path exists
+    if not os.path.exists(input_root_folder):
+        raise Exception(f"The path '{input_root_folder}' does not exist.")
+    
+    # Check if image even exists at all
+    has_images = False
+    walker = os.walk(input_root_folder)
+    try:
+        next(walker)
+    except StopIteration:
+        pass
+    
+    for _, _, files in walker:
+        for filename in files:
+            if filename.lower().endswith(image_extensions):
+                has_images = True
+                break
+        if has_images:
+            break
+
+    if not has_images:
+        raise Exception(f"No image files found in any subfolder of '{input_root_folder}'.")
+
+    # Define output path & create it if not exist
     output_root_folder = f"{input_root_folder}_combined"
 
     if not os.path.exists(output_root_folder):
         os.makedirs(output_root_folder)
 
-    if not os.path.exists(input_root_folder):
-        raise FileNotFoundError(f"The path '{input_root_folder}' does not exist.")
-
+    #
     for subdir, _, files in natsorted(os.walk(input_root_folder)):
         if subdir == input_root_folder:
             continue  # Skip the root folder itself
@@ -42,7 +66,7 @@ def combine_images_in_subfolders(input_root_folder):
 
         images_to_combine = []
         for file in files:
-            if file.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp')):
+            if file.lower().endswith(image_extensions):
                 image_path = os.path.join(subdir, file)
                 try:
                     img = Image.open(image_path)
@@ -94,6 +118,10 @@ def combine_images_in_subfolders(input_root_folder):
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         input_root_folder = sys.argv[1]
-        combine_images_in_subfolders(input_root_folder)
+        try:
+            combine_images_in_subfolders(input_root_folder)
+        except Exception as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            sys.exit(1)
     else:
         print('Usage: python image-merger_all.py "input path"')
