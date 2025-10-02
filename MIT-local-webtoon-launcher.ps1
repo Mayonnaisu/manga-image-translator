@@ -1,3 +1,4 @@
+# Read input path from MIT-input-path.txt
 $InputPath = Get-Content -Path ".\MIT-input-path.txt" | ForEach-Object { $ExecutionContext.InvokeCommand.ExpandString($_) }
 
 # Activate Python venv with another PowerShell script
