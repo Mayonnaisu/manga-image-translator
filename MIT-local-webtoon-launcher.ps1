@@ -10,7 +10,7 @@ try {
         Throw "$InputPath does not exist!"
     }
 } catch {
-    Write-Host "`nError: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Activate Python venv with another PowerShell script
@@ -21,7 +21,7 @@ try {
 
     Write-Host "`nVirtual Environment Activated." -ForegroundColor Green
 } catch {
-    Write-Host "`nFailed to Activate Virtual Environment! Error: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nERROR: Failed to Activate Virtual Environment!`n$($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Merge all images in each chapter folder into one respectively
@@ -31,12 +31,12 @@ try {
     python .\my_tools\image-merger_all.py $InputPath
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "`nFailed to Merge Images! Error: $LASTEXITCODE." -ForegroundColor Red
+        Throw "Failed to Merge Images!`nEXIT CODE: $LASTEXITCODE."
     } else {
         Write-Host "`nAll Input Images Merged and Saved to $($InputPath)_combined." -ForegroundColor Green
     }
 } catch {
-    Write-Host "`nFailed to Merge Images!! Error: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Run Manga Image Translator in local (batch) mode
@@ -46,12 +46,12 @@ try {
     python -m manga_translator local -v -i "$($InputPath)_combined" --config-file ".\examples\my-config.json"
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "`nManga Image Translator Run into ERROR! Error: $LASTEXITCODE." -ForegroundColor Red
+        Throw "Manga Image Translator Run into ERROR!`nEXIT CODE: $LASTEXITCODE."
     } else {
         Write-Host "`nAll Images Translated & Saved to $($InputPath)_combined-translated" -ForegroundColor Green
     }
 } catch {
-    Write-Host "`nManga Image Translator Run into ERROR! Error: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Split all images in each chapter folder into the number of input/original images.
@@ -61,12 +61,12 @@ try {
     python .\my_tools\image-splitter.py "$($InputPath)_combined-translated"
 
     if ($LASTEXITCODE -ne 0) {
-        Write-Host "`nFailed to Split Images! Error: $LASTEXITCODE." -ForegroundColor Red
+        Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
     } else {
         Write-Host "`nAll Translated Images Splitted and Saved to $($InputPath)-translated." -ForegroundColor Green
     }
 } catch {
-    Write-Host "`nFailed to Split Images!! Error: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Show delete confirmation for merged images
