@@ -1,70 +1,17 @@
-# Change warning color to red
-$host.PrivateData.WarningForegroundColor = 'Red'
+$updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-update.txt"
+$updatePath = "./MIT-update.txt"
 
-# Download new files from my repo
-$urlListFile = ".\urls.txt"
-
-$urlList = @"
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-updater.ps1
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-launcher.ps1
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-webtoon-launcher.ps1
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-web-launcher.ps1
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/requirements.txt
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-merger_all.py
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image-splitter.py
-"@
-
-Set-Content -Path $urlListFile -Value $urlList
-
-$urls = Get-Content $urlListFile
-
-$currentLocation = Get-Location
-
-foreach ($url in $urls) {
-    $uri = New-Object System.Uri($url)
-    $filename = $uri.Segments[-1]
-
-    $delimiter = "refs/heads/main"
-    $index = $url.IndexOf($delimiter)
-    $partAfterString = $url.Substring($index + $delimiter.Length)
-
-    $outputPath = ".$partAfterString"
-
-    $fullTargetPath = Join-Path -Path $currentLocation.Path -ChildPath $outputPath
-
-    $directoryPath = Split-Path -Path $fullTargetPath -Parent
-
-    New-Item -ItemType Directory -Path $directoryPath -Force | Out-Null
-
-    Write-Host "`nDownloading $filename from $url..." -ForegroundColor Yellow
+try {
+    # Download MIT-update.txt from my repo
+    Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
+    Invoke-WebRequest -UseBasicParsing -Uri $updateUrl -OutFile $updatePath -ErrorAction Stop
+    Write-Host "`nUpdate Content Downloaded to $outputPath." -ForegroundColor DarkGreen
     try {
-        Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $outputPath -ErrorAction Stop
-        Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
+    # Read the the commands from MIT-update.txt and execute them
+    Get-Content -Path $updatePath | Invoke-Expression
     } catch {
-        Write-Warning "`nFailed to Download $filename. Error: $($_.Exception.Message)"
+        Write-Host "`nError during commands execution: $($_.Exception.Message)" -ForegroundColor Red
     }
+} catch {
+    Write-Host "`nError during download: $($_.Exception.Message)" -ForegroundColor Red
 }
-
-Remove-Item -Path $urlListFile -Force
-
-# Activate Python venv
-Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
-
-.\venv\Scripts\Activate.ps1
-
-Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
-
-# Install new dependencies
-Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
-
-# pip install -r requirements.txt
-
-Write-Host "`nThe New Dependencies Installed." -ForegroundColor DarkGreen
-
-# Show completion message 
-Write-Host "`nUPDATE COMPLETED!" -ForegroundColor Green
-
-# Show exit confirmation
-Write-Host "`nPress Enter to exit" -ForegroundColor Cyan -NoNewLine
-Read-Host
