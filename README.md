@@ -16,7 +16,7 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-**Re-download `MIT-input-path.txt` if the launcher failed to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc).**
+**Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc).**
 
 ## About
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
