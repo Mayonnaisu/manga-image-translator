@@ -96,10 +96,12 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `MIT-update-content.ps1`
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
-1. Download `MIT-updater.ps1` (if you haven't yet or if yours is the old version).
+1. Download `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
-2. Right click on it > Run with PowerShell.
-3. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
+3. Right click on it > Run with PowerShell.
+4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
+> [!NOTE]
+> You may also need to download `MIT-input-path.txt` if you don't have it already.
 
 ## Extra Info
 ### How to Get Gemini API Key
@@ -115,7 +117,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will also split all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). 
+> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will also split all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
 
 #### Pros
 - Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
@@ -127,3 +129,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Prone to server overloaded error. (just retry it XD)
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
+
+> [!NOTE]
+> The webtoon mode can use up to ~20GB RAM on my laptop.<br>
+> **My PC Specs:**<br>
+> - Model: ASUS VIVOBOOK 14X M1403QA
+> - CPU: AMD Ryzen 5 5600H (6C/12T)
+> - GPU: AMD Radeon Vega 7 Graphics (integrated)
+> - RAM: 24GB DDR4-3200
+> - Storage: 512GB M.2 NVMe™ PCIe® 3.0 SSD
+> - OS: Windows 11 Home Single Language 64-bit
+> If your PC specs are equal or better than mine, then you should be fine.
