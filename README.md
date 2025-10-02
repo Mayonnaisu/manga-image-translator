@@ -134,9 +134,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > The webtoon mode can use up to ~20GB RAM on my laptop.<br>
 > **My PC Specs:**<br>
 > - Model: ASUS VIVOBOOK 14X M1403QA
-> - CPU: AMD Ryzen 5 5600H (6C/12T)
-> - GPU: AMD Radeon Vega 7 Graphics (integrated)
-> - RAM: 24GB DDR4-3200
+> - CPU: AMD Ryzen™ 5 5600H (6C/12T)
+> - GPU: 512MB AMD Radeon™ Vega 7 Graphics (integrated)
+> - RAM: 24GB DDR4 3200 MT/s
 > - Storage: 512GB M.2 NVMe™ PCIe® 3.0 SSD
 > - OS: Windows 11 Home Single Language 64-bit
 > If your PC specs are equal or better than mine, then you should be fine.
