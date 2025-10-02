@@ -5,7 +5,7 @@ try {
     # Download MIT-update-content.ps1 from my repo
     Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
     Invoke-WebRequest -UseBasicParsing -Uri $updateUrl -OutFile $updatePath -ErrorAction Stop
-    Write-Host "`nUpdate Content Downloaded to $outputPath." -ForegroundColor DarkGreen
+    Write-Host "`nUpdate Content Downloaded to $updateUrl." -ForegroundColor DarkGreen
     try {
     # Run MIT-update-content.ps1
     & $updatePath
