@@ -26,6 +26,12 @@ def split_images_horizontally(input_root_folder):
     """
     image_extensions = ('jpg', 'jpeg', 'png', '.gif', 'bmp')
 
+    if not os.path.isdir(input_root_folder):
+        raise FileNotFoundError(f"The input path '{input_root_folder}' does not exist.")
+
+    if not os.listdir(input_root_folder):
+        raise ValueError(f"The input path '{input_root_folder}' is empty.")
+
     input_root_path = Path(input_root_folder)
 
     output_root_path = replace_string_from_folder_name(input_root_path, "_combined-translated", "-translated")
