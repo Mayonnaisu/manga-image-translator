@@ -24,6 +24,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add updater
 - Add launchers
 - Add .env file
+- Add input-path.txt
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
 - Use recommended configurations by default
