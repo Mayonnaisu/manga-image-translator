@@ -2,12 +2,12 @@ $updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translato
 $updatePath = "./MIT-update-content.ps1"
 
 try {
-    # Download MIT-update-content.ps1 from my repo
+    # Download the latest MIT-update-content.ps1 from my repo
     Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
     Invoke-WebRequest -UseBasicParsing -Uri $updateUrl -OutFile $updatePath -ErrorAction Stop
     Write-Host "`nUpdate Content Downloaded to $updateUrl." -ForegroundColor DarkGreen
     try {
-    # Run MIT-update-content.ps1
+    # Run the MIT-update-content.ps1
     & $updatePath
     } catch {
         Write-Host "`nError during commands execution: $($_.Exception.Message)" -ForegroundColor Red
