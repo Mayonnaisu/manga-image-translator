@@ -6,7 +6,6 @@ $urlListFile = ".\urls.txt"
 
 $urlList = @"
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-update.txt
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-launcher.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-webtoon-launcher.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-web-launcher.ps1
