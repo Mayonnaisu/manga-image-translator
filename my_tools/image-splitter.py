@@ -2,6 +2,7 @@ import os
 import sys
 from PIL import Image
 from pathlib import Path
+from collections import Counter
 
 def replace_string_from_folder_name(full_path, string_to_find, string_to_replace):
 
@@ -39,12 +40,19 @@ def split_images_horizontally(input_root_folder):
         current_original_dir = original_root_path / relative_path
 
         image_counts = {}
+        original_extensions = []
         for p, _, files in os.walk(current_original_dir):
             if p == current_original_dir:
                 continue
 
             count = 0
             for file in files:
+                # Get the most common original extension
+                original_extension = file.split('.')[-1].lower()
+                original_extensions.append(original_extension.lower())
+                extension_counts = Counter(original_extensions)
+                most_extension, count = extension_counts.most_common(1)[0]
+
                 if file.lower().endswith(image_extensions):
                     count += 1
             image_counts[p] = count
@@ -67,11 +75,13 @@ def split_images_horizontally(input_root_folder):
                         part_height = height // parts
 
                         print(f"Processing '{input_image_path}'...")
+
+                        img = img.convert('RGB') # Convert mode to support .jpg conversion
                         
                         # Split the image into horizontal parts
                         for i in range(parts):
                             # Construct the output filename
-                            output_filename = f"image{str(i+1).zfill(2)}.{file_extension}"
+                            output_filename = f"image{str(i+1).zfill(2)}.{most_extension}"
                             output_image_path = current_output_dir / output_filename
 
                             # Skip splitting if the output image already exists
