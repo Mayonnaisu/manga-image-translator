@@ -1,4 +1,5 @@
 ## 📂 Directory
+*   [NOTICE](#notice)
 *   [About](#about)
 *   [Download](#download)
 *   [Installation](#installation)
@@ -13,6 +14,9 @@
 *   [Extra Info](extra-info)
     *   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
     *   [Webtoon Mode](#webtoon-mode)
+
+## NOTICE
+Re-download `MIT-input-path.txt` if the launchers failed to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc)
 
 ## About
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
