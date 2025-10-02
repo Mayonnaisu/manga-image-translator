@@ -161,4 +161,4 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Storage: 512GB M.2 NVMe™ PCIe® 3.0 SSD
 > - OS: Windows 11 Home Single Language 64-bit
 >
-> If your PC specs are equal or better than mine, then you should be fine.
+> If your PC specs are equal or better than mine, then you should be fine, probably 😅.
