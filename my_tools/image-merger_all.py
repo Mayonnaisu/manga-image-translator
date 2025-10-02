@@ -15,6 +15,9 @@ def combine_images_in_subfolders(input_root_folder):
     if not os.path.exists(output_root_folder):
         os.makedirs(output_root_folder)
 
+    if not os.path.exists(input_root_folder):
+        raise FileNotFoundError(f"The path '{input_root_folder}' does not exist.")
+
     for subdir, _, files in natsorted(os.walk(input_root_folder)):
         if subdir == input_root_folder:
             continue  # Skip the root folder itself
