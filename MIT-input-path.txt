@@ -1,1 +1,1 @@
-$env:USERPROFILE\Downloads\manga-folder
+﻿$env:USERPROFILE\Downloads\manga-folder
