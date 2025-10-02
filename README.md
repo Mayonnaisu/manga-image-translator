@@ -89,10 +89,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.<br>
 > **Impacted files:**
 > - `MIT-installer.ps1`
-> - `MIT-updater.ps1`
 > - `MIT-local-launcher.ps1`
 > - `MIT-local-webtoon-launcher.ps1`
 > - `MIT-web-launcher.ps1`
+> - `MIT-update-content.ps1`
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
 1. Download `MIT-updater.ps1`.
