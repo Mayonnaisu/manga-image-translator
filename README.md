@@ -87,7 +87,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## Update
 > [!WARNING]
-> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.<br>
+> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
+>
 > **Impacted files:**
 > - `MIT-installer.ps1`
 > - `MIT-local-launcher.ps1`
@@ -131,12 +132,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
 
 > [!NOTE]
-> The webtoon mode can use up to ~20GB RAM on my laptop.<br>
-> **My PC Specs:**<br>
+> The webtoon mode can use up to ~20GB RAM on my laptop.
+>
+> **My PC Specs:**
 > - Model: ASUS VIVOBOOK 14X M1403QA
 > - CPU: AMD Ryzen™ 5 5600H (6C/12T)
 > - GPU: 512MB AMD Radeon™ Vega 7 Graphics (integrated)
 > - RAM: 24GB DDR4 3200 MT/s
 > - Storage: 512GB M.2 NVMe™ PCIe® 3.0 SSD
 > - OS: Windows 11 Home Single Language 64-bit
+>
 > If your PC specs are equal or better than mine, then you should be fine.
