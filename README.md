@@ -131,7 +131,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 		<summary>View image</summary>
 			<p align="center">
 				<img alt="Gemini Free Tier Quota"
-	title="Gemini Free Tier Quota" src="" />
+	title="Gemini Free Tier Quota" src="https://github.com/user-attachments/assets/f95625f2-24f6-4488-829a-a3404244b4b3" />
 			</p>
 	</details>
 
