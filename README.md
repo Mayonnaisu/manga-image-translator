@@ -21,8 +21,8 @@ This fork doesn't change the core functions of the original program. This is sti
 
 #### The Changes:
 - Add installer
-- Add launchers
 - Add updater
+- Add launchers
 - Add .env file
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
