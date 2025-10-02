@@ -75,8 +75,6 @@ def split_images_horizontally(input_root_folder):
                         part_height = height // parts
 
                         print(f"Processing '{input_image_path}'...")
-
-                        img = img.convert('RGB') # Convert mode to support .jpg conversion
                         
                         # Split the image into horizontal parts
                         for i in range(parts):
@@ -99,6 +97,7 @@ def split_images_horizontally(input_root_folder):
                             if i == parts - 1:
                                 lower = height
 
+                            img = img.convert('RGB') # Convert mode to support .jpg conversion
                             cropped_img = img.crop((left, upper, right, lower))
                             
                             cropped_img.save(output_image_path)
