@@ -64,7 +64,3 @@ Write-Host "`nThe New Dependencies Installed." -ForegroundColor DarkGreen
 
 # Show completion message 
 Write-Host "`nUPDATE COMPLETED!" -ForegroundColor Green
-
-# Show exit confirmation
-Write-Host "`nPress Enter to exit" -ForegroundColor Cyan -NoNewLine
-Read-Host
