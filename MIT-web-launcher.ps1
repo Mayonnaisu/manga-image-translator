@@ -1,7 +1,3 @@
-# Change global preference for all error to terminate the process
-$ErrorActionPreference = "Stop"
-$PSNativeCommandUseErrorActionPreference = $true
-
 # Activate Python venv with another PowerShell script
 try {
     Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
