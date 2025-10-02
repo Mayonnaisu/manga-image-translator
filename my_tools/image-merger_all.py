@@ -2,6 +2,7 @@ import os
 import sys
 from natsort import natsorted
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 from collections import Counter
 
 def combine_images_in_subfolders(input_root_folder):

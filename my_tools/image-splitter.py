@@ -1,6 +1,7 @@
 import os
 import sys
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 from pathlib import Path
 from collections import Counter
 
