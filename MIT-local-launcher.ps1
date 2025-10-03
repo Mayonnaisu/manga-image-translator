@@ -1,6 +1,6 @@
 ﻿# Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
-$PSNativeCommandUseErrorActionPreference = $true
+$PSNativeCommandUseErrorActionPreference = $True
 
 # Read input path from MIT-input-path.txt
 try {

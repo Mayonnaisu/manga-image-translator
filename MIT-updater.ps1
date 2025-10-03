@@ -1,6 +1,6 @@
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
-$PSNativeCommandUseErrorActionPreference = $true
+$PSNativeCommandUseErrorActionPreference = $True
 
 $updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-update-content.ps1"
 $updatePath = "./MIT-update-content.ps1"
