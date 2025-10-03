@@ -35,6 +35,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Sort input folders in natural order
 - Use recommended configurations by default
 - Disable some functions in order to bypass errors
+- Clean up result folder except for log file by default
 
 > [!WARNING]
 > **The installer only supports Windows 10 & 11.**
@@ -96,9 +97,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > **Change Logs:**
 > - Improve error handling, except for `MIT-installer.ps1` (not yet).
 > - Use only `MIT-input-path.txt` to get input path for all scripts that need it.
-> - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable with limitation:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
+> - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
-> - Remove delete confirmation for merged images & set the option to automatically delete in `MIT-local-webtoon-launcher.ps1` (**customizable**).
+> - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
+> - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
