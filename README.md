@@ -167,7 +167,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 122,000 pixels. It fails when I tested in on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed, in a way)**
 
 > [!NOTE]
-> The webtoon mode can use up to ~20GB RAM on my laptop.
+> The webtoon mode can use up to around ~~20~~ 15GB RAM on my laptop.
 >
 > **My PC Specs:**
 > - Model: ASUS VIVOBOOK 14X M1403QA
