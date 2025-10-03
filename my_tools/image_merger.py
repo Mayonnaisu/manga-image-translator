@@ -13,6 +13,7 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
 
     Args:
         input_root_folder (str): The root directory containing image subfolders.
+        output_root_folder (str): The root directory where the processed images will be saved.
         parts (int): The number of combined image parts to create for each subfolder.
     """
     if parts <= 0:
