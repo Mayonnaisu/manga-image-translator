@@ -4,16 +4,20 @@ $updatePath = "./MIT-update-content.ps1"
 try {
     # Download the latest MIT-update-content.ps1 from my repo
     Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
+
     Invoke-WebRequest -UseBasicParsing -Uri $updateUrl -OutFile $updatePath -ErrorAction Stop
+
     Write-Host "`nUpdate Content Downloaded to $updateUrl." -ForegroundColor DarkGreen
     try {
-    # Run the MIT-update-content.ps1
-    & $updatePath
+        # Run the MIT-update-content.ps1
+        & $updatePath
+
+        Write-Host "`nUPDATE COMPLETED!." -ForegroundColor Green
     } catch {
-        Write-Host "`nError during commands execution: $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host "$($_.Exception.Message)`n`nUPDATE NOT COMPLETED!" -ForegroundColor Red
     }
 } catch {
-    Write-Host "`nError during download: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nFailed to Downlaod Update Content`nERROR: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Show exit confirmation

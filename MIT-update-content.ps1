@@ -56,11 +56,12 @@ Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
 Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
 
 # Install new dependencies
-Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
+try {
+    Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
-Write-Host "`nThe New Dependencies Installed." -ForegroundColor DarkGreen
-
-# Show completion message 
-Write-Host "`nUPDATE COMPLETED!" -ForegroundColor Green
+    Write-Host "`nNew Dependencies Installed!" -ForegroundColor 
+} catch {
+    Throw "`nFailed to Install New Dependencies!"
+}
