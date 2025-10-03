@@ -150,11 +150,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will also split all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
+> This mode will attempt to merge all images in each chapter folder into ~~one~~ two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
 
 #### Pros
-- Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
-- Better OCR result in a way as there is no splitted speech bubble resulting in incomplete text detection.
+- Better translation result because the translator will get all texts from ~~one~~ half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
+- Better OCR result in a way as there is ~~no~~ only one potentially splitted speech bubble resulting in incomplete text detection.
 
 #### Cons
 - Slower and heavier.
