@@ -1,26 +1,26 @@
 ## 📂 Directory
 *   [NOTICE](#notice)
-*   [About](#about)
-*   [Download](#download)
-*   [Installation](#installation)
-*   [Configuration](#configuration)
+*   [ABOUT](#about)
+*   [DOWNLOAD](#download)
+*   [INSTALLATION](#installation)
+*   [CONFIGURATION](#configuration)
     *   [Required](#required)
     *   [Optional](#optional)   
-*   [Usage (CPU Mode)](#usage-cpu-mode)
+*   [USAGE (CPU MODE)](#usage-cpu-mode)
     *   [Local Mode](#local-mode)
     *   [Local Webtoon Mode](#local-webtoon-mode)
     *   [Web Mode](#web-mode)
-*   [Update](#update)
-*   [Extra Info](extra-info)
+*   [UPDATE](#update)
+*   [EXTRA INFO](extra-info)
     *   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc).
+### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1`. So far, the longest images it has successfully inpainted in my testing were ~122,000 pixels. It fails when I tested in on ~180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.
+### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#update).
 
-## About
+## ABOUT
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
 > [!NOTE]
 > For more info about the main usage of MIT, always refer to https://github.com/zyddnys/manga-image-translator.
@@ -39,13 +39,13 @@ This fork doesn't change the core functions of the original program. This is sti
 > [!WARNING]
 > **The installer only supports Windows 10 & 11.**
 
-## Download
+## DOWNLOAD
 1. Click on the green button on the top.
 2. Select "Download ZIP".
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 
-## Installation
+## INSTALLATION
 1. Open PowerShell as Administrator.
 2. Change PowerShell execution policy by entering the command below:
 ```powershell
@@ -58,7 +58,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 7. Select "Yes" when UAC prompt pops up.
 8. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message. 
 
-## Configuration
+## CONFIGURATION
 ### Required
 1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
 2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
@@ -74,7 +74,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 3. Change the settings as you see fit.
 4. Save.
 
-## Usage (CPU Mode)
+## USAGE (CPU MODE)
 > [!NOTE]
 > All local modes support batch translation.
 ### Local Mode
@@ -91,27 +91,34 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
 
-## Update
+## UPDATE
+> [!NOTE]
+> **Change Logs:**
+> - Improve error handling, except for `MIT-installer.ps1` (not yet).
+> - Use only `MIT-input-path.txt` to get input path for all scripts that need it.
+> - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable with limitation:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
+> - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
+> - Remove delete confirmation for merged images & set the option to automatically delete in `MIT-local-webtoon-launcher.ps1` (**customizable**).
+
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
 >
 > **Impacted files:**
+> - `MIT-input-path.txt` (download if not exists)
 > - `MIT-installer.ps1`
 > - `MIT-local-launcher.ps1`
 > - `MIT-local-webtoon-launcher.ps1`
 > - `MIT-web-launcher.ps1`
 > - `MIT-update-content.ps1`
+> - `MIT-deplist-updater` (delete if exists)
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
 1. Download `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
-> [!NOTE]
-> - You may also need to download `MIT-input-path.txt` if you don't have it already. 
-> - If you have `MIT-deplist-updater.ps1`, you can safely delete it as it's been replaced by `MIT-updater.ps1` & is no longer useful.
 
-## Extra Info
+## EXTRA INFO
 ### How to Get Gemini API Key
 1. Visit https://aistudio.google.com/app/apikey.
 2. Accept the Terms and Conditions.
@@ -155,6 +162,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Prone to server overloaded error. (just retry it XD)
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
+- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were ~122,000 pixels. It fails when I tested in on ~180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed, in a way)**
 
 > [!NOTE]
 > The webtoon mode can use up to ~20GB RAM on my laptop.
