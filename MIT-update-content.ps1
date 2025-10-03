@@ -55,12 +55,19 @@ Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
 Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
 
 # Install new dependencies
-try {
-    Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
+$requirementsPath = ".\requirements.txt"
 
-    pip install -r requirements.txt
+Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
 
+if (-not (Test-Path -Path $requirementsPath)) {
+    Throw "Path '$requirementsPath' does not exist!"
+}
+
+python -m pip install --upgrade pip
+pip install -r $requirementsPath
+
+if ($LASTEXITCODE -ne 0) {
+    Throw "`nFailed to Install New Dependencies!`nEXIT CODE: $LASTEXITCODE"
+} else {
     Write-Host "`nNew Dependencies Installed!" -ForegroundColor DarkGreen
-} catch {
-    Write-Host "`nFailed to Install New Dependencies!"
 }
