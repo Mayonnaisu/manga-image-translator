@@ -5,7 +5,6 @@ $host.PrivateData.WarningForegroundColor = 'Red'
 $urlListFile = ".\urls.txt"
 
 $urlList = @"
-https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-input-path.txt
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-launcher.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-webtoon-launcher.ps1
@@ -38,21 +37,31 @@ foreach ($url in $urls) {
     New-Item -ItemType Directory -Path $directoryPath -Force | Out-Null
 
     try {
-        if (Test-Path -Path ".\MIT-input-path.txt" -PathType Leaf -eq $True -and $filename -eq "MIT-input-path.txt") {
-            Write-Host "`n'$filename' already exists. Skipping..." -ForegroundColor Blue
-        } else {
-            Write-Host "`nDownloading $filename from $url..." -ForegroundColor Yellow
+        Write-Host "`nDownloading $filename from $url..." -ForegroundColor Yellow
 
-            Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $outputPath -ErrorAction Stop
+        Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $outputPath -ErrorAction Stop
 
-            Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
-        }
+        Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
     } catch {
         Write-Warning "`nFailed to Download $filename. Error: $($_.Exception.Message)"
     }
 }
 
 Remove-Item -Path $urlListFile -Force
+
+# Download MIT-input-path.txt if not exists
+$MITinputpathtxtUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-input-path.txt"
+$MITinputpathtxtPath = ".\MIT-input-path.txt"
+
+if (Test-Path -Path $MITinputpathtxtPath -PathType Leaf) {
+    Write-Host "`nMIT-input-path.txt Already Exists. Skipping..." -ForegroundColor Blue
+} else {
+    Write-Host "`nMIT-input-path.txt Doesn't Exist. Downloading..." -ForegroundColor Yellow
+
+    Invoke-WebRequest -UseBasicParsing -Uri $MITinputpathtxtUrl -OutFile $MITinputpathtxtPath -ErrorAction Stop
+
+    Write-Host "`nMIT-input-path.txt Downloaded." -ForegroundColor DarkGreen
+}
 
 # Remove obsolete files if exists
 $filePaths = @(
