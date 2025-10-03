@@ -18,7 +18,7 @@
 ## NOTICE
 ### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc).
 
-### MIT inpainter can't handle too long images produced by `MIT-local-webtoon-launcher.ps1`. So far, the longest images it has successfully inpainted in my testing were ~122,000 pixels. It fails when I tested in on ~180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.
+### MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1`. So far, the longest images it has successfully inpainted in my testing were ~122,000 pixels. It fails when I tested in on ~180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.
 
 ## About
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
