@@ -1,3 +1,6 @@
+# Set delete merged images option
+$DeleteMergedImages = $true
+
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $true
@@ -48,6 +51,9 @@ try {
     if ($LASTEXITCODE -ne 0) {
         Throw "Manga Image Translator Run into ERROR!`nEXIT CODE: $LASTEXITCODE."
     } else {
+        if ($DeleteMergedImages) {
+            Remove-Item -Path "$($InputPath)_merged" -Recurse -Force -Confirm:$false
+        }
         Write-Host "`nAll Images Translated & Saved to $($InputPath)_merged-translated" -ForegroundColor Green
     }
 } catch {
@@ -63,28 +69,15 @@ try {
     if ($LASTEXITCODE -ne 0) {
         Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
     } else {
+        if ($DeleteMergedImages) {
+            Remove-Item -Path "$($InputPath)_merged-translated" -Recurse -Force -Confirm:$false
+
+            Remove-Item -Path "$($InputPath)_merged-translated2" -Recurse -Force -Confirm:$false
+        }
         Write-Host "`nAll Translated Images Splitted and Saved to $($InputPath)-translated." -ForegroundColor Green
     }
 } catch {
     Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
-}
-
-# Show delete confirmation for merged images
-while ($true) {
-    Write-Host "`nDo you want to delete merged input images in '$($InputPath)_merged'?" -ForegroundColor Black -BackgroundColor Yellow
-    $confirmRemoval = Read-Host -Prompt "ENTER y or n"
-
-    if ($confirmRemoval -ieq 'y') {
-        Write-Host "`nDeleting Merged Images... " -ForegroundColor Yellow
-        Remove-Item -Path "$($InputPath)_merged" -Recurse -Force -Confirm:$false
-        Write-Host "`nMerged Input Images Deleted." -ForegroundColor Green
-        break
-    } ElseIf ($confirmRemoval -ieq 'n') {
-        Write-Host "`nMerged Input Images Retained." -ForegroundColor Yellow
-        break
-    } else {
-        Write-Host "`nInvalid input. Please type 'y' or 'n', then press ENTER." -ForegroundColor Red
-    }
 }
 
 # Show exit confirmation
