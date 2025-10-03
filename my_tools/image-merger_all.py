@@ -1,15 +1,23 @@
 import os
 import sys
-from natsort import natsorted
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
+from natsort import natsorted
 from collections import Counter
 
-def combine_images_in_subfolders(input_root_folder):
+def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
     """
-    Combines all images vertically within each subfolder of the input_root_folder
-    and saves the combined image in the corresponding subfolder of the output_root_folder.
+    Combines images vertically within each subfolder of the input_root_folder
+    into a specific number of parts and saves the combined image in the
+    corresponding subfolder of the output_root_folder.
+
+    Args:
+        input_root_folder (str): The root directory containing image subfolders.
+        parts (int): The number of combined image parts to create for each subfolder.
     """
+    if parts <= 0:
+        raise Exception("Number of merged images can't be less than 1!")
+
     image_extensions = ('.png', '.jpg', '.jpeg', '.gif', '.bmp')
 
     # Check if input path exists
@@ -35,61 +43,84 @@ def combine_images_in_subfolders(input_root_folder):
     if not has_images:
         raise Exception(f"No image files found in any subfolder of '{input_root_folder}'.")
 
-    # Define output path & create it if not exist
-    output_root_folder = f"{input_root_folder}_combined"
+    # Create the output root folder if it doesn't exist
+    os.makedirs(output_root_folder, exist_ok=True)
 
-    if not os.path.exists(output_root_folder):
-        os.makedirs(output_root_folder)
-
-    #
-    for subdir, _, files in natsorted(os.walk(input_root_folder)):
-        if subdir == input_root_folder:
-            continue  # Skip the root folder itself
-
-        # Create corresponding output subfolder
-        relative_path = os.path.relpath(subdir, input_root_folder)
-        output_subdir = os.path.join(output_root_folder, relative_path)
-        if not os.path.exists(output_subdir):
-            os.makedirs(output_subdir)
-
-        # Get the name of the current subfolder
-        subfolder_name = os.path.basename(subdir)
-
-        # Define the output subfolder and combined image path using os.path.join
-        output_filename = f"combined_{subfolder_name}.png"  # .jpg dimension support is too limited for long image
-        output_path = os.path.join(output_subdir, output_filename)
-
-        # Skip if the combined image already exists in the output subfolder
-        if os.path.exists(output_path):
-            print(f"  --> Combined image already exists at '{output_path}'. Skipping.")
+    # Walk through all subfolders in the input root directory
+    for dirpath, dirnames, filenames in natsorted(os.walk(input_root_folder)):
+        # Skip the root directory itself
+        if dirpath == input_root_folder:
             continue
 
-        images_to_combine = []
-        for file in files:
-            if file.lower().endswith(image_extensions):
-                image_path = os.path.join(subdir, file)
+        # Get the subfolder name and create the corresponding output directory
+        subfolder_name = os.path.basename(dirpath)
+        output_subfolder = os.path.join(output_root_folder, subfolder_name)
+        os.makedirs(output_subfolder, exist_ok=True)
+
+        # Filter for image files
+        image_files = [
+            f
+            for f in filenames
+            if f.lower().endswith(image_extensions)
+        ]
+        natsorted(image_files) # Sort to ensure consistent order
+
+        if not image_files:
+            print(f"No images found in '{subfolder_name}'. Skipping.")
+            continue
+
+        # Divide images into parts
+        total_images = len(image_files)
+        # Handle cases where the number of images is less than 'parts'
+        images_per_part = (total_images + parts - 1) // parts
+
+        for i in range(parts):
+            start_index = i * images_per_part
+            end_index = start_index + images_per_part
+
+            # Slice the image list for the current part
+            part_images = image_files[start_index:end_index]
+
+            if not part_images:
+                continue
+
+            # Define the output filename and path
+            output_filename = f"{subfolder_name}_merged_{i+1}.png"
+            output_path = os.path.join(output_subfolder, output_filename)
+
+            # Skip if the combined image already exists in the output subfolder
+            if os.path.exists(output_path):
+                print(f"  --> Merged image already exists at '{output_path}'. Skipping.")
+                continue
+
+            # Load images for the current part
+            loaded_images = []
+            for img_file in part_images:
                 try:
-                    img = Image.open(image_path)
-                    images_to_combine.append(img)
-                except IOError:
-                    print(f"Warning: Could not open image {image_path}. Skipping.")
+                    img_path = os.path.join(dirpath, img_file)
+                    loaded_images.append(Image.open(img_path))
+                except Exception as e:
+                    print(f"Could not open image '{img_path}': {e}")
 
-        if images_to_combine:
-            # Sort images by filename for consistent order (optional)
-            images_to_combine.sort(key=lambda x: os.path.basename(x.filename))
+            if not loaded_images:
+                continue
 
-            widths, heights = zip(*(i.size for i in images_to_combine))
+            # Find the commonest width and total height for the combined image
+            widths, heights = zip(*(img.size for img in loaded_images))
             max_width = max(widths)
             most_common_width, count = Counter(widths).most_common(1)[0]
-            total_height = sum(heights)  
-
-            combined_image = Image.new('RGB', (max_width, total_height))
+            total_height = sum(heights)
 
             x_offset = 0
             y_offset = 0
             paste_position = (x_offset, y_offset)
 
-            for img in images_to_combine:
+            # Create a new blank canvas
+            combined_image = Image.new(
+                "RGB", (most_common_width, total_height), (255, 255, 255)
+            )
+
+            for img in loaded_images:
             # Resize images to match the most common width while preserving aspect ratio
                 if img.width != most_common_width:
                     aspect_ratio = most_common_width / img.width
@@ -97,10 +128,12 @@ def combine_images_in_subfolders(input_root_folder):
                     total_height -= (img.height - new_height) # adjust total height for cropping after resizing width, removing black area
                     img = img.resize((most_common_width, new_height), Image.Resampling.LANCZOS)
 
+                # Paste images onto the canvas
                 combined_image.paste(img, (x_offset, y_offset))
                 y_offset += img.height
 
-                newer_width = paste_position[0] + img.width
+                # Crop images
+                newer_width = x_offset + img.width
                 newer_height = total_height
 
                 cropped_region = (paste_position[0], paste_position[1],
@@ -111,17 +144,19 @@ def combine_images_in_subfolders(input_root_folder):
 
             # Save the combined image
             final_image.save(output_path)
-            print(f"Combined images in '{subdir}' and saved to '{output_path}'")
-        else:
-            print(f"No images found in '{subdir}' to combine.")
+
+            print(f"Merged {len(part_images)} Images & Saved into '{output_path}'.")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         input_root_folder = sys.argv[1]
+        output_root_folder = f"{input_root_folder}_merged"
+        parts = int(sys.argv[2])
         try:
-            combine_images_in_subfolders(input_root_folder)
+            combine_images_in_subfolders(input_root_folder, output_root_folder, parts)
         except Exception as e:
             print(f"ERROR: {e}", file=sys.stderr)
             sys.exit(1)
     else:
-        print('Usage: python image-merger_all.py "input path"')
+        print('Usage: python image_merger.py <"input path"> <number of merged images>')
+        raise Exception("ERROR: Please provide the 2 arguments!")
