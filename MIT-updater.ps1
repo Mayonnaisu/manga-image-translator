@@ -1,3 +1,7 @@
+# Change global preference for all error to terminate the process
+$ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $true
+
 $updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-update-content.ps1"
 $updatePath = "./MIT-update-content.ps1"
 
@@ -5,12 +9,11 @@ try {
     # Download the latest MIT-update-content.ps1 from my repo
     Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
 
-    Invoke-WebRequest -UseBasicParsing -Uri $updateUrl -OutFile $updatePath -ErrorAction Stop
 
     Write-Host "`nUpdate Content Downloaded to $updateUrl." -ForegroundColor DarkGreen
     try {
         # Run the MIT-update-content.ps1
-        & $updatePath
+        & $updatePath -ErrorAction Stop
 
         Write-Host "`nUPDATE COMPLETED!." -ForegroundColor Green
     } catch {
