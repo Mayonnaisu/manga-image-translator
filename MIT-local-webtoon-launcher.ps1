@@ -2,7 +2,7 @@
 $DeleteMergedImages = $True
 $CleanMITresultFolder = $True
 
-$CleanMITresultFolderPath = Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "*log_*" }
+$CleanMITresultFolderPath = Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" }
 
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
