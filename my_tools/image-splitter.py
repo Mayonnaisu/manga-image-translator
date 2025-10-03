@@ -4,6 +4,7 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
 from pathlib import Path
 from collections import Counter
+from image_merger import combine_images_in_subfolders
 
 def replace_string_from_folder_name(full_path, string_to_find, string_to_replace):
 
@@ -52,9 +53,9 @@ def split_images_horizontally(input_root_folder):
     # 
     input_root_path = Path(input_root_folder)
 
-    output_root_path = replace_string_from_folder_name(input_root_path, "_combined-translated", "-translated")
+    output_root_path = replace_string_from_folder_name(input_root_path, "_merged-translated2", "-translated")
 
-    original_root_path = replace_string_from_folder_name(input_root_path, "_combined-translated", "")
+    original_root_path = replace_string_from_folder_name(input_root_path, "_merged-translated2", "")
 
     # Walk through the directory tree
     for dirpath, dirnames, filenames in os.walk(input_root_path):
@@ -136,11 +137,14 @@ def split_images_horizontally(input_root_folder):
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
-        input_root_folder = sys.argv[1]
+        input_merger_folder = sys.argv[1]
+        input_splitter_folder = f"{input_merger_folder}2"
         try:
-            split_images_horizontally(input_root_folder)
+            combine_images_in_subfolders(input_merger_folder, input_splitter_folder, 1)
+            split_images_horizontally(input_splitter_folder)
         except Exception as e:
             print(f"ERROR: {e}", file=sys.stderr)
             sys.exit(1)
     else:
-        print('Usage: python image-splitter.py "input path"')
+        print('Usage: python image_splitter.py "input path"')
+        raise Exception("ERROR: Please provide the input path!")
