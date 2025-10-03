@@ -59,9 +59,9 @@ Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
 try {
     Write-Host "`nInstalling New Dependencies..." -ForegroundColor Yellow
 
-    pip install -r requirements.txt
+    pip install -r requirements.txt  -ErrorAction Stop
 
-    Write-Host "`nNew Dependencies Installed!" -ForegroundColor 
+    Write-Host "`nNew Dependencies Installed!" -ForegroundColor DarkGreen
 } catch {
-    Throw "`nFailed to Install New Dependencies!"
+    Write-Host "`nFailed to Install New Dependencies!"
 }
