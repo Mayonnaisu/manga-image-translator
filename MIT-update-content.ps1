@@ -63,7 +63,6 @@ if (-not (Test-Path -Path $requirementsPath)) {
     Throw "Path '$requirementsPath' does not exist!"
 }
 
-python -m pip install --upgrade pip
 pip install -r $requirementsPath
 
 if ($LASTEXITCODE -ne 0) {
