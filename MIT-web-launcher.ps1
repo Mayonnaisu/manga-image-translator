@@ -1,3 +1,8 @@
+# Set delete options for MIT result folder content (except for log.txt) 
+$CleanMITresultFolder = $True
+
+$CleanMITresultFolderPath = Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" }
+
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
@@ -21,6 +26,10 @@ try {
 
     if ($LASTEXITCODE -ne 0) {
         Throw "Manga Image Translator Run into ERROR!`nEXIT CODE: $LASTEXITCODE."
+    } else {
+        if ($CleanMITresultFolder) {
+            Remove-Item -Path $CleanMITresultFolderPath -Recurse -Force -Confirm:$false
+        }
     }
 } catch {
     Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
