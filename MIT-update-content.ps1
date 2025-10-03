@@ -38,7 +38,7 @@ foreach ($url in $urls) {
     New-Item -ItemType Directory -Path $directoryPath -Force | Out-Null
 
     try {
-        if (Test-Path -Path ".\MIT-input-path.txt" -PathType Leaf -and $filename -eq "MIT-input-path.txt") {
+        if (Test-Path -Path ".\MIT-input-path.txt" -PathType Leaf -eq $True -and $filename -eq "MIT-input-path.txt") {
             Write-Host "`n'$filename' already exists. Skipping..." -ForegroundColor Blue
         } else {
             Write-Host "`nDownloading $filename from $url..." -ForegroundColor Yellow
