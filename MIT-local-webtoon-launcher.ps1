@@ -1,5 +1,5 @@
 # Set delete merged images option
-$DeleteMergedImages = $true
+$DeleteMergedImages = $True
 
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
