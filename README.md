@@ -18,7 +18,7 @@
 ## NOTICE
 ### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### Re-download `MIT-local-webtoon-launcher.ps1` or update if the launcher fails to clean up MIT result folder.
+### <mark>Re-download `MIT-local-webtoon-launcher.ps1` or update if the launcher fails to clean up MIT result folder.</mark>
 
 ### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#update).
 
