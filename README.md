@@ -48,7 +48,7 @@ This fork doesn't change the core functions of the original program. This is sti
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 > [!NOTE]
-> If you have downloaded and installed MIT from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts & `requirements.txt` (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
+> If you have **successfully downloaded and installed** MIT from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts & `requirements.txt` (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
