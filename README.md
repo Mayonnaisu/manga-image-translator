@@ -105,6 +105,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 > - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
+> - <mark>Add support for processing single folder.</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
@@ -165,13 +166,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 #### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
-- ~~Prone to server overloaded error. (just retry it XD)~~ **(fixed)**
+- ~~Prone to server overloaded error. (just retry it XD)~~ **(seems like it's not really caused by the launcher)** You can either keep retrying or change the model in `.env` file.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
 - ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 122,000 pixels. It fails when I tested in on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed, in a way)**
 
 > [!NOTE]
-> The webtoon mode can use up to around ~~20~~ 15GB RAM on my laptop.
+> The webtoon mode can use up to around ~~20~~ 18GB RAM on my laptop.
 >
 > **My PC Specs:**
 > - Model: ASUS VIVOBOOK 14X M1403QA
