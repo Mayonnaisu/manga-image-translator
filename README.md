@@ -18,7 +18,7 @@
 ## NOTICE
 ### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### <mark>Update if the launchers fail to clean up MIT result folder. I have fixed it, hopefully 🙏.</mark>
+### <mark>Update if the launchers fail to clean up MIT result folder. I have fixed the issue.</mark>
 
 ### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#update).
 
@@ -47,6 +47,8 @@ This fork doesn't change the core functions of the original program. This is sti
 2. Select "Download ZIP".
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
+> [!NOTE]
+> If you have downloaded and installed MIT from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts (the other modified files not included).
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
