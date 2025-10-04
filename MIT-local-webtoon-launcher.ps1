@@ -30,7 +30,7 @@ try {
     Write-Host "`nERROR: Failed to Activate Virtual Environment!`n$($_.Exception.Message)" -ForegroundColor Red
 }
 
-# Merge all images in each chapter folder into one respectively
+# Merge all images in each chapter folder into two respectively
 try {
     Write-Host "`nMerging All Input Images in Each Subfolder..." -ForegroundColor Yellow
 
