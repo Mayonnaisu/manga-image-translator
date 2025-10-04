@@ -48,7 +48,7 @@ This fork doesn't change the core functions of the original program. This is sti
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 > [!NOTE]
-> If you have **successfully downloaded and installed** MIT from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts & `requirements.txt` (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
+> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts & `requirements.txt` (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
@@ -104,7 +104,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
-> - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
+> - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
 > - <mark>Add support for processing single folder.</mark>
 
 > [!WARNING]
