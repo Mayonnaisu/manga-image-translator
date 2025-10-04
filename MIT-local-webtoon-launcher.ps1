@@ -2,8 +2,6 @@
 $DeleteMergedImages = $True
 $CleanMITresultFolder = $True
 
-$CleanMITresultFolderPath = Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" }
-
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
@@ -56,8 +54,9 @@ try {
     } else {
         if ($DeleteMergedImages) {
             Remove-Item -Path "$($InputPath)_merged" -Recurse -Force -Confirm:$false
-        } elseif ($CleanMITresultFolder) {
-            Remove-Item -Path $CleanMITresultFolderPath -Recurse -Force -Confirm:$false
+        } 
+        if ($CleanMITresultFolder) {
+            Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" } | Remove-Item -Recurse -Force -Confirm:$false
         }
         Write-Host "`nAll Images Translated & Saved to $($InputPath)_merged-translated" -ForegroundColor Green
     }
