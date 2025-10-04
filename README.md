@@ -136,7 +136,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 >
 > **To check your quota:**
 > 1. Visit https://aistudio.google.com/app/usage
-> 2. Make sure you are on the right project.
+> 2. Make sure you are on the right account & project.
 > 2. Click "Open in Cloud Console" on the bottom.
 > 3. Scroll down > Click "Quotas & System Limits".
 > 4. Scroll down > You will see your model quota usage on the top result. If you don't see it, use Filter to search it.
@@ -146,7 +146,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 		<summary>View image</summary>
 			<p align="center">
 				<img alt="Gemini Free Tier Quota"
-	title="Gemini Free Tier Quota" src="https://github.com/user-attachments/assets/f95625f2-24f6-4488-829a-a3404244b4b3" />
+	title="Gemini Free Tier Quota" src="https://github.com/user-attachments/assets/ad6d62e8-41da-4ac4-b6ab-4d893cf2f18b" />
 			</p>
 	</details>
 
