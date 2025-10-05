@@ -16,9 +16,11 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#update).</mark>
+### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### Since this guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here]().
+### <mark>Update if the launchers fail to clean up MIT result folder. I have fixed the issue.</mark>
+
+### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#update).
 
 ## ABOUT
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
@@ -45,6 +47,8 @@ This fork doesn't change the core functions of the original program. This is sti
 2. Select "Download ZIP".
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
+> [!NOTE]
+> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts & `requirements.txt` (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
@@ -71,7 +75,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## CONFIGURATION
 ### Required
 1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
-2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
+2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
 4. Open `MIT-input-path.txt` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
@@ -94,7 +98,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Local Webtoon Mode
 > [!WARNING]
-> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#webtoon-mode)
+> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#webtoon-mode)
 1. Right click on `MIT-local-webtoon-launcher.ps1`.
 2. Select "Run with PowerShell".
 
@@ -103,9 +107,29 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 2. Select "Run with PowerShell".
 
 ## UPDATE
-> [!WARNING]
-> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#update).
+> [!NOTE]
+> **Change Logs:**
+> - Improve error handling. <mark>Some errors are still not captured properly by PowerShell. I'm still grappling with it ⚔️</mark>.
+> - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#required). 
+> - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
+> - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
+> - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
+> - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
+> - Add support for processing single folder to Webtoon Mode.
 
+> [!WARNING]
+> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
+>
+> **Impacted files:**
+> - `MIT-input-path.txt` (download if not exists)
+> - `MIT-installer.ps1`
+> - `MIT-local-launcher.ps1`
+> - `MIT-local-webtoon-launcher.ps1`
+> - `MIT-web-launcher.ps1`
+> - `MIT-update-content.ps1`
+> - `MIT-deplist-updater` (delete if exists)
+> - `requirements.txt`
+> - Files inside `my_tools` folder.
 1. Download `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
@@ -146,13 +170,17 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > This mode will attempt to merge all images in each chapter folder into ~~one~~ two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
 
 #### Pros
-- Better translation result because the translator will get all texts from half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
-- Better OCR result in a way as there is only one potentially splitted speech bubble resulting in incomplete text detection.
+- Better translation result because the translator will get all texts from ~~one~~ half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
+- Better OCR result in a way as there is ~~no~~ only one potentially splitted speech bubble resulting in incomplete text detection.
 
 #### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360.
+- ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
+- ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
+- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 122,000 pixels. It fails when I tested in on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed, in a way)**
 
 > [!NOTE]
 > The webtoon mode can use up to around ~~20~~ 18GB RAM on my laptop.
