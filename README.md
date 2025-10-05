@@ -99,13 +99,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## UPDATE
 > [!NOTE]
 > **Change Logs:**
-> - Improve error handling, except for `MIT-installer.ps1` (not yet). <mark>Some errors are still not captured properly by PowerShell. I'm still grappling with it ⚔️ </mark>.
+> - Improve error handling. <mark>Some errors are still not captured properly by PowerShell. I'm still grappling with it ⚔️</mark>.
 > - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#required). 
 > - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 > - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
-> - <mark>Add support for processing single folder.</mark>
+> - Add support for processing single folder.
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
