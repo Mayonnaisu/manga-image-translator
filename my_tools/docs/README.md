@@ -20,7 +20,7 @@
 
 ### <mark>Update if the launchers fail to clean up MIT result folder. I have fixed the issue.</mark>
 
-### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#update).
+### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
 ## ABOUT
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
@@ -75,7 +75,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## CONFIGURATION
 ### Required
 1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
-2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
+2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
 4. Open `MIT-input-path.txt` with text/code editor.
 5. Replace `manga-folder` with your actual manga folder.
@@ -98,7 +98,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Local Webtoon Mode
 > [!WARNING]
-> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#webtoon-mode)
+> This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#webtoon-mode)
 1. Right click on `MIT-local-webtoon-launcher.ps1`.
 2. Select "Run with PowerShell".
 
@@ -110,7 +110,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > [!NOTE]
 > **Change Logs:**
 > - Improve error handling. <mark>Some errors are still not captured properly by PowerShell. I'm still grappling with it ⚔️</mark>.
-> - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#required). 
+> - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#required). 
 > - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).

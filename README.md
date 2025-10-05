@@ -16,7 +16,7 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#update).</mark>
+### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).</mark>
 
 ### Since this guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here]().
 
@@ -104,7 +104,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## UPDATE
 > [!WARNING]
-> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools/docs?tab=readme-ov-file#update).
+> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
 1. Download `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
