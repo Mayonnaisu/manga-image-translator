@@ -1,94 +1,226 @@
+# Change global preference for all error to terminate the process
+$ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $True
+
+# Change error font color to red
+$host.PrivateData.ErrorForegroundColor = "Red"
+
+# Clear previous errors
+$Error.Clear()
+
+# Create empty array to store error status
+$ErrorCatchList = @()
+
 # Install Microsoft C++ Build Tools
 Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
-New-Item -Path "C:\Temp" -ItemType Directory -Force
-
-$MsixBundlePath = "C:\Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
+$MsixBundlePath = ".\Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
 if (Test-Path $MsixBundlePath) {
-    Write-Host "`nFile '$MsixBundlePath' already exists. Skipping download."
+    New-Item -Path ".\Temp" -ItemType Directory -Force
+
+    Write-Host "`nWinGet Already Exists at '$MsixBundlePath'. Skipping Download."
 } else {
-    Write-Host "`nFile not found. Initiating download..."
+    Write-Host "`nWinGet Not Found at '$MsixBundlePath'. Initiating Download..."
     try {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile $MsixBundlePath -ErrorAction Stop
-        Write-Host "`nDownload completed successfully to '$MsixBundlePath'."
+
+        Write-Host "`nWinGet Downloaded Successfully to '$MsixBundlePath'."
+
+        $ErrorCatchList += $false
     } catch {
-        Write-Host "`nError during download: $($_.Exception.Message)"
+        Write-Error "`nFailed to Download WinGet!`nERROR: $($_.Exception.Message)"
+
+        $ErrorCatchList += $true
     }
 }
 
-$DependencyZipPath = "C:\Temp\DesktopAppInstaller_Dependencies.zip"
+$DependencyZipPath = ".\Temp\DesktopAppInstaller_Dependencies.zip"
 
 if (Test-Path $DependencyZipPath) {
-    Write-Host "`nFile '$DependencyZipPath' already exists. Skipping download."
+    Write-Host "`nWinGet Dependencies Already Exists at '$DependencyZipPath'. Skipping Download."
 } else {
-    Write-Host "`nFile not found. Initiating download..."
+    Write-Host "`nWinGet Dependencies Not Found at '$MsixBundlePath'. Initiating Download..."
     try {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile $DependencyZipPath -ErrorAction Stop
-        Write-Host "`nDownload completed successfully to '$DependencyZipPath'."
+
+        Write-Host "`nWinGet Dependencies Downloaded Successfully to '$MsixBundlePath'."
+
+        $ErrorCatchList += $false
     } catch {
-        Write-Host "`nError during download: $($_.Exception.Message)"
+        Write-Error "`nFailed to Download WinGet Dependencies!`nERROR: $($_.Exception.Message)"
+
+        $ErrorCatchList += $true
     }
 }
 
-Expand-Archive -Path $DependencyZipPath -DestinationPath "C:\Temp\DesktopAppInstaller_Dependencies" -Force
+$DependencyFolderPath = ".\Temp\DesktopAppInstaller_Dependencies\x64"
 
-$DependencyFolderPath = "C:\Temp\DesktopAppInstaller_Dependencies\x64"
+try {
+    Write-Host "`nInstalling WinGet..."
 
-$Dependencies = Get-ChildItem -Path $DependencyFolderPath -Filter "*.appx*" | Select-Object -ExpandProperty FullName
+    Expand-Archive -Path $DependencyZipPath -DestinationPath ".\Temp\DesktopAppInstaller_Dependencies" -Force
 
-Add-AppxPackage -Path $MsixBundlePath -DependencyPath $Dependencies -Confirm:$False
+    $Dependencies = Get-ChildItem -Path $DependencyFolderPath -Filter "*.appx*" | Select-Object -ExpandProperty FullName
 
-winget upgrade --accept-source-agreements
+    Add-AppxPackage -Path $MsixBundlePath -DependencyPath $Dependencies -Confirm:$False
 
-$myOS = systeminfo | findstr /B /C:"OS Name"
+    winget upgrade --accept-source-agreements
 
-if ($myOS.Contains("Windows 11")) {
-    winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100" --accept-source-agreements --accept-package-agreements
-} else {
-    winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK" --accept-source-agreements --accept-package-agreements  
+    Write-Host "`nWinGet Installed Successfully."
+
+    $ErrorCatchList += $false
+} catch {
+    Write-Error "`nFailed to Install WinGet!`nERROR: $($_.Exception.Message)"
+
+    $ErrorCatchList += $true
 }
 
-Write-Host "`nMicrosoft C++ Build Tools Installed." -ForegroundColor DarkGreen
+try {
+    Write-Host "`nInstalling Microsoft Visual Studio Build Tools & Its Components..."
+
+    $myOS = systeminfo | findstr /B /C:"OS Name"
+
+    if ($myOS.Contains("Windows 11")) {
+        winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows11SDK.26100" --accept-source-agreements --accept-package-agreements
+    } else {
+        winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK" --accept-source-agreements --accept-package-agreements  
+    }
+    Write-Host "`nMicrosoft C++ Build Tools Installed Successfully." -ForegroundColor DarkGreen
+
+    $ErrorCatchList += $false
+} catch {
+    Write-Error "`nFailed to Install Microsoft C++ Build Tools!`nERROR: $($_.Exception.Message)"
+
+    $ErrorCatchList += $true
+}
 
 # Install Pyenv Windows
-Write-Host "`nInstalling Pyenv Windows..." -ForegroundColor Yellow
+try {
+    Write-Host "`nInstalling Pyenv Windows..." -ForegroundColor Yellow
 
-Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "$env:USERPROFILE/install-pyenv-win.ps1"; &"$env:USERPROFILE/install-pyenv-win.ps1"
+    Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./Temp/install-pyenv-win.ps1"; &"./Temp/install-pyenv-win.ps1" -ErrorAction Stop
 
-Write-Host "`nPyenv Windows Installed." -ForegroundColor DarkGreen
+    Write-Host "`nPyenv Windows Installed Successfully." -ForegroundColor DarkGreen
+
+    $ErrorCatchList += $false
+} catch {
+    Write-Error "`nFailed to Install Pyenv Windows!`nERROR: $($_.Exception.Message)"
+
+    $ErrorCatchList += $true
+}
 
 # Since it's required to reopen PowerShell after installing Pyenv Windows, I'll just launch PowerShell in a new window to install Python 3.10.11 with Pyenv, set up Python virtual environment, & install MIT dependencies.
-Write-Host "`nInstalling Python, Setting Up Python Virtual Environment, & Installing MIT Dependencies..." -ForegroundColor Yellow
+$ScriptPath = ".\Temp\commands.ps1"
 
-$ScriptPath = "$env:Temp\commands.ps1"
+$Commands = @'
+Write-Host "$PWD"
 
-$Commands = @"
-Write-Host '$PWD'
-Write-Host "`nInstalling Python 3.10.11." -ForegroundColor DarkGreen
-pyenv --version
-pyenv install 3.10.11
-pyenv global 3.10.11
+$ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $True
+$host.PrivateData.ErrorForegroundColor = "Red"
+
+# Install Python 3.10.11
+try {
+    Write-Host "`nInstalling Python 3.10.11" -ForegroundColor Yellow
+
+    pyenv --version
+
+    pyenv install 3.10.11
+
+    pyenv global 3.10.11
+
+    if ($LASTEXITCODE -ne 0) {
+        Throw "`nFailed to Install New Dependencies!`nEXIT CODE: $LASTEXITCODE"
+    }
+} catch {
+    Write-Error "`nERROR: $($_.Exception.Message)"
+    exit 1
+}
 Write-Host "`nPython 3.10.11 Installed." -ForegroundColor DarkGreen
-Write-Host "`nSetting Up Python Virtual Environment..." -ForegroundColor Yellow
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-Write-Host "`nVirtual Environment Created & Activated." -ForegroundColor DarkGreen
-Write-Host "`nInstalling MIT Dependencies..." -ForegroundColor Yellow
-pip install -r requirements.txt
+
+# Set Up Python Virtual Environment
+try {
+    Write-Host "`nSetting Up Python Virtual Environment..." -ForegroundColor Yellow
+
+    python -m venv venv
+
+    .\venv\Scripts\Activate.ps1 -ErrorAction Stop 
+} catch {
+    Write-Error "`nERROR: $($_.Exception.Message)"
+    exit 1
+}
+Write-Host "`nPython Virtual Environment Created & Activated." -ForegroundColor DarkGreen
+
+# Install MIT Dependencies
+$requirementsPath = ".\requirements.txt"
+
+try {
+    Write-Host "`nInstalling MIT Dependencies..." -ForegroundColor Yellow
+
+    if (-not (Test-Path -Path $requirementsPath)) {
+        Throw "Path '$requirementsPath' does not exist!"
+    }
+
+    pip install -r $requirementsPath
+
+    if ($LASTEXITCODE -ne 0) {
+        Throw "`nFailed to Install MIT Dependencies!`nEXIT CODE: $LASTEXITCODE"
+    }
+} catch {
+    Write-Error "`nERROR: $($_.Exception.Message)"
+    exit 1
+}
 Write-Host "`nMIT Dependencies Installed." -ForegroundColor DarkGreen
-"@
+
+exit 0
+'@
 
 Set-Content -Path $ScriptPath -Value $Commands
 
-Start-Process powershell -ArgumentList '-Command', '& "$env:Temp\commands.ps1"; Start-Sleep -Seconds 1' -Wait
+# ParentScript.ps1
+Write-Host "`nInstalling Python, Setting Up Python Virtual Environment, & Installing MIT Dependencies..." -ForegroundColor Yellow
+
+$process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`"" -PassThru -RedirectStandardOutput ".\Temp\log-install-python-output.txt" -RedirectStandardError ".\Temp\log-install-python-error.txt"
+
+$process | Wait-Process
+
+$exitCode = $process.ExitCode
+
+if ($exitCode -ne 0) {
+    Write-Error "`nFailed to Install Python, Create Virtual Environment, & Install MIT Dependencies.`nEXIT CODE: $exitCode."
+    Get-Content ".\Temp\log-install-python-error.txt"
+    $ErrorCatchList += $true
+} else {
+    Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed Successfully." -ForegroundColor DarkGreen
+    Get-Content ".\Temp\log-install-python-output.txt"
+    $ErrorCatchList += $false
+}
 
 Remove-Item -Path $ScriptPath -Force
 
-Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed." -ForegroundColor DarkGreen
+# Save the contents of the $Error variable to a text file
+$ErrorLogPath = ".\Temp\log-install-errors.txt"
 
-# Show completion message 
-Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
+$Error | Out-File -FilePath $ErrorLogPath
+
+Get-Content -Path $ErrorLogPath
+
+# Check if there is any error during installation
+Write-Host "`nChecking for Any Errors during Installation..." -ForegroundColor Yellow
+
+if ($fileContent -match "Error") {
+    Write-Host "`nError Found!" -ForegroundColor Red
+    Write-Host "`nINSTALLATION NOT COMPLETED!" -ForegroundColor Red
+} else {
+    Write-Host "`nRechecking..." -ForegroundColor Yellow
+
+    if($ErrorCatchList -contains $true){
+        Write-Host "`nINSTALLATION NOT COMPLETED!" -ForegroundColor Red
+    } else {
+        Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
+    }
+}
 
 # Show exit confirmation
 Write-Host "`nPress Enter to exit" -ForegroundColor Cyan -NoNewLine
