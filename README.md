@@ -99,7 +99,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## UPDATE
 > [!NOTE]
 > **Change Logs:**
-> - Improve error handling, except for `MIT-installer.ps1` (not yet).
+> - Improve error handling, except for `MIT-installer.ps1` (not yet). <mark>Some errors are still not captured properly by PowerShell. I'm still grappling with it ⚔️ </mark>.
 > - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#required). 
 > - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
