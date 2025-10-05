@@ -178,7 +178,6 @@ exit 0
 
 Set-Content -Path $ScriptPath -Value $Commands
 
-# ParentScript.ps1
 Write-Host "`nInstalling Python, Setting Up Python Virtual Environment, & Installing MIT Dependencies..." -ForegroundColor Yellow
 
 $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$ScriptPath`"" -PassThru -RedirectStandardError ".\Temp\log-install-python-error.txt"
@@ -190,9 +189,11 @@ $exitCode = $process.ExitCode
 if ($exitCode -ne 0) {
     Write-Error "`nFailed to Install Python, Create Virtual Environment, & Install MIT Dependencies.`nEXIT CODE: $exitCode."
     Get-Content ".\Temp\log-install-python-error.txt"
+
     $ErrorCatchList += $true
 } else {
     Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed Successfully." -ForegroundColor DarkGreen
+
     $ErrorCatchList += $false
 }
 
