@@ -44,7 +44,7 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
     if not has_images:
         raise Exception(f"No image files found in any subfolder of '{input_root_folder}'.")
 
-    # Create the output root folder if it doesn't exist
+    # Create the output root folder even if it exists
     os.makedirs(output_root_folder, exist_ok=True)
 
     # Walk through all subfolders in the input root directory
