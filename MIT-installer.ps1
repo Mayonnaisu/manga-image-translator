@@ -14,11 +14,11 @@ $ErrorCatchList = @()
 # Install Microsoft C++ Build Tools
 Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
+New-Item -Path ".\Temp" -ItemType Directory -Force
+
 $MsixBundlePath = ".\Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
 if (Test-Path $MsixBundlePath) {
-    New-Item -Path ".\Temp" -ItemType Directory -Force
-
     Write-Host "`nWinGet Already Exists at '$MsixBundlePath'. Skipping Download."
 } else {
     Write-Host "`nWinGet Not Found at '$MsixBundlePath'. Initiating Download..."
