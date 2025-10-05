@@ -91,7 +91,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## USAGE (CPU MODE)
 > [!NOTE]
 > - All local modes support batch translation.
-> - The first time you run the program, it will automatically download the chosen detection, ocr, & inpainting models. After that, it won't need to do it again, unless you have changed the configurations in `my-config.json`.
+> - The first time you run the program, it will automatically download the selected detection, ocr, & inpainting models. After that, it won't need to do it again, unless you have changed the configurations in `my-config.json`.
 ### Local Mode
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
