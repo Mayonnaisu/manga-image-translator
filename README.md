@@ -60,8 +60,17 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 4. Close the PowerShell.
 5. Right click on `MIT-installer.ps1`.
 6. Select "Run with PowerShell".
-7. Select "Yes" when UAC prompt pops up.
-8. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message. 
+9. Select "Yes" when UAC prompt pops up.
+10. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
+> [!NOTE]
+> If you get a warning when opening the installer, uncheck the option, then Open. If you don't do this, the script won't be able to run properly.
+	<details>
+		<summary>View image</summary>
+			<p align="center">
+				<img width=350 alt="Warning for Script"
+	title="Warning for Script" src="https://github.com/user-attachments/assets/47fcd43d-3b53-4751-b716-41afd6d2053a" />
+			</p>
+	</details>
 
 ## CONFIGURATION
 ### Required
