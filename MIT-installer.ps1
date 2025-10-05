@@ -203,12 +203,12 @@ $ErrorLogPath = ".\Temp\log-install-errors.txt"
 
 $Error | Out-File -FilePath $ErrorLogPath
 
-Get-Content -Path $ErrorLogPath
+$ErrorLog = Get-Content -Path $ErrorLogPath -Raw
 
 # Check if there is any error during installation
 Write-Host "`nChecking for Any Errors during Installation..." -ForegroundColor Yellow
 
-if ($fileContent -match "Error") {
+if ($ErrorLog -match "Error") {
     Write-Host "`nError Found!" -ForegroundColor Red
     Write-Host "`nINSTALLATION NOT COMPLETED!" -ForegroundColor Red
 } else {
