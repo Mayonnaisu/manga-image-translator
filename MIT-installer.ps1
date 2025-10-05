@@ -40,11 +40,11 @@ $DependencyZipPath = ".\Temp\DesktopAppInstaller_Dependencies.zip"
 if (Test-Path $DependencyZipPath) {
     Write-Host "`nWinGet Dependencies Already Exists at '$DependencyZipPath'. Skipping Download."
 } else {
-    Write-Host "`nWinGet Dependencies Not Found at '$MsixBundlePath'. Initiating Download..."
+    Write-Host "`nWinGet Dependencies Not Found at '$DependencyZipPath'. Initiating Download..."
     try {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile $DependencyZipPath -ErrorAction Stop
 
-        Write-Host "`nWinGet Dependencies Downloaded Successfully to '$MsixBundlePath'."
+        Write-Host "`nWinGet Dependencies Downloaded Successfully to '$DependencyZipPath'."
 
         $ErrorCatchList += $false
     } catch {
