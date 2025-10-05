@@ -18,7 +18,7 @@
 ## NOTICE
 ### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).</mark>
 
-### Since this guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here]().
+### Since the guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#-directory).
 
 ## ABOUT
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
