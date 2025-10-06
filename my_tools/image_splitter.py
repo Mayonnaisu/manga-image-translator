@@ -85,7 +85,7 @@ def split_images_horizontally(input_root_folder):
             image_counts[p] = count
 
             parts = image_counts[p]
-        # Raise error if input path is empty
+        # Raise error if original path is empty
         if parts == 0:
             raise Exception(f"Can't split into the number of parts as the original images in '{original_root_path}' since it's empty.")
 
