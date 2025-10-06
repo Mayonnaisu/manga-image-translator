@@ -20,7 +20,7 @@
 
 ### <mark>Update if the launchers fail to clean up MIT result folder. I have fixed the issue.</mark>
 
-### Some things have been changed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
+### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
 ## ABOUT
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
@@ -91,7 +91,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## USAGE (CPU MODE)
 > [!NOTE]
 > - All local modes support batch translation.
-> - The first time you run the program, it will automatically download the selected detection, ocr, & inpainting models. After that, it won't need to do it again, unless you have changed the configurations in `my-config.json`.
+> - The first time you run the program, it will automatically download the selected detection, OCR, & inpainting models. After that, it won't need to do it again, unless you have changed the configurations in `my-config.json`.
 ### Local Mode
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
@@ -121,13 +121,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
 >
 > **Impacted files:**
-> - `MIT-input-path.txt` (download if not exists)
+> - `MIT-input-path.txt` (will be downloaded if not exists)
 > - `MIT-installer.ps1`
 > - `MIT-local-launcher.ps1`
 > - `MIT-local-webtoon-launcher.ps1`
 > - `MIT-web-launcher.ps1`
 > - `MIT-update-content.ps1`
-> - `MIT-deplist-updater` (delete if exists)
+> - `MIT-deplist-updater` (will be deleted if exists)
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
 1. Download `MIT-updater.ps1`.
