@@ -84,10 +84,13 @@ def split_images_horizontally(input_root_folder, split_parts):
                     count += 1
             image_counts[p] = count
 
+            # Set the number of split parts according to the given argument
             if split_parts.lower() == "original":
                 parts = image_counts[p]
             else:
                 parts = int(split_parts)
+                if parts < 1:
+                    raise Exception("Number of split parts can't be less than 1!")
 
         # Raise error if original path is empty
         # if parts == 0:
