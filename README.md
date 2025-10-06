@@ -87,7 +87,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## USAGE (CPU MODE)
 > [!NOTE]
 > - All local modes support batch translation.
-> - The first time you run the program, it will automatically download the selected detection, ocr, & inpainting models. After that, it won't need to do it again, unless you have changed the configurations in `my-config.json`.
+> - The first time you run the program, it will automatically download the selected detection, OCR, & inpainting models. After that, it won't need to do it again, unless you have changed the configurations in `my-config.json`.
 ### Local Mode
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
@@ -143,7 +143,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into ~~one~~ two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
+> This mode will attempt to merge all images in each chapter folder into two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
 
 #### Pros
 - Better translation result because the translator will get all texts from half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
@@ -155,7 +155,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
 
 > [!NOTE]
-> The webtoon mode can use up to around ~~20~~ 18GB RAM on my laptop.
+> The webtoon mode can use up to around 18GB RAM on my laptop.
 >
 > **My PC Specs:**
 > - Model: ASUS VIVOBOOK 14X M1403QA
