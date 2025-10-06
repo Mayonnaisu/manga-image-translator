@@ -130,6 +130,8 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `MIT-deplist-updater` (will be deleted if exists)
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
+> - <mark>`README.md`</mark>
+> - <mark>`__main__.py` in `manga_translator` folder</mark>
 1. Download `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.

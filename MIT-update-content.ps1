@@ -5,13 +5,16 @@ $host.PrivateData.WarningForegroundColor = 'Red'
 $urlListFile = ".\urls.txt"
 
 $urlList = @"
+https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/manga_translator/__main__.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-launcher.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-local-webtoon-launcher.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-web-launcher.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/requirements.txt
+https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/README.md
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image_merger.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image_splitter.py
+https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/docs/README.md
 "@
 
 Set-Content -Path $urlListFile -Value $urlList
