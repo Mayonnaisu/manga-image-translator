@@ -38,7 +38,7 @@ try {
     pyenv global 3.10.11
 
     if ($LASTEXITCODE -ne 0) {
-        Throw "`nFailed to Install New Dependencies!`nEXIT CODE: $LASTEXITCODE"
+        Throw "`nFailed to Install Python 3.10.11!`nEXIT CODE: $LASTEXITCODE"
     }
 } catch {
     Write-Error "`nERROR: $($_.Exception.Message)"
@@ -52,8 +52,12 @@ try {
 
     python -m venv venv
 
-    if (Test-Path -Path $LogErrorInstallDependencyPath -PathType Leaf) {
-        Throw "Failed to Create Virtual Environment!"
+    if (Test-Path -Path $LogErrorInstallDependencyPath) {
+        $LogErrorInstallDependency = Get-Content -Path $LogErrorInstallDependencyPath
+
+        if ($LogErrorInstallDependency -match "Error") {
+            Throw "Failed to Create Virtual Environment!"   
+        }
     }
 
     .\venv\Scripts\Activate.ps1 -ErrorAction Stop 
@@ -194,8 +198,12 @@ try {
         Throw "`nERROR: $($_.Exception.Message)"
     }
 
-    if ($LogErrorInstallDependencyPath -match "Error") {
-        Throw "`nError Found in '$LogErrorInstallDependencyPath'!"
+    if (Test-Path -Path $LogErrorInstallDependencyPath) {
+        $LogErrorInstallDependency = Get-Content -Path $LogErrorInstallDependencyPath
+        
+        if ($LogErrorInstallDependency -match "Error") {
+            Throw "`nError Found in '$LogErrorInstallDependencyPath'!"
+        }
     } else {
         Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
     }
