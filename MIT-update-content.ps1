@@ -59,6 +59,7 @@ $MITinputpathtxtPath = ".\MIT-input-path.txt"
 
 if (Test-Path -Path $MITinputpathtxtPath -PathType Leaf) {
     Write-Host "`nMIT-input-path.txt Already Exists. Skipping..." -ForegroundColor Blue
+} else {
     try {
         Write-Host "`nMIT-input-path.txt Doesn't Exist. Downloading..." -ForegroundColor Yellow
 
