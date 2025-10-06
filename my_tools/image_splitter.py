@@ -18,7 +18,7 @@ def replace_string_from_folder_name(full_path, string_to_find, string_to_replace
     else:
         return full_path
 
-def split_images_horizontally(input_root_folder):
+def split_images_horizontally(input_root_folder, split_parts):
     """
     Recursively finds and splits all images horizontally in a folder structure.
 
@@ -50,7 +50,7 @@ def split_images_horizontally(input_root_folder):
     if not has_images:
         raise Exception(f"No image files found in any subfolder of '{input_root_folder}'.")
 
-    # 
+    # Define the output and original root path
     input_root_path = Path(input_root_folder)
 
     output_root_path = replace_string_from_folder_name(input_root_path, "_merged-translated2", "-translated")
@@ -84,10 +84,14 @@ def split_images_horizontally(input_root_folder):
                     count += 1
             image_counts[p] = count
 
-            parts = image_counts[p]
+            if split_parts.lower() == "original":
+                parts = image_counts[p]
+            else:
+                parts = int(split_parts)
+
         # Raise error if original path is empty
-        if parts == 0:
-            raise Exception(f"Can't split into the number of parts as the original images in '{original_root_path}' since it's empty.")
+        # if parts == 0:
+        #     raise Exception(f"Can't split into the number of parts as the original images in '{original_root_path}' since it's empty.")
 
         # Create the corresponding output subdirectory structure
         current_output_dir = output_root_path / relative_path
@@ -140,18 +144,19 @@ def split_images_horizontally(input_root_folder):
                             print(f"  - Saved split part to '{output_image_path}'")
                     
                 except Exception as e:
-                    print(f"Error processing image '{input_image_path}': {e}")
+                    raise Exception(f"Error processing image '{input_image_path}': {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         input_merger_folder = sys.argv[1]
         input_splitter_folder = f"{input_merger_folder}2"
+        split_parts = sys.argv[2]
         try:
             combine_images_in_subfolders(input_merger_folder, input_splitter_folder, 1)
-            split_images_horizontally(input_splitter_folder)
+            split_images_horizontally(input_splitter_folder, split_parts)
         except Exception as e:
             print(f"ERROR: {e}", file=sys.stderr)
             sys.exit(1)
     else:
-        print('Usage: python image_splitter.py "input path"')
-        raise Exception("ERROR: Please provide the input path!")
+        print('Usage: python image_splitter.py <"input path"> <"original" or number of split parts>')
+        raise Exception("ERROR: Please provide the 2 argument!")

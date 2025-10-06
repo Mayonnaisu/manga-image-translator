@@ -147,7 +147,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 #### Pros
 - Better translation result because the translator will get all texts from half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
-- Better OCR result in a way as there is only one potentially splitted speech bubble resulting in incomplete text detection.
+- Better OCR result in a way as there is only one potentially split speech bubble resulting in incomplete text detection.
 
 #### Cons
 - Slower and heavier.

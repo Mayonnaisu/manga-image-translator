@@ -72,7 +72,7 @@ try {
     try {
         Write-Host "`nSplitting All Translated Images in Each Subfolder..." -ForegroundColor Yellow
 
-        python .\my_tools\image_splitter.py "$($InputPath)_merged-translated"
+        python .\my_tools\image_splitter.py "$($InputPath)_merged-translated" "original"
 
         if ($LASTEXITCODE -ne 0) {
             Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
@@ -82,7 +82,7 @@ try {
 
                 Remove-Item -Path "$($InputPath)_merged-translated2" -Recurse -Force -Confirm:$false
             }
-            Write-Host "`nAll Translated Images Splitted and Saved to $($InputPath)-translated." -ForegroundColor Green
+            Write-Host "`nAll Translated Images Split and Saved to $($InputPath)-translated." -ForegroundColor Green
         }
     } catch {
         Throw "`nERROR: $($_.Exception.Message)"

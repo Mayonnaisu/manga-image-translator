@@ -109,13 +109,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## UPDATE
 > [!NOTE]
 > **Change Logs:**
-> - Improve error handling. <mark>Some errors are still not captured properly by PowerShell. I'm still grappling with it ⚔️</mark>.
+> - Improve error handling. <mark>Some errors are not captured properly by PowerShell. I'm still grappling with it ⚔️.</mark>
 > - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#required). 
 > - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** change `python .\my_tools\image_merger.py $InputPath 2` in `MIT-local-webtoon-launcher.ps1` to another number).
 > - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 > - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
 > - Add support for processing single folder to Webtoon Mode.
+> - <mark>Add option to specify the number of split parts in `MIT-local-webtoon-launcher.ps1` (Change "original" in `python .\my_tools\image_splitter.py "$($InputPath)_merged-translated" "original"` to a number without quotes).</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
@@ -173,7 +174,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 #### Pros
 - Better translation result because the translator will get all texts from ~~one~~ half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
-- Better OCR result in a way as there is ~~no~~ only one potentially splitted speech bubble resulting in incomplete text detection.
+- Better OCR result in a way as there is ~~no~~ only one potentially split speech bubble resulting in incomplete text detection.
 
 #### Cons
 - Slower and heavier.
