@@ -55,7 +55,7 @@ try {
     if (Test-Path -Path $LogErrorInstallDependencyPath) {
         $LogErrorInstallDependency = Get-Content -Path $LogErrorInstallDependencyPath
 
-        if ($LogErrorInstallDependency -match "Error") {
+        if ($LogErrorInstallDependency -match "No module named") {
             Throw "Failed to Create Virtual Environment!"   
         }
     }
