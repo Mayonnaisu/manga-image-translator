@@ -1,5 +1,6 @@
-# Change warning color to red
-$host.PrivateData.WarningForegroundColor = 'Red'
+# Change global preference for all error to terminate the process
+$ErrorActionPreference = "Stop"
+$PSNativeCommandUseErrorActionPreference = $True
 
 # Download new files from my repo
 $urlListFile = ".\urls.txt"
@@ -46,7 +47,7 @@ foreach ($url in $urls) {
 
         Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
     } catch {
-        Write-Warning "`nFailed to Download $filename. Error: $($_.Exception.Message)"
+        Throw "Failed to Download $filename!`nERROR: $($_.Exception.Message)"
     }
 }
 
@@ -58,12 +59,15 @@ $MITinputpathtxtPath = ".\MIT-input-path.txt"
 
 if (Test-Path -Path $MITinputpathtxtPath -PathType Leaf) {
     Write-Host "`nMIT-input-path.txt Already Exists. Skipping..." -ForegroundColor Blue
-} else {
-    Write-Host "`nMIT-input-path.txt Doesn't Exist. Downloading..." -ForegroundColor Yellow
+    try {
+        Write-Host "`nMIT-input-path.txt Doesn't Exist. Downloading..." -ForegroundColor Yellow
 
-    Invoke-WebRequest -UseBasicParsing -Uri $MITinputpathtxtUrl -OutFile $MITinputpathtxtPath -ErrorAction Stop
+        Invoke-WebRequest -UseBasicParsing -Uri $MITinputpathtxtUrl -OutFile $MITinputpathtxtPath -ErrorAction Stop
 
-    Write-Host "`nMIT-input-path.txt Downloaded." -ForegroundColor DarkGreen
+        Write-Host "`nMIT-input-path.txt Downloaded." -ForegroundColor DarkGreen
+    } catch {
+        Throw "`nFailed to Download MIT-input-path.txt!`nERROR: $($_.Exception.Message)"
+    }
 }
 
 # Remove obsolete files if exists
@@ -88,11 +92,15 @@ foreach ($filePath in $filePaths) {
 }
 
 # Activate Python venv
-Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
+try {
+    Write-Host "`nActivating Virtual Environment..." -ForegroundColor Yellow
 
-.\venv\Scripts\Activate.ps1
+    .\venv\Scripts\Activate.ps1
 
-Write-Host "`nVirtual Environment Activated" -ForegroundColor DarkGreen
+    Write-Host "`nVirtual Environment Activated." -ForegroundColor Green
+} catch {
+    Throw "`nFailed to Activate Virtual Environment!`nERROR: $($_.Exception.Message)"
+}
 
 # Install new dependencies
 $requirementsPath = ".\requirements.txt"
