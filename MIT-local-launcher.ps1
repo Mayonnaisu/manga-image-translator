@@ -40,7 +40,7 @@ try {
             Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" } | Remove-Item -Recurse -Force -Confirm:$false
         }
         
-        Write-Host "`nAll Images Translated & Saved to $($InputPath)_combined-translated" -ForegroundColor Green
+        Write-Host "`nAll Images Translated & Saved to $($InputPath)-translated" -ForegroundColor Green
     }
 } catch {
     Write-Host "`nERROR: $($_.Exception.Message)" -ForegroundColor Red
