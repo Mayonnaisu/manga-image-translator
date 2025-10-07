@@ -3,8 +3,8 @@ import sys
 from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
 from pathlib import Path
+from natsort import natsorted
 from collections import Counter
-from image_merger import combine_images_in_subfolders
 
 def replace_string_from_folder_name(full_path, string_to_find, string_to_replace):
 
@@ -58,7 +58,7 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
     original_root_path = replace_string_from_folder_name(input_root_path, string_to_find, "")
 
     # Walk through the directory tree
-    for dirpath, dirnames, filenames in os.walk(input_root_path):
+    for dirpath, dirnames, filenames in natsorted(os.walk(input_root_path)):
         current_input_dir = Path(dirpath)
         relative_path = current_input_dir.relative_to(input_root_path)
 
