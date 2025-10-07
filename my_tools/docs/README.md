@@ -18,7 +18,7 @@
 ## NOTICE
 ### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### <mark>I just remembered that I hadn't tried to increase the inpainting size in `my-config.json` when facing an issue of failing to inpaint one extremely long image lol 😅. Now, after increasing it to 2560, those mere ~180k images is no longer a problem 😎.</mark>
+### <mark>I just remembered that I hadn't tried to increase the inpainting size in `my-config.json` when facing the issue of failing to inpaint one extremely long image lol 😅. Now, after increasing it to 2560, those mere ~180k px images are no longer a problem 😎.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
