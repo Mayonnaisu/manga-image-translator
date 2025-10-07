@@ -161,5 +161,5 @@ if __name__ == "__main__":
             print(f"ERROR: {e}", file=sys.stderr)
             sys.exit(1)
     else:
-        print('Usage: python image_splitter.py <"input path"> <"original" or number of split parts> <"string_to_find"> <"string_to_replace1"> <"string_to_replace2">')
+        print('Usage: python image_splitter.py <"input path"> <"original" or number of split parts> <"string to find"> <"string to replace">')
         raise Exception("ERROR: Please provide the 4 arguments! XD")
