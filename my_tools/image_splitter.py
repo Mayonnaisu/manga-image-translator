@@ -18,7 +18,7 @@ def replace_string_from_folder_name(full_path, string_to_find, string_to_replace
     else:
         return full_path
 
-def split_images_horizontally(input_root_folder, split_parts):
+def split_images_horizontally(input_root_folder, split_parts, string_to_find, string_to_replace):
     """
     Recursively finds and splits all images horizontally in a folder structure.
 
@@ -53,9 +53,9 @@ def split_images_horizontally(input_root_folder, split_parts):
     # Define the output and original root path
     input_root_path = Path(input_root_folder)
 
-    output_root_path = replace_string_from_folder_name(input_root_path, "_merged-translated2", "-translated")
+    output_root_path = replace_string_from_folder_name(input_root_path, string_to_find, string_to_replace)
 
-    original_root_path = replace_string_from_folder_name(input_root_path, "_merged-translated2", "")
+    original_root_path = replace_string_from_folder_name(input_root_path, string_to_find, "")
 
     # Walk through the directory tree
     for dirpath, dirnames, filenames in os.walk(input_root_path):
@@ -150,16 +150,16 @@ def split_images_horizontally(input_root_folder, split_parts):
                     raise Exception(f"Error processing image '{input_image_path}': {e}")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 2:
-        input_merger_folder = sys.argv[1]
-        input_splitter_folder = f"{input_merger_folder}2"
+    if len(sys.argv) > 4:
+        input_root_folder = sys.argv[1]
         split_parts = sys.argv[2]
+        string_to_find = sys.argv[3]
+        string_to_replace = sys.argv[4]
         try:
-            combine_images_in_subfolders(input_merger_folder, input_splitter_folder, 1)
-            split_images_horizontally(input_splitter_folder, split_parts)
+            split_images_horizontally(input_root_folder, split_parts, string_to_find, string_to_replace)
         except Exception as e:
             print(f"ERROR: {e}", file=sys.stderr)
             sys.exit(1)
     else:
-        print('Usage: python image_splitter.py <"input path"> <"original" or number of split parts>')
-        raise Exception("ERROR: Please provide the 2 argument!")
+        print('Usage: python image_splitter.py <"input path"> <"original" or number of split parts> <"string_to_find"> <"string_to_replace1"> <"string_to_replace2">')
+        raise Exception("ERROR: Please provide the 4 arguments! XD")

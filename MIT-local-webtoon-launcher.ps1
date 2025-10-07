@@ -2,7 +2,7 @@
 $MergedImageNumber = 2
 $SplitPartsNumber = "original"
 
-# Set delete options for merged images & MIT result folder content (except for log.txt) 
+# Set delete options for merged images & MIT result folder content (except for log.txt)
 $DeleteMergedImages = $True
 $CleanMITresultFolder = $True
 
@@ -72,22 +72,39 @@ try {
         Throw "`nERROR: $($_.Exception.Message)"
     }
 
-    # Split all images in each chapter folder into the specified number or number of input/original images
+    # Split all images in each chapter folder into the specified number or number of input/original images.
     try {
         Write-Host "`nSplitting All Translated Images in Each Subfolder..." -ForegroundColor Yellow
 
-        python .\my_tools\image_splitter.py "$($InputPath)_merged-translated" $SplitPartsNumber
+        if ($MergedImageNumber -gt 1) {
+            python .\my_tools\image_merger.py "$($InputPath)_merged-translated" 1
 
-        if ($LASTEXITCODE -ne 0) {
-            Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
-        } else {
-            if ($DeleteMergedImages) {
-                Remove-Item -Path "$($InputPath)_merged-translated" -Recurse -Force -Confirm:$false
-
-                Remove-Item -Path "$($InputPath)_merged-translated2" -Recurse -Force -Confirm:$false
+            if ($LASTEXITCODE -ne 0) {
+                Throw "Failed to Merge Images`nEXIT CODE: $LASTEXITCODE."
             }
-            Write-Host "`nAll Translated Images Split and Saved to $($InputPath)-translated." -ForegroundColor Green
+
+            python .\my_tools\image_splitter.py "$($InputPath)_merged-translated_merged" $SplitPartsNumber "_merged-translated_merged" "-translated"
+
+            if ($LASTEXITCODE -ne 0) {
+                Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
+            }
+        } else {
+            python .\my_tools\image_splitter.py "$($InputPath)_merged-translated" $SplitPartsNumber "_merged-translated" "-translated"
+
+            if ($LASTEXITCODE -ne 0) {
+                Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
+            }
         }
+
+        if ($DeleteMergedImages) {
+            Remove-Item -Path "$($InputPath)_merged-translated" -Recurse -Force -Confirm:$false
+
+            if (Test-Path -Path "$($InputPath)_merged-translated_merged") {
+                Remove-Item -Path "$($InputPath)_merged-translated_merged" -Recurse -Force -Confirm:$false
+            }
+        }
+
+        Write-Host "`nAll Translated Images Split and Saved to $($InputPath)-translated." -ForegroundColor Green
     } catch {
         Throw "`nERROR: $($_.Exception.Message)"
     }
