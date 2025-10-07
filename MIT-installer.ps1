@@ -204,9 +204,9 @@ try {
         if ($LogErrorInstallDependency -match "Error") {
             Throw "`nError Found in '$LogErrorInstallDependencyPath'!"
         }
-    } else {
-        Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
-    }
+    } 
+        
+    Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
 } catch {
     if (Test-Path -Path $LogErrorInstallDependencyPath -PathType Leaf) {
         Get-Content $LogErrorInstallDependencyPath
