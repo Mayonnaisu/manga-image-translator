@@ -18,7 +18,7 @@
 ## NOTICE
 ### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### <mark>Update if the launchers fail to clean up MIT result folder. I have fixed the issue.</mark>
+### <mark>I just remembered that I hadn't tried to increase the inpainting size in `my-config.json` when facing an issue of failing to inpaint one extremely long image lol 😅. Now, after increasing it to 2560, those mere ~180k images is no longer a problem 😎.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
@@ -48,7 +48,7 @@ This fork doesn't change the core functions of the original program. This is sti
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 > [!NOTE]
-> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts & `requirements.txt` (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
+> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts, `requirements.txt`, <mark>2 README.md files, & <mark>`__main__.py` from `manga_translator` folder</mark> (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
@@ -170,7 +170,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into ~~one~~ two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
+> This mode will attempt to merge all images in each chapter folder into ~~one really~~ two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
 
 #### Pros
 - Better translation result because the translator will get all texts from ~~one~~ half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
@@ -183,7 +183,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
-- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested in on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed, in a way)**
+- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested in on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
 
 > [!NOTE]
 > The webtoon mode can use up to around ~~20~~ 18GB RAM on my laptop.

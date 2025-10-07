@@ -48,7 +48,7 @@
   },
   "inpainter": {
     "inpainter": "lama_large" ,
-    "inpainting_size": 2048,
+    "inpainting_size": 2560,
     "inpainting_precision": "bf16"
   },
   "ocr": {
