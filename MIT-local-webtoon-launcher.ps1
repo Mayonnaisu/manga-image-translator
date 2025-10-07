@@ -1,3 +1,7 @@
+# Specify the number of merged image/s and split parts
+$MergedImageNumber = 2
+$SplitPartsNumber = "original"
+
 # Set delete options for merged images & MIT result folder content (except for log.txt) 
 $DeleteMergedImages = $True
 $CleanMITresultFolder = $True
@@ -32,11 +36,11 @@ try {
         Throw "`nERROR: Failed to Activate Virtual Environment!`n$($_.Exception.Message)"
     }
 
-    # Merge all images in each chapter folder into two respectively
+    # Merge all images in each chapter folder into the specified number respectively
     try {
         Write-Host "`nMerging All Input Images in Each Subfolder..." -ForegroundColor Yellow
 
-        python .\my_tools\image_merger.py $InputPath 2
+        python .\my_tools\image_merger.py $InputPath $MergedImageNumber
 
         if ($LASTEXITCODE -ne 0) {
             Throw "Failed to Merge Images!`nEXIT CODE: $LASTEXITCODE."
@@ -68,11 +72,11 @@ try {
         Throw "`nERROR: $($_.Exception.Message)"
     }
 
-    # Split all images in each chapter folder into the number of input/original images.
+    # Split all images in each chapter folder into the specified number or number of input/original images
     try {
         Write-Host "`nSplitting All Translated Images in Each Subfolder..." -ForegroundColor Yellow
 
-        python .\my_tools\image_splitter.py "$($InputPath)_merged-translated" "original"
+        python .\my_tools\image_splitter.py "$($InputPath)_merged-translated" $SplitPartsNumber
 
         if ($LASTEXITCODE -ne 0) {
             Throw "Failed to Split Images!`nEXIT CODE: $LASTEXITCODE."
