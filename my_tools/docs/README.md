@@ -48,7 +48,7 @@ This fork doesn't change the core functions of the original program. This is sti
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 > [!NOTE]
-> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get all my scripts, `requirements.txt`, <mark>2 README.md files, & <mark>`__main__.py` from `manga_translator` folder</mark> (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
+> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get [all my scripts & some others](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update) (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
@@ -132,8 +132,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
 > - <mark>`README.md`</mark>
-> - <mark>`__main__.py` in `manga_translator` folder</mark>
+> - <mark>`__main__.py` in `/manga_translator`</mark>
+> - <mark>`local.py` in `/manga_translator/mode`</mark>
 1. Download `MIT-updater.ps1`.
+	> only if there is a newer version!
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.

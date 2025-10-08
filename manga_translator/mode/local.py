@@ -6,6 +6,7 @@ from typing import Union, List
 import time  
 
 from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 import psutil
 
 from manga_translator import MangaTranslator, Context, TranslationInterrupt, Config
@@ -258,8 +259,8 @@ class MangaTranslatorLocal(MangaTranslator):
                 img = Image.open(path)
                 img.verify()
                 img = Image.open(path)
-            except Exception:
-                logger.warn(f'Failed to open image: {path}')
+            except Exception as e:
+                logger.warning(f'Failed to open image: {path}, error: {e}')
                 return False
 
             # 直接翻译图片，不再需要传递文件名
