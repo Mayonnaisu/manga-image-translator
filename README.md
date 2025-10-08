@@ -107,6 +107,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
 1. Download `MIT-updater.ps1`.
+	> only if there is a newer version.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
@@ -153,6 +154,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file or the translator in `my-config.json`.
 
 > [!NOTE]
 > The webtoon mode can use up to around 18GB RAM on my laptop.

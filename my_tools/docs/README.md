@@ -48,7 +48,7 @@ This fork doesn't change the core functions of the original program. This is sti
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
 > [!NOTE]
-> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get [all my scripts & some others](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update) (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
+> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get [all my scripts & some others](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#:~:text=Impacted%20files) (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
@@ -135,7 +135,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - <mark>`__main__.py` in `/manga_translator`</mark>
 > - <mark>`local.py` in `/manga_translator/mode`</mark>
 1. Download `MIT-updater.ps1`.
-	> only if there is a newer version!
+	> only if there is a newer version.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
@@ -182,10 +182,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360.
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file or the translator in `my-config.json`.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
-- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested in on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
+- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
 
 > [!NOTE]
 > The webtoon mode can use up to around ~~20~~ 18GB RAM on my laptop.
