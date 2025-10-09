@@ -112,7 +112,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Improve error handling. <mark>Some errors are not captured properly by PowerShell. I'm still grappling with it ⚔️.</mark>
 > - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#required). 
 > - <mark>Change the default image merging function back to merge into 1 image instead of 2 (**customizable:** in `MIT-local-webtoon-launcher.ps1`, change `$MergedImageNumber = 1`  to another number).</mark>
-> - After translation, merge images into 1 before splitting into the number of parts as the input images if your specified merged image number is greater than 1.
+> - After translation, merge images into 1 before splitting into the number of parts as the input images if the specified merged image number is greater than 1.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 > - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
 > - Add support for processing single folder to Webtoon Mode.
@@ -171,7 +171,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the translated images into [one](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#:~:text=After%20translation%2C%20merge%20images%20into%201%20before%20splitting%20into%20the%20number%20of%20parts%20as%20the%20input%20images%20if%20your%20specified%20merged%20image%20number%20is%20greater%20than%201.) before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
+> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will [merge the translated images into one](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#:~:text=After%20translation%2C%20merge%20images%20into%201%20before%20splitting%20into%20the%20number%20of%20parts%20as%20the%20input%20images%20if%20your%20specified%20merged%20image%20number%20is%20greater%20than%201.) before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
 
 #### Pros
 - Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
