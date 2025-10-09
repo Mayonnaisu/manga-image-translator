@@ -18,7 +18,7 @@
 ## NOTICE
 ### Re-download `MIT-input-path.txt` if the launcher fails to merge & split images when the folder or image names contain non-ASCII characters (e.g. Chinese characters) & special characters (e.g. `'`, `\`, `^`, etc). I have changed the encoding from UTF-8 to UTF-8-BOM.
 
-### <mark>I just remembered that I hadn't tried to increase the inpainting size in `my-config.json` when facing the issue of failing to inpaint one extremely long image lol 😅. Now, after increasing it to 2560, those mere ~180k px images are no longer a problem 😎.</mark>
+### <mark>After changing some stuff in `local.py` at /manga_translator/mode, the program now can handle even longer images. It can process ~200k px images just fine in my testings. I haven't tested it on images longer than that tho</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -111,12 +111,12 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > **Change Logs:**
 > - Improve error handling. <mark>Some errors are not captured properly by PowerShell. I'm still grappling with it ⚔️.</mark>
 > - Use only `MIT-input-path.txt` to get input path for all scripts that need it. See the [CONFIGURATION section on how to use it](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#required). 
-> - Change the default image merging function to merge into 2 images instead of 1, avoiding error when Pytorch processing an extremely long image (**customizable:** in `MIT-local-webtoon-launcher.ps1`, change `$MergedImageNumber = 2`  to another number).
-> - After translation, merge the 2 images into 1 before splitting into the number of parts as the input images.
+> - <mark>Change the default image merging function back to merge into 1 image instead of 2 (**customizable:** in `MIT-local-webtoon-launcher.ps1`, change `$MergedImageNumber = 1`  to another number).</mark>
+> - After translation, merge images into 1 before splitting into the number of parts as the input images, if your specified merged image number is greater than 1.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 > - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
 > - Add support for processing single folder to Webtoon Mode.
-> - <mark>Add option to specify the number of split parts in `MIT-local-webtoon-launcher.ps1` (Change "original" in `$SplitPartsNumber = "original"` to a number without quotes).</mark>
+> - Add option to specify the number of split parts in `MIT-local-webtoon-launcher.ps1` (Change "original" in `$SplitPartsNumber = "original"` to a number without quotes).
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first.
@@ -172,11 +172,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into ~~one really~~ two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
+> This mode will attempt to merge all images in each chapter folder into one really long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the translated images into one (if your specified merged image number is greater than 1) before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho).
 
 #### Pros
-- Better translation result because the translator will get all texts from ~~one~~ half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
-- Better OCR result in a way as there is ~~no~~ only one potentially split speech bubble resulting in incomplete text detection.
+- Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
+- Better OCR result in a way as there is no potentially split speech bubble resulting in incomplete text detection.
 
 #### Cons
 - Slower and heavier.
@@ -188,7 +188,7 @@ It seems that it's not really caused by the launcher, or is it? 🤔, since even
 - ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
 
 > [!NOTE]
-> The webtoon mode can use up to around ~~20~~ 18GB RAM on my laptop.
+> The webtoon mode can use up to around 20GB RAM on my laptop.
 >
 > **My PC Specs:**
 > - Model: ASUS VIVOBOOK 14X M1403QA

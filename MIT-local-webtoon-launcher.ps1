@@ -1,5 +1,5 @@
 # Specify the number of merged image/s and split parts
-$MergedImageNumber = 2
+$MergedImageNumber = 1
 $SplitPartsNumber = "original"
 
 # Set delete options for merged images & MIT result folder content (except for log.txt)

@@ -144,11 +144,11 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into two quite long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the two translated images into one before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
+> This mode will attempt to merge all images in each chapter folder into one really long images respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the translated images into one (if your specified merged image number is greater than 1) before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
 
 #### Pros
-- Better translation result because the translator will get all texts from half chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
-- Better OCR result in a way as there is only one potentially split speech bubble resulting in incomplete text detection.
+- Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
+- Better OCR result in a way as there is no potentially split speech bubble resulting in incomplete text detection.
 
 #### Cons
 - Slower and heavier.
@@ -157,7 +157,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file or the translator in `my-config.json`.
 
 > [!NOTE]
-> The webtoon mode can use up to around 18GB RAM on my laptop.
+> The webtoon mode can use up to around 20GB RAM on my laptop.
 >
 > **My PC Specs:**
 > - Model: ASUS VIVOBOOK 14X M1403QA
