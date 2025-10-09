@@ -131,7 +131,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `MIT-deplist-updater` (will be deleted if exists)
 > - `requirements.txt`
 > - Files inside `my_tools` folder.
-> - <mark>`README.md`</mark>
 > - <mark>`__main__.py` in `/manga_translator`</mark>
 > - <mark>`local.py` in `/manga_translator/mode`</mark>
 1. Download `MIT-updater.ps1`.
