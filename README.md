@@ -30,7 +30,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add updater
 - Add launchers
 - Add .env file
-- Add input-path.txt
+- Add folder selection feature
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
 - Use recommended configurations by default
@@ -73,10 +73,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
 2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
-4. Open `MIT-input-path.txt` with text/code editor.
-5. Replace `manga-folder` with your actual manga folder.
-    > For example, if your manga folder is located in `C:\Users\mayonnaisu\Downloads\Naruto`, change `$env:USERPROFILE\Downloads\manga-folder` to `$env:USERPROFILE\Downloads\Naruto` or simply `C:\Users\mayonnaisu\Downloads\Naruto`.
-6. Save.
 
 ### Optional
 1. Go to examples folder.
@@ -91,12 +87,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ### Local Mode
 1. Right click on `MIT-local-launcher.ps1`.
 2. Select "Run with PowerShell".
+3. Select a folder containing your manga/hwa/hua.
 
 ### Local Webtoon Mode
 > [!WARNING]
 > This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#webtoon-mode)
 1. Right click on `MIT-local-webtoon-launcher.ps1`.
 2. Select "Run with PowerShell".
+3. Select a folder containing your manga/hwa/hua.
 
 ### Web Mode
 1. Right click on `MIT-web-launcher.ps1`.

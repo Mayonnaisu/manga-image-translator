@@ -2,8 +2,8 @@
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
-$updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-update-content.ps1"
-$updatePath = "./MIT-update-content.ps1"
+$updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/MIT-update-content.ps1"
+$updatePath = ".\my_tools\MIT-update-content.ps1"
 
 try {
     # Download the latest MIT-update-content.ps1 from my repo

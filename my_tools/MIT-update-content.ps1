@@ -52,26 +52,10 @@ foreach ($url in $urls) {
 
 Remove-Item -Path $urlListFile -Force
 
-# Download MIT-input-path.txt if not exists
-$MITinputpathtxtUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-input-path.txt"
-$MITinputpathtxtPath = ".\MIT-input-path.txt"
-
-if (Test-Path -Path $MITinputpathtxtPath -PathType Leaf) {
-    Write-Host "`nMIT-input-path.txt Already Exists. Skipping..." -ForegroundColor Blue
-} else {
-    try {
-        Write-Host "`nMIT-input-path.txt Doesn't Exist. Downloading..." -ForegroundColor Yellow
-
-        Invoke-WebRequest -UseBasicParsing -Uri $MITinputpathtxtUrl -OutFile $MITinputpathtxtPath -ErrorAction Stop
-
-        Write-Host "`nMIT-input-path.txt Downloaded." -ForegroundColor DarkGreen
-    } catch {
-        Throw "`nFailed to Download MIT-input-path.txt!`nERROR: $($_.Exception.Message)"
-    }
-}
-
 # Remove obsolete files if exists
 $filePaths = @(
+    ".\MIT-input-path.txt",
+    ".\MIT-update-content.ps1"
     ".\MIT-deplist-updater.ps1",
     ".\my_tools\image-merger_all.py",
     ".\my_tools\image-splitter.py"

@@ -9,15 +9,29 @@ $PSNativeCommandUseErrorActionPreference = $True
 try {
     Write-Host "`nLaunching..." -ForegroundColor Yellow
     
-    # Read input path from MIT-input-path.txt
-    try {
-        $InputPath = Get-Content -Path ".\MIT-input-path.txt" | ForEach-Object { $ExecutionContext.InvokeCommand.ExpandString($_) }
+    # Select folder with FolderBrowserDialog
+    Add-Type -AssemblyName System.Windows.Forms
 
-        if (-not (Test-Path -Path $InputPath)) {
-            Throw "$InputPath does not exist!"
+    $lastMangaFolderPathFile = ".\my_tools\MIT-input-path.txt" 
+
+    $folderBrowser = New-Object System.Windows.Forms.FolderBrowserDialog
+
+    $folderBrowser.Description = "Select a folder:"
+
+    if (Test-Path $lastMangaFolderPathFile) {
+        $lastPath = Get-Content -Path $lastMangaFolderPathFile -Encoding UTF8
+        if (Test-Path $lastPath -PathType Container) {
+            $folderBrowser.SelectedPath = $lastPath
         }
-    } catch {
-        Throw "`nERROR: $($_.Exception.Message)"
+    }
+
+    if ($folderBrowser.ShowDialog() -eq [System.Windows.Forms.DialogResult]::OK) {
+        $InputPath = $folderBrowser.SelectedPath
+        Write-Host "`nSelected Folder: " -ForegroundColor Green -NoNewline
+        Write-Host "$InputPath"
+        $InputPath | Set-Content -Path $lastMangaFolderPathFile -Encoding UTF8
+    } else {
+        Throw "Folder Selection Cancelled."
     }
 
     # Activate Python venv with another PowerShell script
