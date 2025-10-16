@@ -102,7 +102,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## UPDATE
 > [!WARNING]
-> This updater will replace the old files with the newer ones, so make sure that you back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
+> This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
 1. Download `MIT-updater.ps1`.
 	> only if there is a newer version.
@@ -142,7 +142,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ### Webtoon Mode
 > [!WARNING]
-> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will [merge the translated images into one](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update) before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
+> This mode will attempt to merge all images in each chapter folder into one really long image respectively first. MIT then will have to load and process the long-ass images for translation, which inevitably causes it to consume a lot more RAM and time than regular mode. Last but not least, it will merge the translated images into one* before splitting all translated images back into the same number of parts as the original images in each folder (the height and the split position won't be identical tho). For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode).
+>
+> <sub>*if the specified merged image number is greater than 1.</sub>
 
 #### Pros
 - Better translation result because the translator will get all texts from one chapter at once, so it will have more contexts than when it receives the texts from only one page at a time.
