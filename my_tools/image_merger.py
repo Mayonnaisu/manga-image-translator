@@ -54,8 +54,9 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
         #     continue
 
         # Get the subfolder name and create the corresponding output directory
+        relative_path = os.path.relpath(dirpath, input_root_folder)
         subfolder_name = os.path.basename(dirpath)
-        output_subfolder = os.path.join(output_root_folder, subfolder_name)
+        output_subfolder = os.path.join(output_root_folder, relative_path)
 
         # Create the output subfolder only if the input path isn't single folder
         if dirpath != input_root_folder:
@@ -70,7 +71,7 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
         natsorted(image_files) # Sort to ensure consistent order
 
         if not image_files:
-            print(f"No images found in '{subfolder_name}'. Skipping.")
+            print(f"No images found in '{relative_path}'. Skipping.")
             continue
 
         # Divide images into parts
