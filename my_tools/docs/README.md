@@ -66,7 +66,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 		<summary>View image</summary>
 			<p align="center">
 				<img width=350 alt="Warning for Script"
-	title="Warning for Script" src="https://github.com/user-attachments/assets/47fcd43d-3b53-4751-b716-41afd6d2053a" />
+	title="Warning for Script" src="https://github.com/user-attachments/assets/db276338-8c2a-4a87-88dd-017df8cef515" />
 			</p>
 	</details>
 
