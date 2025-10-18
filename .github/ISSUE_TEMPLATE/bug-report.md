@@ -1,6 +1,6 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Bug Report
+about: You think something is broken
 title: "[BUG] Title"
 labels: bug
 assignees: Mayonnaisu
