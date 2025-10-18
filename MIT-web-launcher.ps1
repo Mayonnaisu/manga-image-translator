@@ -1,3 +1,7 @@
+# Set server bind/host and port
+$ServerHost = "127.0.0.1"
+$Port = "8000"
+
 # Set delete options for MIT result folder content (except for log.txt) 
 $CleanMITresultFolder = $True
 
@@ -24,7 +28,13 @@ try {
     try {
         Write-Host "`nRunning Manga Image Translator in Web Mode... " -ForegroundColor Yellow
 
-        python .\server\main.py
+        if ($ServerHost -eq "IP Address") {
+            $Bind = Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.IPAddress -like '192.168.1.*'} | Select-Object -ExpandProperty IPAddress
+        } else {
+            $Bind = $ServerHost
+        }
+
+        python .\server\main.py --host $Bind --port $Port
 
         if ($LASTEXITCODE -ne 0) {
             Throw "Manga Image Translator Run into Exception!`nEXIT CODE: $LASTEXITCODE."
@@ -34,7 +44,15 @@ try {
             }
         }
     } catch {
-        Throw "`nERROR: $($_.Exception.Message)"
+        if ($ServerHost -eq "IP Address") {
+            # handle the dynamic IP change when the server is running
+            $NewBind = Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.IPAddress -like '192.168.1.*'} | Select-Object -ExpandProperty IPAddress
+            if ($Bind -ne $NewBind) {
+                python .\server\main.py --host $NewBind  --port $Port
+            }
+        } else {
+            Throw "`nERROR: $($_.Exception.Message)"
+        }
     }
     
     Write-Host "`nLauncher Ran Successfully." -ForegroundColor Green
