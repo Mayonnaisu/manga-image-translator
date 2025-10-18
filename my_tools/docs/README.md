@@ -114,7 +114,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Add option to specify the number of split parts in `MIT-local-webtoon-launcher.ps1` (Change "original" in `$SplitPartsNumber = "original"` to a number without quotes).
 > - <mark>Replace `MIT-input-path.txt` usage with folder selection feature. But, there will be new `MIT-input-path.txt` in `my_tools` folder to save the last selected folder path for persistence.</mark>
 > - <mark>Move `MIT-update-content.ps1` into `my_tools` folder.</mark>
-> - <mark>Add option to change server host/bind & port in `MIT-web-launcher.ps1`. For example, change `$ServerHost = "127.0.0.1"` to `$ServerHost = "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device via  `http:/<your actual IP address>:8000` (e.g. http:/192.168.1.3:8000).</mark>
+> - <mark>Add option to change server host/bind & port in `MIT-web-launcher.ps1`. For example, change `$ServerHost = "127.0.0.1"` to `$ServerHost = "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000).</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
