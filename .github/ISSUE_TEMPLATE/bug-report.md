@@ -17,8 +17,9 @@ Steps to reproduce the behavior:
 3. Scroll down to '....'
 4. See error
 
-**Operating System**
- - [e.g. Windows 11]
+**Versions**
+ - OS: [e.g. Windows 11]
+ - PowerShell: [e.g. 7.5.3]
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
