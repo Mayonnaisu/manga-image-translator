@@ -1,7 +1,7 @@
 ---
 name: Bug Report
 about: You think something is broken
-title: "[BUG] Title"
+title: "[BUG] "
 labels: bug
 assignees: Mayonnaisu
 
