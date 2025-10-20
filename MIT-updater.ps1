@@ -11,7 +11,7 @@ try {
     Write-Host "PowerShell $PowerShellVersion"
 
     # Download the latest MIT-update-content.ps1 from my repo
-    Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
+    Write-Host "`nDownloading Update Content from $updateUrl..." -ForegroundColor Yellow
 
     Invoke-WebRequest -UseBasicParsing -Uri $updateUrl -OutFile $updatePath -ErrorAction Stop
 

@@ -2,6 +2,10 @@
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
+# Get & display PowerShell version
+$PowerShellVersion = (Get-Host).Version.ToString()
+Write-Host "PowerShell $PowerShellVersion"
+
 # Start the installer
 Write-Host "`nStarting Installer..." -ForegroundColor Yellow
 
@@ -98,10 +102,6 @@ Set-Content -Path $DependencyInstallerPath -Value $DependencyInstaller
 
 # Start the installation
 try {
-    # Get & display PowerShell version
-    $PowerShellVersion = (Get-Host).Version.ToString()
-    Write-Host "PowerShell $PowerShellVersion"
-
     # Install Microsoft C++ Build Tools
     Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
