@@ -19,6 +19,9 @@ New-Item -Path ".\Temp" -ItemType Directory -Force
 $DependencyInstallerPath = ".\Temp\dependency-installer.ps1"
 
 $DependencyInstaller = @'
+$PowerShellVersion = (Get-Host).Version.ToString()
+Write-Host "PowerShell $PowerShellVersion"
+
 Write-Host "$PWD"
 
 $ErrorActionPreference = "Stop"
@@ -95,6 +98,10 @@ Set-Content -Path $DependencyInstallerPath -Value $DependencyInstaller
 
 # Start the installation
 try {
+    # Get & display PowerShell version
+    $PowerShellVersion = (Get-Host).Version.ToString()
+    Write-Host "PowerShell $PowerShellVersion"
+
     # Install Microsoft C++ Build Tools
     Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 

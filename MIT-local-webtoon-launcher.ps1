@@ -12,6 +12,11 @@ $PSNativeCommandUseErrorActionPreference = $True
 
 # Start the launcher
 try {
+    # Get & display PowerShell version
+    $PowerShellVersion = (Get-Host).Version.ToString()
+    Write-Host "PowerShell $PowerShellVersion"
+
+    # Show launching message
     Write-Host "`nLaunching..." -ForegroundColor Yellow
 
     # Select folder with FolderBrowserDialog

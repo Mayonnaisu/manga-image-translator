@@ -6,6 +6,10 @@ $updateUrl = "https://raw.githubusercontent.com/Mayonnaisu/manga-image-translato
 $updatePath = ".\my_tools\MIT-update-content.ps1"
 
 try {
+    # Get & display PowerShell version
+    $PowerShellVersion = (Get-Host).Version.ToString()
+    Write-Host "PowerShell $PowerShellVersion"
+
     # Download the latest MIT-update-content.ps1 from my repo
     Write-Host "Downloading Update Content from $updateUrl..." -ForegroundColor Yellow
 
