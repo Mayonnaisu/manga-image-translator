@@ -20,7 +20,7 @@ try {
         # Run the MIT-update-content.ps1
         & $updatePath -ErrorAction Stop
 
-        Write-Host "`nUPDATE COMPLETED!." -ForegroundColor Green
+        Write-Host "`nUPDATE COMPLETED!" -ForegroundColor Green
     } catch {
         Write-Host "$($_.Exception.Message)`n`nUPDATE NOT COMPLETED!" -ForegroundColor Red
     }
