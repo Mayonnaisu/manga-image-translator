@@ -34,10 +34,6 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
     # Check if image even exists at all
     has_images = False
     walker = os.walk(input_root_folder)
-    # try:
-    #     next(walker)
-    # except StopIteration:
-    #     pass
     
     for _, _, files in walker:
         for filename in files:
@@ -68,9 +64,6 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
         image_counts = {}
         original_extensions = []
         for p, _, files in os.walk(current_original_dir):
-            # Skip the root directory itself
-            # if p == current_original_dir:
-            #     continue
 
             count = 0
             for file in files:
@@ -92,15 +85,9 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
                 if parts < 1:
                     raise Exception("Number of split parts can't be less than 1!")
 
-        # Raise error if original path is empty
-        # if parts == 0:
-        #     raise Exception(f"Can't split into the number of parts as the original images in '{original_root_path}' since it's empty.")
-
         # Create the corresponding output subdirectory structure
         current_output_dir = output_root_path / relative_path
-        # Create the output subfolder only if the input path isn't single folder
-        if dirpath != current_input_dir:
-            current_output_dir.mkdir(parents=True, exist_ok=True)
+        current_output_dir.mkdir(parents=True, exist_ok=True)
 
         for filename in filenames:
             file_extension = filename.split('.')[-1].lower()
@@ -120,10 +107,6 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
                             # Construct the output filename
                             output_filename = f"image{str(i+1).zfill(2)}.{most_extension}"
                             output_image_path = current_output_dir / output_filename
-
-                            # Supports for single folder processing
-                            if dirpath == current_input_dir:
-                                output_image_path = current_output_dir / output_filename
 
                             # Skip splitting if the output image already exists
                             if output_image_path.exists():

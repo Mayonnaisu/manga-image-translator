@@ -28,10 +28,6 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
     # Check if image even exists at all
     has_images = False
     walker = os.walk(input_root_folder)
-    # try:
-    #     next(walker)
-    # except StopIteration:
-    #     pass
     
     for _, _, files in walker:
         for filename in files:
@@ -49,18 +45,12 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
 
     # Walk through all subfolders in the input root directory
     for dirpath, dirnames, filenames in natsorted(os.walk(input_root_folder)):
-        # Skip the root directory itself
-        # if dirpath == input_root_folder:
-        #     continue
 
         # Get the subfolder name and create the corresponding output directory
         relative_path = os.path.relpath(dirpath, input_root_folder)
         subfolder_name = os.path.basename(dirpath)
         output_subfolder = os.path.join(output_root_folder, relative_path)
-
-        # Create the output subfolder only if the input path isn't single folder
-        if dirpath != input_root_folder:
-            os.makedirs(output_subfolder, exist_ok=True)
+        os.makedirs(output_subfolder, exist_ok=True)
 
         # Filter for image files
         image_files = [
@@ -91,11 +81,11 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
 
             # Define the output filename and path
             output_filename = f"{subfolder_name}_merged_{i+1}.png"
-            output_path = os.path.join(output_subfolder, output_filename)
-
-            # Supports for single folder processing
+            
             if dirpath == input_root_folder:
                 output_path = os.path.join(output_root_folder, output_filename)
+            else:
+                output_path = os.path.join(output_subfolder, output_filename)
 
             # Skip if the combined image already exists in the output subfolder
             if os.path.exists(output_path):
