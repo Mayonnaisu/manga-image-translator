@@ -3,9 +3,7 @@ $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
 # Download new files from my repo
-$urlListFile = ".\urls.txt"
-
-$urlList = @"
+$urlList = @'
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/manga_translator/__main__.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/manga_translator/mode/local.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/MIT-installer.ps1
@@ -16,17 +14,12 @@ https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/m
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image_merger.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image_splitter.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/docs/README.md
-"@
-
-Set-Content -Path $urlListFile -Value $urlList
-
-$urls = Get-Content $urlListFile
+'@
 
 $currentLocation = Get-Location
 
-foreach ($url in $urls) {
-    $uri = New-Object System.Uri($url)
-    $filename = $uri.Segments[-1]
+foreach ($url in $urlList -split "`n") {
+    $fileName = ([uri]$url).Segments[-1]
 
     $delimiter = "refs/heads/main"
     $index = $url.IndexOf($delimiter)
@@ -41,17 +34,15 @@ foreach ($url in $urls) {
     New-Item -ItemType Directory -Path $directoryPath -Force | Out-Null
 
     try {
-        Write-Host "`nDownloading $filename from $url..." -ForegroundColor Yellow
+        Write-Host "`nDownloading $fileName from $url..." -ForegroundColor Yellow
 
         Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile $outputPath -ErrorAction Stop
 
         Write-Host "Successfully Downloaded to $outputPath." -ForegroundColor DarkGreen
     } catch {
-        Throw "Failed to Download $filename!`nERROR: $($_.Exception.Message)"
+        Throw "Failed to Download $fileName!`nERROR: $($_.Exception.Message)"
     }
 }
-
-Remove-Item -Path $urlListFile -Force
 
 # Remove obsolete files if exists
 $filePaths = @(
@@ -63,16 +54,15 @@ $filePaths = @(
 )
 
 foreach ($filePath in $filePaths) {
-    $fileName = Split-Path -Path $filePath -Leaf
     if (Test-Path -Path $filePath -PathType Leaf) {
 
-        Write-Host "`n'$fileName' Exists. Deleting..."  -ForegroundColor Yellow
+        Write-Host "`n'$filePath' Exists. Deleting..."  -ForegroundColor Yellow
 
         Remove-Item -Path $filePath -Recurse -Force -Confirm:$false -ErrorAction Stop
 
-        Write-Host "`n'$fileName' Deleted."  -ForegroundColor DarkGreen
+        Write-Host "`n'$filePath' Deleted."  -ForegroundColor DarkGreen
     } else {
-        Write-Host "`n'$fileName' Does Not Exist. Skipping..." -ForegroundColor Blue
+        Write-Host "`n'$filePath' Does Not Exist. Skipping..." -ForegroundColor Blue
     }
 }
 

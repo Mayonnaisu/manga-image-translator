@@ -25,7 +25,7 @@ try {
         Write-Host "$($_.Exception.Message)`n`nUPDATE NOT COMPLETED!" -ForegroundColor Red
     }
 } catch {
-    Write-Host "`nFailed to Downlaod Update Content`nERROR: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host "`nFailed to Download Update Content`nERROR: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Show exit confirmation
