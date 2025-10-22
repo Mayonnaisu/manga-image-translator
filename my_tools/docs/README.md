@@ -107,14 +107,15 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > **Change Logs:**
 > - Improve error handling. Some errors are not captured properly by PowerShell. I'm still grappling with it ⚔️.
 > - Change the default image merging function back to merge into 1 image instead of 2 (**customizable:** in `MIT-local-webtoon-launcher.ps1`, change `$MergedImageNumber = 1`  to another number).
-> - After translation, merge images into 1 before splitting into the number of parts as the input images if the specified merged image number is greater than 1.
+> - After translation, images are merged into 1 before being splitted into the number of parts as the input images if the specified merged image number is greater than 1.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `MIT-local-webtoon-launcher.ps1`).
 > - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** in all launchers).
 > - Add support for processing single folder to Webtoon Mode.
 > - Add option to specify the number of split parts in `MIT-local-webtoon-launcher.ps1` (Change "original" in `$SplitPartsNumber = "original"` to a number without quotes).
-> - <mark>Replace `MIT-input-path.txt` usage with folder selection feature. But, there will be new `MIT-input-path.txt` in `my_tools` folder to save the last selected folder path for persistence.</mark>
-> - <mark>Move `MIT-update-content.ps1` into `my_tools` folder.</mark>
-> - <mark>Add option to change server host/bind & port in `MIT-web-launcher.ps1`. For example, change `$ServerHost = "127.0.0.1"` to `$ServerHost = "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device on the same network via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000).</mark>
+> - Replace `MIT-input-path.txt` usage with folder selection feature. But, there will be new `MIT-input-path.txt` in `my_tools` folder to save the last selected folder path for persistence.
+> - Move `MIT-update-content.ps1` into `my_tools` folder.
+> - Add option to change server host/bind & port in `MIT-web-launcher.ps1`. For example, change `$ServerHost = "127.0.0.1"` to `$ServerHost = "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device on the same network via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000). **It's really important to note that using "IP Address" also allows others to access your program because the MIT server doesn't have a form of authentication. So, make sure you're at least on a trusted and secure network.**
+> - <mark>Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
