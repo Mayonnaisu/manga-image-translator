@@ -9,10 +9,6 @@ $CleanMITresultFolder = $True
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
-# Create temporary error log file
-$ErrorLogPath = ".\Temp\log_errors-launcher-web.txt"
-New-Item -Path ".\Temp" -ItemType Directory -Force | Out-Null
-
 # Define another script to run MIT server
 $MITserverPath = ".\my_tools\MIT-server.ps1"
 
@@ -24,7 +20,6 @@ param(
 
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
-$ErrorLogPath = ".\Temp\log_errors-launcher-web.txt"
 
 # Activate Python venv with another PowerShell script
 try {
@@ -34,7 +29,7 @@ try {
 
     Write-Host "`nVirtual Environment Activated." -ForegroundColor Green
 } catch {
-    Throw "ERROR: Failed to Activate Virtual Environment!`n$($_.Exception.Message)" | Out-File -FilePath $ErrorLogPath
+    Throw "ERROR: Failed to Activate Virtual Environment!`n$($_.Exception.Message)"
     exit 1
 }
 
@@ -49,7 +44,7 @@ try {
     }
 
     python .\server\main.py --host $Bind --port $Port
-
+    
     if ($LASTEXITCODE -ne 0) {
         Throw "Manga Image Translator Ran into Exception!`n$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
     }
@@ -61,7 +56,7 @@ try {
             python .\server\main.py --host $NewBind  --port $Port
         }
     } else {
-        Throw "ERROR: $($_.Exception.Message)" | Out-File -FilePath $ErrorLogPath
+        Throw "ERROR: $($_.Exception.Message)"
         exit 1
     }
 }
@@ -75,19 +70,31 @@ try {
     $PowerShellVersion = (Get-Host).Version.ToString()
     Write-Host "PowerShell $PowerShellVersion"
 
-    # Show launching message
+    # Show launching & tips message
     Write-Host "`nLaunching..." -ForegroundColor Yellow
     
+    Write-Host "`nPRESS Q TO EXIT PROPERLY." -ForegroundColor Green
+
     # Create & run MIT-server.ps1
     Set-Content -Path $MITserverPath -Value $MITserver
 
-    $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -File `"$MITserverPath`" -ServerHost `"$ServerHost`" -Port $Port" -PassThru
+    $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -File `"$MITserverPath`" -ServerHost `"$ServerHost`" -Port $Port" -PassThru -NoNewWindow
 
-    $process | Wait-Process
-    $exitCode = $process.ExitCode
+    while ($process.HasExited -eq $false) {
+        if ($Host.UI.RawUI.KeyAvailable) {
+            $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+            if ($key.Character -eq 'q' -or $key.Character -eq 'Q') {
+                Write-Host "`nStopping the Server..." -ForegroundColor Yellow
+                taskkill /PID $process.Id /F /T
+                Write-Host "`nServer Stopped." -ForegroundColor Green
+                break
+            }
+        }
+        Start-Sleep -Milliseconds 100
+    }
 
-    if ($exitCode -eq 1) {
-        Throw "Manga Image Translator Ran into Exception!`nEXIT CODE: $exitCode."            
+    if ($LASTEXITCODE -ne 0) {
+        Throw "Manga Image Translator Ran into Exception!`nEXIT CODE: $LASTEXITCODE."            
     } else {
         if ($CleanMITresultFolder) {
             Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" } | Remove-Item -Recurse -Force -Confirm:$false
@@ -96,14 +103,6 @@ try {
     
     Write-Host "`nLauncher Ran Successfully." -ForegroundColor Green
 } catch {
-    if (Test-Path $ErrorLogPath) {
-        Write-Host "`n"
-        Get-Content $ErrorLogPath | ForEach-Object {
-            Write-Host "$_" -ForegroundColor Red
-        }
-        Remove-Item $ErrorLogPath -Force -Confirm:$false
-    }
-
     Write-Host "`n$($_.Exception.Message)`n`nLauncher Ran into Error!" -ForegroundColor Red
 } finally {
     Remove-Item -Path $MITserverPath -Force -Confirm:$false
