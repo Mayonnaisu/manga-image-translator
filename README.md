@@ -4,16 +4,18 @@
 *   [DOWNLOAD](#download)
 *   [INSTALLATION](#installation)
 *   [CONFIGURATION](#configuration)
-    *   [Required](#required)
-    *   [Optional](#optional)   
+	*   [Required](#required)
+	*   [Optional](#optional)   
 *   [USAGE (CPU MODE)](#usage-cpu-mode)
-    *   [Local Mode](#local-mode)
-    *   [Local Webtoon Mode](#local-webtoon-mode)
-    *   [Web Mode](#web-mode)
+	*   [Local Mode](#local-mode)
+	*   [Local Webtoon Mode](#local-webtoon-mode)
+	*   [Web Mode](#web-mode)
+		*	[Real Time Translation](#real-time-translation)
+*   [USAGE (GPU MODE)](#usage-gpu-mode)
 *   [UPDATE](#update)
 *   [EXTRA INFO](extra-info)
-    *   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
-    *   [Webtoon Mode](#webtoon-mode)
+	*   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
+	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
 ### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
@@ -37,7 +39,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Disable some functions in order to bypass errors
 - Clean up result folder except for log file by default
 
-> [!WARNING]
+> [!IMPORTANT]
 > **The installer only supports Windows 10 & 11.**
 
 ## DOWNLOAD
@@ -58,7 +60,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 6. Select "Run with PowerShell".
 9. Select "Yes" when UAC prompt pops up.
 10. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
-> [!NOTE]
+> [!TIP]
 > If you get a warning when opening the installer, uncheck the option, then Open. If you don't do this, the script won't be able to run properly.
 	<details>
 		<summary>View image</summary>
@@ -100,6 +102,46 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
 
+	#### Real-Time Translation
+	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.
+	1. Install Tampermonkey from https://www.tampermonkey.net
+		> Next, if you use Chromium-based browser, then you need to follow the steps here: https://www.tampermonkey.net/faq.php#Q209.
+	2. Install ComiRead from https://sleazyfork.org/en/scripts/374903-comicread
+	3. Visit RAW manga/hwa/hua website.
+	4. Select a chapter from any available series.
+	5. Click on Extensions menu bar > Tampermonkey.
+	6. Select "Enter simple reading mode"
+	7. Hover your mouse over the left side of the page.
+	8. Click on "Scroll mode" button.
+	9. Hover over the left > "Settings":
+		<details>
+			<summary>View config</summary>
+				<p align="center">
+					<img width=350 alt="ComicReadScript Config"
+		title="ComicReadScript Config" src="https://github.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/docs/images/ComicReadScript_config.png"/>
+				</p>
+		</details>
+	10. Click on "Settings" button to close.
+	11. Click on "Translate current page" or "Translate current page to the end".
+	> [!TIP]
+	> - If your PC is slow, it won't actually be real time. So, consider using GPU if you have a powerful one.
+	> - Check the PowerShell to see more detailed progress of the translation process.
+
+## USAGE (GPU MODE)
+1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/. For AMD GPU, the current support for Windows is still limited, see: https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html & https://github.com/ROCm/TheRock/blob/main/RELEASES.md. So, good luck with that 🤞.
+	> For example, for NVIDIA CUDA 13.0:
+	> - Right click on the empty area in MIT root folder.
+	> - Select "Open in Terminal".
+	> - Enter the commands below:
+	> ```powershell
+	> .\venv\Scripts\Activate.ps1
+	> pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu130
+	> ```
+2. Open every launcher with text/code editor.
+3. Add `--use-gpu` parameter to every MIT command in all launchers.
+	> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
+4. Save.
+
 ## UPDATE
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
@@ -121,7 +163,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 7. Click "Create key".
 8. Click the code in the "Key" column.
 9. Click "Copy key".
-> [!NOTE]
+> [!TIP]
 > Gemini API Free Tier has rate limits, see: https://ai.google.dev/gemini-api/docs/rate-limits#current-rate-limits.
 >
 > **To check your quota:**

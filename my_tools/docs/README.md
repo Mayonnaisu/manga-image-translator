@@ -10,6 +10,8 @@
     *   [Local Mode](#local-mode)
     *   [Local Webtoon Mode](#local-webtoon-mode)
     *   [Web Mode](#web-mode)
+		*	[Real Time Translation](#real-time-translation)
+*   [USAGE (GPU MODE)](#usage-gpu-mode)
 *   [UPDATE](#update)
 *   [EXTRA INFO](extra-info)
     *   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
@@ -37,7 +39,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Disable some functions in order to bypass errors
 - Clean up result folder except for log file by default
 
-> [!WARNING]
+> [!IMPORTANT]
 > **The installer only supports Windows 10 & 11.**
 
 ## DOWNLOAD
@@ -45,7 +47,7 @@ This fork doesn't change the core functions of the original program. This is sti
 2. Select "Download ZIP".
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
-> [!NOTE]
+> [!TIP]
 > If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get [all my scripts & some others](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#:~:text=Impacted%20files%3A) (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
@@ -60,7 +62,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 6. Select "Run with PowerShell".
 9. Select "Yes" when UAC prompt pops up.
 10. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
-> [!NOTE]
+> [!TIP]
 > If you get a warning when opening the installer, uncheck the option, then Open. If you don't do this, the script won't be able to run properly.
 	<details>
 		<summary>View image</summary>
@@ -102,8 +104,48 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
 
+	#### Real-Time Translation
+	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.
+	1. Install Tampermonkey from https://www.tampermonkey.net
+		> Next, if you use Chromium-based browser, then you need to follow the steps here: https://www.tampermonkey.net/faq.php#Q209.
+	2. Install ComiRead from https://sleazyfork.org/en/scripts/374903-comicread
+	3. Visit RAW manga/hwa/hua website.
+	4. Select a chapter from any available series.
+	5. Click on Extensions menu bar > Tampermonkey.
+	6. Select "Enter simple reading mode"
+	7. Hover your mouse over the left side of the page.
+	8. Click on "Scroll mode" button.
+	9. Hover over the left > "Settings":
+		<details>
+			<summary>View config</summary>
+				<p align="center">
+					<img width=350 alt="ComicReadScript Config"
+		title="ComicReadScript Config" src="https://github.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/docs/images/ComicReadScript_config.png"/>
+				</p>
+		</details>
+	10. Click on "Settings" button to close.
+	11. Click on "Translate current page" or "Translate current page to the end".
+	> [!TIP]
+	> - If your PC is slow, it won't actually be real time. So, consider using GPU if you have a powerful one.
+	> - Check the PowerShell to see more detailed progress of the translation process.
+
+## USAGE (GPU MODE)
+1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/. For AMD GPU, the current support for Windows is still limited, see: https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html & https://github.com/ROCm/TheRock/blob/main/RELEASES.md. So, good luck with that 🤞.
+	> For example, for NVIDIA CUDA 13.0:
+	> - Right click on the empty area in MIT root folder.
+	> - Select "Open in Terminal".
+	> - Enter the commands below:
+	> ```powershell
+	> .\venv\Scripts\Activate.ps1
+	> pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu130
+	> ```
+2. Open every launcher with text/code editor.
+3. Add `--use-gpu` parameter to every MIT command in all launchers.
+	> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
+4. Save.
+
 ## UPDATE
-> [!NOTE]
+> [!IMPORTANT]
 > **Change Logs:**
 > - Improve error handling. Some errors are not captured properly by PowerShell. I'm still grappling with it ⚔️.
 > - Change the default image merging function back to merge into 1 image instead of 2 (**customizable:** in `MIT-local-webtoon-launcher.ps1`, change `$MergedImageNumber = 1`  to another number).
@@ -149,7 +191,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 7. Click "Create key".
 8. Click the code in the "Key" column.
 9. Click "Copy key".
-> [!NOTE]
+> [!TIP]
 > Gemini API Free Tier has rate limits, see: https://ai.google.dev/gemini-api/docs/rate-limits#current-rate-limits.
 >
 > **To check your quota:**
@@ -182,7 +224,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 - Slower and heavier.
 - Speech bubbles are dirtier.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file, or the translator in `my-config.json` & .
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file, or the translator in `my-config.json`.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
 - ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
