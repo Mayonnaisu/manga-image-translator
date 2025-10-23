@@ -104,32 +104,32 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 	#### Real-Time Translation
 	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.
-	1. Install Tampermonkey from https://www.tampermonkey.net
+	- Install Tampermonkey from https://www.tampermonkey.net
 		> Next, if you use Chromium-based browser, then you need to follow the steps here: https://www.tampermonkey.net/faq.php#Q209.
-	2. Install ComiRead from https://sleazyfork.org/en/scripts/374903-comicread
-	3. Visit RAW manga/hwa/hua website.
-	4. Select a chapter from any available series.
-	5. Click on Extensions menu bar > Tampermonkey.
-	6. Select "Enter simple reading mode"
-	7. Hover your mouse over the left side of the page.
-	8. Click on "Scroll mode" button.
-	9. Hover over the left > "Settings":
+	- Install ComiRead from https://sleazyfork.org/en/scripts/374903-comicread
+	- Visit RAW manga/hwa/hua website.
+	- Select a chapter from any available series.
+	- Click on Extensions menu bar > Tampermonkey.
+	- Select "Enter simple reading mode"
+	- Hover your mouse over the left side of the page.
+	- Click on "Scroll mode" button.
+	- Hover over the left > "Settings":
 		<details>
 			<summary>View config</summary>
 				<p align="center">
-					<img width=350 alt="ComicReadScript Config"
-		title="ComicReadScript Config" src="https://github.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/docs/images/ComicReadScript_config.png"/>
+					<img width=300 alt="ComicReadScript Config"
+		title="ComicReadScript Config" src="https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/docs/images/ComicReadScript_config.png?raw=true"/>
 				</p>
 		</details>
-	10. Click on "Settings" button to close.
-	11. Click on "Translate current page" or "Translate current page to the end".
-	> [!TIP]
-	> - If your PC is slow, it won't actually be real time. So, consider using GPU if you have a powerful one.
-	> - Check the PowerShell to see more detailed progress of the translation process.
+	- Click on "Settings" button to close.
+	- Click on "Translate current page" or "Translate current page to the end".
+> [!TIP]
+> - If your PC is slow, it won't actually be real time. So, consider using GPU if you have a powerful one.
+> - Check the PowerShell to see more detailed progress of the translation process.
 
 ## USAGE (GPU MODE)
-1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/. For AMD GPU, the current support for Windows is still limited, see: https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html & https://github.com/ROCm/TheRock/blob/main/RELEASES.md. So, good luck with that 🤞.
-	> For example, for NVIDIA CUDA 13.0:
+1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/. For AMD GPU, the current support for Windows is still limited, see: https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html and https://github.com/ROCm/TheRock/blob/main/RELEASES.md. So, good luck with that 🤞.
+	> **For example, for NVIDIA CUDA 13.0:**
 	> - Right click on the empty area in MIT root folder.
 	> - Select "Open in Terminal".
 	> - Enter the commands below:
