@@ -131,19 +131,93 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Check the PowerShell to see more detailed progress of the translation process.
 
 ## USAGE (GPU MODE)
-1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/. For AMD GPU, the current support for Windows is still limited, see: https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html and https://github.com/ROCm/TheRock/blob/main/RELEASES.md. So, good luck with that 🤞.
-	> **For example, for NVIDIA CUDA 13.0:**
-	> - Right click on the empty area in MIT root folder.
-	> - Select "Open in Terminal".
-	> - Enter the commands below:
+### NVIDIA
+1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/.
+	> **For example, for CUDA 13.0:**
+	> 1. Right click on the empty area in MIT root folder.
+	> 2. Select "Open in Terminal".
+	> 3. Enter the commands below:
 	> ```powershell
 	> .\venv\Scripts\Activate.ps1
-	> pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu130
+	> python -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu130
 	> ```
-2. Open every launcher with text/code editor.
-3. Add `--use-gpu` parameter to every MIT command in all launchers.
-	> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
-4. Save.
+2. Verify PyTorch version.
+	- Go to `my_tools` folder.
+	- Run `pytorch-checker.ps1`.
+	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
+3. Modify every launcher with text/code editor.
+	- Add `--use-gpu` parameter to every MIT command in all launchers.
+		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
+	- Save.
+
+### AMD
+1. Install the correct Pytorch version from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
+	> **For example, for [gfx110X-all](https://github.com/ROCm/TheRock/blob/main/RELEASES.md#index-page-listing) with Python 3.12 (as of now no Python 3.10 support):**
+	> 1. Delete venv folder.
+	> 2. Right click on the empty area in MIT root folder.
+	> 3. Select "Open in Terminal".
+	> 4. Enter the commands below:
+	> ```powershell
+	> pyenv install 3.12.10
+	> pyenv global 3.12.10
+	> python -m venv venv
+	> .\venv\Scripts\Activate.ps1
+	>
+	> # Delete torch & torchvision from requirements.txt first.
+	> pip -r requirements.txt
+	>
+	> python -m pip install --upgrade --force-reinstall  --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ "rocm[libraries,devel]" --pre torch torchvision
+	> ```
+	> If the torch & torchvision installation failed or you get `RuntimeError: operator torchvision::nms does not exist` during translation, try manually downloading the compatible .whl file from the index URL. Move it to MIT folder. For example, for rocm==7.10.0a20251024, download & move `torchvision-0.25.0a0+rocm7.10.0a20251024-cp312-cp312-win_amd64.whl`. Then, enter:
+	> ```powershell
+	> # Reinstall failed torchvision from wheel file
+	> # This will also install incorrect torch version
+	> python -m pip install --upgrade --force-reinstall ".\torchvision-0.25.0a0+rocm7.10.0a20251024-cp312-cp312-win_amd64.whl"
+	>
+	> # Reinstall the correct torch version from cache
+	> python -m pip install --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ --pre torch==2.10.0a0+rocm7.10.0a20251024
+	>
+	> # Clear cache
+	> pip cache purge
+	> ```
+2. Verify PyTorch version.
+	- Go to `my_tools` folder.
+	- Run `pytorch-checker.ps1`.
+	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
+3. Modify every launcher with text/code editor.
+	- Add the following commands after venv activation code block in all launchers to improve performance:
+		```powershell
+		# Prebuild MIOpen database
+		$MIOpenPath = ".\Temp\miopen_cache"
+		New-Item -Path $MIOpenPath -ItemType Directory -Force | Out-Null
+
+		$env:MIOPEN_USER_DB_PATH = $MIOpenPath
+		$env:MIOPEN_FIND_MODE = "FAST"
+		$env:PYTORCH_TUNABLEOP_ENABLED = 1
+		```
+	- Add `--use-gpu` parameter to every MIT command in all launchers.
+		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
+	- Save.
+
+### INTEL
+1. Install the correct Pytorch version from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
+	> **For example, for Intel Arc A-Series Graphics:**
+	> 1. Right click on the empty area in MIT root folder.
+	> 2. Select "Open in Terminal".
+	> 3. Enter the commands below:
+	> ```powershell
+	> .\venv\Scripts\Activate.ps1
+	> python -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/xpu
+	> ```
+2. Verify PyTorch version.
+	- Go to `my_tools` folder.
+	- Run `pytorch-checker.ps1`.
+	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
+3. Modify relevant codes in MIT files, see: https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html#minimum-code-change.
+4. Modify every launcher with text/code editor.
+	- Add `--use-gpu` parameter to every MIT command in all launchers.
+		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
+	- Save.
 
 ## UPDATE
 > [!IMPORTANT]

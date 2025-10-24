@@ -129,19 +129,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Check the PowerShell to see more detailed progress of the translation process.
 
 ## USAGE (GPU MODE)
-1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/. For AMD GPU, the current support for Windows is still limited, see: https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html and https://github.com/ROCm/TheRock/blob/main/RELEASES.md. So, good luck with that 🤞.
-	> **For example, for NVIDIA CUDA 13.0:**
-	> - Right click on the empty area in MIT root folder.
-	> - Select "Open in Terminal".
-	> - Enter the commands below:
-	> ```powershell
-	> .\venv\Scripts\Activate.ps1
-	> pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu130
-	> ```
-2. Open every launcher with text/code editor.
-3. Add `--use-gpu` parameter to every MIT command in all launchers.
-	> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
-4. Save.
+Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#usage-gpu-mode)
 
 ## UPDATE
 > [!WARNING]
