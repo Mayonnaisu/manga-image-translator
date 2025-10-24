@@ -12,6 +12,9 @@
     *   [Web Mode](#web-mode)
 		*	[Real Time Translation](#real-time-translation)
 *   [USAGE (GPU MODE)](#usage-gpu-mode)
+    *   [NVIDIA](#nvidia)
+    *   [AMD](#amd)
+    *   [INTEL](#intel)
 *   [UPDATE](#update)
 *   [EXTRA INFO](extra-info)
     *   [How to Get Gemini API Key](#how-to-get-gemini-api-key)
@@ -132,7 +135,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## USAGE (GPU MODE)
 ### NVIDIA
-1. Install the correct Pytorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/.
+1. Install the correct PyTorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/.
 	> **For example, for CUDA 13.0:**
 	> 1. Right click on the empty area in MIT root folder.
 	> 2. Select "Open in Terminal".
@@ -151,7 +154,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Save.
 
 ### AMD
-1. Install the correct Pytorch version from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
+1. Install the correct PyTorch version from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
 	> **For example, for [gfx110X-all](https://github.com/ROCm/TheRock/blob/main/RELEASES.md#index-page-listing) with Python 3.12 (as of now no Python 3.10 support):**
 	> 1. Delete venv folder.
 	> 2. Right click on the empty area in MIT root folder.
@@ -200,7 +203,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Save.
 
 ### INTEL
-1. Install the correct Pytorch version from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
+1. Install the correct PyTorch version from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
 	> **For example, for Intel Arc A-Series Graphics:**
 	> 1. Right click on the empty area in MIT root folder.
 	> 2. Select "Open in Terminal".
@@ -302,7 +305,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file, or the translator in `my-config.json`.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
-- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or Pytorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
+- ~~Error when MIT inpainting an extremely long image. MIT inpainter (or PyTorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
 
 > [!NOTE]
 > The webtoon mode can use up to around 20GB RAM on my laptop.
