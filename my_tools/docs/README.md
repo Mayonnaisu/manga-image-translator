@@ -21,7 +21,9 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>The `MIT-input-path.txt` usage has been replaced with a folder selection feature.</mark>
+### <mark>Press Q to properly stop `MIT-web-launcher`.</mark>
+
+### I will try to add Intel GPU support to MIT since it's not supported by default. But it may not work properly as I don't have the GPU to test it with. I only have tested GPU Mode with someone's AMD RX 7800 XT with trials and errors before success X'D.
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -35,6 +37,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add updater
 - Add launchers
 - Add .env file
+- Add PyTorch checker
 - Add folder selection feature
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
@@ -112,7 +115,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.
 	- Install Tampermonkey from https://www.tampermonkey.net
 		> Next, if you use Chromium-based browser, then you need to follow the steps here: https://www.tampermonkey.net/faq.php#Q209.
-	- Install ComiRead from https://sleazyfork.org/en/scripts/374903-comicread
+	- Install ComicRead from https://sleazyfork.org/en/scripts/374903-comicread
 	- Visit RAW manga/hwa/hua website.
 	- Select a chapter from any available series.
 	- Click on Extensions menu bar > Tampermonkey.
@@ -154,7 +157,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Save.
 
 ### AMD
-1. Install the correct PyTorch version from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
+1. Install the correct driver (if available for your GPU model) & PyTorch versions from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
 	> **For example, for [gfx110X-all](https://github.com/ROCm/TheRock/blob/main/RELEASES.md#index-page-listing) with Python 3.12 (as of now no Python 3.10 support):**
 	> 1. Delete venv folder.
 	> 2. Right click on the empty area in MIT root folder.
@@ -208,7 +211,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Save.
 
 ### INTEL
-1. Install the correct PyTorch version from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
+1. Install the correct driver (if available for your GPU model) & PyTorch versions from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
 	> **For example, for Intel Arc A-Series Graphics:**
 	> 1. Right click on the empty area in MIT root folder.
 	> 2. Select "Open in Terminal".

@@ -13,6 +13,7 @@ https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/m
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/requirements.txt
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image_merger.py
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/image_splitter.py
+https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/pytorch-checker.ps1
 https://raw.githubusercontent.com/Mayonnaisu/manga-image-translator/refs/heads/main/my_tools/docs/README.md
 '@
 

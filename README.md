@@ -18,7 +18,7 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
+### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
 ### Since the guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#-directory).
 
@@ -32,6 +32,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add updater
 - Add launchers
 - Add .env file
+- Add PyTorch checker
 - Add folder selection feature
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
@@ -107,7 +108,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.
 	- Install Tampermonkey from https://www.tampermonkey.net
 		> Next, if you use Chromium-based browser, then you need to follow the steps here: https://www.tampermonkey.net/faq.php#Q209.
-	- Install ComiRead from https://sleazyfork.org/en/scripts/374903-comicread
+	- Install ComicRead from https://sleazyfork.org/en/scripts/374903-comicread
 	- Visit RAW manga/hwa/hua website.
 	- Select a chapter from any available series.
 	- Click on Extensions menu bar > Tampermonkey.
