@@ -35,6 +35,8 @@ try {
 
         python -c "import torch; import intel_extension_for_pytorch as ipex; print(torch.__version__); print(ipex.__version__); [print(f'[{i}]: {torch.xpu.get_device_properties(i)}') for i in range(torch.xpu.device_count())];"
 
+        python -m torch.utils.collect_env
+
         if ($LASTEXITCODE -ne 0) {
             Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
         }
