@@ -21,7 +21,7 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Press Q to properly stop `MIT-web-launcher`.</mark>
+### <mark>Press Q to properly stop `MIT-web-launcher.ps1`.</mark>
 
 ### I will try to add Intel GPU support to MIT since it's not supported by default. But it may not work properly as I don't have the GPU to test it with. I only have tested GPU Mode with someone's AMD RX 7800 XT with trials and errors before success X'D.
 
@@ -160,19 +160,17 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Install the correct driver (if available for your GPU model) & PyTorch versions from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
 	> **For example, for [gfx110X-all](https://github.com/ROCm/TheRock/blob/main/RELEASES.md#index-page-listing) with Python 3.12 (as of now no Python 3.10 support):**
 	> 1. Delete venv folder.
-	> 2. Right click on the empty area in MIT root folder.
-	> 3. Select "Open in Terminal".
-	> 4. Enter the commands below:
+	> 2. Delete torch & torchvision from requirements.txt.
+	> 3. Right click on the empty area in MIT root folder.
+	> 4. Select "Open in Terminal".
+	> 5. Enter the commands below:
 	> ```powershell
-	> pyenv install 3.12.10
-	> pyenv global 3.12.10
+	> pyenv install 3.12.0
+	> pyenv global 3.12.0
 	> python -m venv venv
 	> .\venv\Scripts\Activate.ps1
-	>
-	> # Delete torch & torchvision from requirements.txt first.
 	> pip -r requirements.txt
-	>
-	> python -m pip install --upgrade --force-reinstall  --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ "rocm[libraries,devel]" --pre torch torchvision
+	> python -m pip install --upgrade --force-reinstall --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ "rocm[libraries,devel]" --pre torch torchvision
 	> ```
 	> If the torch & torchvision installation failed or you get `RuntimeError: operator torchvision::nms does not exist` during translation, try manually downloading the compatible .whl file from the index URL. Move it to MIT folder. For example, for rocm==7.10.0a20251024, download & move `torchvision-0.25.0a0+rocm7.10.0a20251024-cp312-cp312-win_amd64.whl`. Then, enter:
 	> ```powershell
@@ -198,13 +196,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 		New-Item -Path $MIOpenPath -ItemType Directory -Force | Out-Null
 		$env:MIOPEN_USER_DB_PATH = $MIOpenPath
 		$env:MIOPEN_FIND_MODE = "FAST"
-
-		# Enable TunableOp (may be slower the first time)
-		$TuningPath = ".\Temp\tuning\result.csv"
-		New-Item -Path $TuningPath -ItemType Directory -Force | Out-Null
-		$env:PYTORCH_TUNABLEOP_ENABLED = 1
-		$env:PYTORCH_TUNABLEOP_VERBOSE= 1
-		$env:PYTORCH_TUNABLEOP_FILENAME= $TuningPath
 		```
 	- Add `--use-gpu` parameter to every MIT command in all launchers.
 		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
@@ -213,12 +204,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ### INTEL
 1. Install the correct driver (if available for your GPU model) & PyTorch versions from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
 	> **For example, for Intel Arc A-Series Graphics:**
-	> 1. Right click on the empty area in MIT root folder.
-	> 2. Select "Open in Terminal".
-	> 3. Enter the commands below:
+	> 1. Install the driver for Intel Client GPUs.
+	> 2. Right click on the empty area in MIT root folder.
+	> 3. Select "Open in Terminal".
+	> 4. Enter the commands below:
 	> ```powershell
 	> .\venv\Scripts\Activate.ps1
-	> python -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/xpu
+	> python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/xpu
 	> ```
 2. Verify PyTorch version.
 	- Go to `my_tools` folder.
