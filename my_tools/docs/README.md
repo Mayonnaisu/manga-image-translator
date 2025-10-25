@@ -188,15 +188,20 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
 3. Modify every launcher with text/code editor.
-	- Add the following commands after venv activation code block in all launchers to improve performance:
+	- Add the following codes after venv activation code block in all launchers to improve performance:
 		```powershell
 		# Prebuild MIOpen database
 		$MIOpenPath = ".\Temp\miopen_cache"
 		New-Item -Path $MIOpenPath -ItemType Directory -Force | Out-Null
-
 		$env:MIOPEN_USER_DB_PATH = $MIOpenPath
 		$env:MIOPEN_FIND_MODE = "FAST"
+		
+		# Enable TunableOp
+		$TuningPath = ".\Temp\tuning\result.csv"
+		New-Item -Path $TuningPath -ItemType Directory -Force | Out-Null
 		$env:PYTORCH_TUNABLEOP_ENABLED = 1
+		$env:PYTORCH_TUNABLEOP_VERBOSE= 1
+		$env:PYTORCH_TUNABLEOP_FILENAME= $TuningPath
 		```
 	- Add `--use-gpu` parameter to every MIT command in all launchers.
 		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
