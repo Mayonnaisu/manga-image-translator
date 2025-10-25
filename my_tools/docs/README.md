@@ -210,7 +210,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	> 4. Enter the commands below:
 	> ```powershell
 	> .\venv\Scripts\Activate.ps1
-	> python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/xpu
+	> python -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/xpu
 	> ```
 2. Verify PyTorch version.
 	- Go to `my_tools` folder.
