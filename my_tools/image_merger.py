@@ -19,7 +19,7 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
     if parts <= 0:
         raise Exception("Number of merged images can't be less than 1!")
 
-    image_extensions = ('.png', '.jpg', '.jpeg', '.gif', '.bmp', 'webp')
+    image_extensions = ('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.webp')
 
     # Check if input path exists
     if not os.path.exists(input_root_folder):

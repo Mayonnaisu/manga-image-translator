@@ -25,7 +25,7 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
     Args:
         input_root_folder (str): The root folder containing images to be split.
     """
-    image_extensions = ('jpg', 'jpeg', 'png', '.gif', 'bmp', 'webp')
+    image_extensions = ('.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp')
 
     # Check if input path exists
     if not os.path.exists(input_root_folder):
