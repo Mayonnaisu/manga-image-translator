@@ -479,7 +479,10 @@ class GeminiTranslator(CommonGPTTranslator):
                 self.token_count += response.usage_metadata.prompt_token_count
                 self.token_count_last = response.usage_metadata.total_token_count
             
-            self.logger.debug(f'-- GPT Response --\n' + response.text)
+            if response.text is not None:
+                self.logger.debug(f"-- GPT Response --\n" + response.text)
+            else:
+                self.logger.debug(f"-- GPT Response --\n{response.text}")
 
             return response.text
         except Exception as ex:
