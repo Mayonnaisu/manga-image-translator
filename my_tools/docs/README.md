@@ -190,13 +190,13 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 3. Modify every launcher with text/code editor.
 	- Add the following codes after venv activation code block in all launchers to improve performance:
 		```powershell
-		# Prebuild MIOpen database
+		# Prebuild MIOpen database (may be slower the first time)
 		$MIOpenPath = ".\Temp\miopen_cache"
 		New-Item -Path $MIOpenPath -ItemType Directory -Force | Out-Null
 		$env:MIOPEN_USER_DB_PATH = $MIOpenPath
 		$env:MIOPEN_FIND_MODE = "FAST"
-		
-		# Enable TunableOp
+
+		# Enable TunableOp (may be slower the first time)
 		$TuningPath = ".\Temp\tuning\result.csv"
 		New-Item -Path $TuningPath -ItemType Directory -Force | Out-Null
 		$env:PYTORCH_TUNABLEOP_ENABLED = 1
