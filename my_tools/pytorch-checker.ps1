@@ -3,9 +3,9 @@ $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
 # Start logging
-$LogPyTorchCheckerPath = ".\Temp\log_pytorch-checker.txt"
+$LogPyTorchCheckerPath = "..\Temp\log_pytorch-checker.txt"
 Start-Transcript -Path $LogPyTorchCheckerPath
-New-Item -Path ".\Temp" -ItemType Directory -Force | Out-Null
+New-Item -Path "..\Temp" -ItemType Directory -Force | Out-Null
 
 try {
     # Check Python version & path
@@ -33,7 +33,7 @@ try {
     } elseif ($(python -c "import torch; print(torch.xpu.is_available())") -eq $True 2>&1) {
         Write-Host "`nPyTorch GPU" -ForegroundColor Green
 
-        python -c "import torch; import intel_extension_for_pytorch as ipex; print(torch.__version__); print(ipex.__version__); [print(f'[{i}]: {torch.xpu.get_device_properties(i)}') for i in range(torch.xpu.device_count())];"
+        python -c "import torch; [print(f'[{i}]: {torch.xpu.get_device_properties(i)}') for i in range(torch.xpu.device_count())];"
 
         python -m torch.utils.collect_env
 
