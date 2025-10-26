@@ -172,7 +172,12 @@ class CrossAttention(nn.Module):
 
         # force cast to fp32 to avoid overflowing
         if _ATTN_PRECISION =="fp32":
-            with torch.autocast(enabled=False, device_type = 'cuda'):
+            if torch.cuda.is_available():
+                device = "cuda"
+            elif torch.xpu.is_available():
+                device = "xpu"
+
+            with torch.autocast(enabled=False, device_type = device):
                 q, k = q.float(), k.float()
                 sim = einsum('b i d, b j d -> b i j', q, k) * self.scale
         else:

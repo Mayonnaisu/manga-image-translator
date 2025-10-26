@@ -62,7 +62,10 @@ def force_cleanup():
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
         torch.cuda.synchronize()
-    
+    elif torch.xpu.is_available():
+        torch.xpu.empty_cache()
+        torch.xpu.synchronize()
+
     # 尝试清理更多内存  
     try:
         import ctypes

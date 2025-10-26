@@ -37,8 +37,8 @@ class FFDNetDenoiser:
     def load_weights(self):
         weights_name = 'net_rgb.pth' if self.channels == 3 else 'net_gray.pth'
         weights_path = os.path.join(self.weights_dir, weights_name)
-        if self.device == 'cuda':
-            # data paralles only for cuda , no need for mps devices
+        if self.device == 'cuda' or self.device == 'xpu':
+            # data paralles only for cuda & xpu, no need for mps devices
             state_dict = torch.load(weights_path, map_location=torch.device('cpu'))
             self.model = nn.DataParallel(self.model,device_ids = [0]).to(self.device)
         else:
@@ -89,6 +89,8 @@ class FFDNetDenoiser:
         # Sets data type according to CPU or GPU modes
         if self.device == 'cuda':
             dtype = torch.cuda.FloatTensor
+        elif self.device == 'xpu':
+            dtype = torch.xpu.FloatTensor
         else:
             # for mps devices is still floatTensor
             dtype = torch.FloatTensor

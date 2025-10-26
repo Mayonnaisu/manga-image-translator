@@ -187,3 +187,8 @@ class Pipeline:
                 torch.cuda.empty_cache()
             except Exception:
                 pass
+        elif torch and torch.xpu.is_available():
+            try:
+                torch.xpu.empty_cache()
+            except Exception:
+                pass
