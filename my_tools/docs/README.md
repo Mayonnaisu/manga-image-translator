@@ -23,7 +23,7 @@
 ## NOTICE
 ### <mark>Press Q to properly stop `MIT-web-launcher.ps1`.</mark>
 
-### I will try to add Intel GPU support to MIT since it's not supported by default. But it may not work properly as I don't have the GPU to test it with. I only have tested GPU Mode with someone's AMD RX 7800 XT with trials and errors before success X'D.
+### <mark>I have added Intel GPU support, but it may not work properly, if at all, as I don't have the GPU to test it with. I only have tested GPU Mode with someone's AMD RX 7800 XT with trials and errors before success X'D.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -39,6 +39,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add .env file
 - Add PyTorch checker
 - Add folder selection feature
+- Add XPU (Intel GPU) support. (**untested**)
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
 - Use recommended configurations by default
@@ -137,6 +138,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Check the PowerShell to see more detailed progress of the translation process.
 
 ## USAGE (GPU MODE)
+> [!NOTE]
+> Using GPU Mode may still not give you the speed increase you want. It's especially true if your configurations are not optimal or if the program and/or its dependencies themselves are unoptimized or unstable.
+
 ### NVIDIA
 1. Install the correct PyTorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/.
 	> **For example, for CUDA 13.0:**
@@ -216,7 +220,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. Modify relevant codes in MIT files, see: https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html#minimum-code-change.
+3. ~~Modify relevant codes in MIT files, see: https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html#minimum-code-change.~~
 4. Modify every launcher with text/code editor.
 	- Add `--use-gpu` parameter to every MIT command in all launchers.
 		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
@@ -301,6 +305,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 #### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
+- Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in `my-config.json` to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
 It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file, or the translator in `my-config.json`.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**

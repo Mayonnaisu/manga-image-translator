@@ -34,6 +34,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add .env file
 - Add PyTorch checker
 - Add folder selection feature
+- Add XPU (Intel GPU) support. (**untested**)
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
 - Use recommended configurations by default
@@ -185,6 +186,7 @@ Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_t
 #### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
+- Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in `my-config.json` to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
 It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file or the translator in `my-config.json`.
 
