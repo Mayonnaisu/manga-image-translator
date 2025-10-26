@@ -22,10 +22,10 @@ try {
     if ($(python -c "import torch; print(torch.cuda.is_available())") -eq $True 2>&1) {
         Write-Host "`nPyTorch GPU" -ForegroundColor Green
 
-        python -c "import torch; print(f'device name [0]:', torch.cuda.get_device_name(0))"
+        & python -c "import torch; print(f'device name [0]:', torch.cuda.get_device_name(0))" | Out-String -Stream | Write-Host
 
-        python -m torch.utils.collect_env
-
+        & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
+        
         if ($LASTEXITCODE -ne 0) {
             Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
         }
@@ -33,9 +33,9 @@ try {
     } elseif ($(python -c "import torch; print(torch.xpu.is_available())") -eq $True 2>&1) {
         Write-Host "`nPyTorch GPU" -ForegroundColor Green
 
-        python -c "import torch; [print(f'[{i}]: {torch.xpu.get_device_properties(i)}') for i in range(torch.xpu.device_count())];"
+        & python -c "import torch; [print(f'[{i}]: {torch.xpu.get_device_properties(i)}') for i in range(torch.xpu.device_count())];" | Out-String -Stream | Write-Host
 
-        python -m torch.utils.collect_env
+        & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
 
         if ($LASTEXITCODE -ne 0) {
             Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
@@ -44,7 +44,7 @@ try {
     } else {
         Write-Host "`nPyTorch CPU" -ForegroundColor Red
 
-        python -m torch.utils.collect_env
+        & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
 
         if ($LASTEXITCODE -ne 0) {
             Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
