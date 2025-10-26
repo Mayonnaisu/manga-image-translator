@@ -47,7 +47,7 @@ class LamaMPEInpainter(OfflineInpainter):
         self.model = load_lama_mpe(self._get_file_path('inpainting_lama_mpe.ckpt'), device='cpu')
         self.model.eval()
         self.device = device
-        if device.startswith('cuda') or device == 'mps':
+        if device.startswith('cuda') or device == 'mps' or device.startswith('xpu'):
             self.model.to(device)
 
     async def _unload(self):
@@ -85,12 +85,12 @@ class LamaMPEInpainter(OfflineInpainter):
         mask_torch = torch.from_numpy(mask).unsqueeze_(0).unsqueeze_(0).float() / 255.0
         mask_torch[mask_torch < 0.5] = 0
         mask_torch[mask_torch >= 0.5] = 1
-        if self.device.startswith('cuda') or self.device == 'mps':
+        if self.device.startswith('cuda') or self.device == 'mps' or self.device.startswith('xpu'):
             img_torch = img_torch.to(self.device)
             mask_torch = mask_torch.to(self.device)
         with torch.no_grad():
             img_torch *= (1 - mask_torch)
-            if not (self.device.startswith('cuda')):
+            if not (self.device.startswith('cuda') or self.device.startswith('xpu')):
                 # mps devices here
                 img_inpainted_torch = self.model(img_torch, mask_torch)
             else:
@@ -103,8 +103,12 @@ class LamaMPEInpainter(OfflineInpainter):
                     precision = torch.bfloat16
                     self.logger.warning('Switch to bf16 due to Lama only compatible with bf16 and fp32.')
 
-                with torch.autocast(device_type="cuda", dtype=precision):
-                    img_inpainted_torch = self.model(img_torch, mask_torch)
+                if (self.device.startswith('cuda')):
+                    device_type = "cuda"
+                elif (self.device.startswith('xpu')):
+                    device_type = "xpu"
+                    with torch.autocast(device_type=device_type, dtype=precision):
+                        img_inpainted_torch = self.model(img_torch, mask_torch)
 
         if isinstance(self.model, LamaFourier):
             img_inpainted_torch = img_inpainted_torch.to(torch.float32)
@@ -132,7 +136,7 @@ class LamaLargeInpainter(LamaMPEInpainter):
         self.model = load_lama_mpe(self._get_file_path('lama_large_512px.ckpt'), device='cpu', use_mpe=False, large_arch=True)
         self.model.eval()
         self.device = device
-        if device.startswith('cuda') or device == 'mps':
+        if device.startswith('cuda') or device == 'mps' or device.startswith('xpu'):
             self.model.to(device)
 
 

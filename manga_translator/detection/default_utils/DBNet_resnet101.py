@@ -144,7 +144,10 @@ class TextDetection(nn.Module):
         return self.conv_db(up8), self.conv_mask(up4)
 
 if __name__ == '__main__':
-    device = torch.device("cuda:0")
+    if torch.cuda.is_available():
+        device = torch.device("cuda:0")
+    if torch.xpu.is_available():
+        device = torch.device("xpu:0")
     net = TextDetection().to(device)
     img = torch.randn(2, 3, 1024, 1024).to(device)
     db, seg = net(img)

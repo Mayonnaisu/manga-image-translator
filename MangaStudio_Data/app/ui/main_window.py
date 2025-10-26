@@ -123,8 +123,11 @@ class TranslatorStudioApp(QMainWindow):
         try:
             import torch
             if torch.cuda.is_available():
+                torch_device = torch.cuda
+            elif torch.xpu.is_available():
+                torch_device = torch.xpu
                 # Get total memory in bytes and convert to gigabytes
-                mem_bytes = torch.cuda.get_device_properties(0).total_memory
+                mem_bytes = torch_device.get_device_properties(0).total_memory
                 self.detected_vram_gb = mem_bytes / (1024**3)
                 print(f"[INFO] Detected {self.detected_vram_gb:.2f} GB of VRAM.")
         except Exception as e:
