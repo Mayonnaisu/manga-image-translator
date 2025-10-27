@@ -54,8 +54,6 @@ This fork doesn't change the core functions of the original program. This is sti
 2. Select "Download ZIP".
 3. Right click on the downloaded .zip file.
 4. Select "Extract Here" with WinRAR or 7-Zip.
-> [!TIP]
-> If you previously have **downloaded and installed** MIT **successfully** from https://github.com/zyddnys/manga-image-translator, you can simply download and run `MIT-updater.ps1` from inside the program root folder to get [all my scripts & some others](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#:~:text=Impacted%20files%3A) (other modified files not included), assuming your Python virtual environment name is also "venv" and located in the root directory.
 
 ## INSTALLATION
 1. Open PowerShell as Administrator.
@@ -249,7 +247,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Add support for processing single folder to Webtoon Mode.
 > - Add option to specify the number of split parts in `MIT-local-webtoon-launcher.ps1` (Change "original" in `$SplitPartsNumber = "original"` to a number without quotes).
 > - Replace `MIT-input-path.txt` usage with folder selection feature. But, there will be new `MIT-input-path.txt` in `my_tools` folder to save the last selected folder path for persistence.
-> - Move `MIT-update-content.ps1` into `my_tools` folder.
 > - Add option to change server host/bind & port in `MIT-web-launcher.ps1`. For example, change `$ServerHost = "127.0.0.1"` to `$ServerHost = "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device on the same network via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000). **It's really important to note that using "IP Address" also allows others to access your program because the MIT server doesn't have a form of authentication. So, make sure you're at least on a trusted and secure network.**
 > - Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.
 > - <mark>Improve `MIT-updater.ps1` and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.</mark>
