@@ -4,6 +4,7 @@
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
+# Define update url & path
 $repoUrl = "https://github.com/Mayonnaisu/manga-image-translator/archive/refs/heads/main.zip"
 $downloadPath = ".\Temp\repo.zip"
 
@@ -12,14 +13,14 @@ try {
     $PowerShellVersion = (Get-Host).Version.ToString()
     Write-Host "PowerShell $PowerShellVersion"
 
-    # Download the latest MIT-update-content.ps1 from my repo
+    # Download the latest .zip file from my repo
     Write-Host "`nDownloading Update from $repoUrl..." -ForegroundColor Yellow
 
     if (-not (Test-Path -Path ".\Temp" -PathType Container)) {
         New-Item -Path ".\Temp" -ItemType Directory -Force | Out-Null
     }
 
-    # Invoke-WebRequest -Uri $repoUrl -OutFile $downloadPath -ErrorAction Stop
+    Invoke-WebRequest -Uri $repoUrl -OutFile $downloadPath -ErrorAction Stop
 
     Write-Host "`nUpdate Downloaded to $downloadPath." -ForegroundColor Green
 
@@ -41,7 +42,9 @@ try {
 
         foreach ($item in $filesToExclude) {
             $itemPath = Join-Path -Path $extractedContentPath.FullName -ChildPath $item
+
             Write-Host "`nExcluding $itemPath from Update." -ForegroundColor Green
+
             if (Test-Path $itemPath) {
                 Remove-Item -Path $itemPath -Recurse -Force
             }
@@ -49,6 +52,7 @@ try {
 
         # Copy the extracted content to current direcory
         $destinationPath = ".\"
+
         Copy-Item -Path "$($extractedContentPath.FullName)\*" -Destination $destinationPath -Recurse -Force
 
         Remove-Item -Path $extractPath -Recurse -Force -Confirm:$false
