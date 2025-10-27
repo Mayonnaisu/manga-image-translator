@@ -43,12 +43,14 @@ try {
         foreach ($item in $filesToExclude) {
             $itemPath = Join-Path -Path $extractedContentPath.FullName -ChildPath $item
 
-            Write-Host "`nExcluding $itemPath from Update." -ForegroundColor Green
+            Write-Host "`nExcluding $itemPath from Update." -ForegroundColor Yellow
 
             if (Test-Path $itemPath) {
                 Remove-Item -Path $itemPath -Recurse -Force
             }
         }
+
+        Write-Host "`nFiles Excluded from Update." -ForegroundColor Green
 
         # Copy the extracted content to current direcory
         $destinationPath = ".\"
