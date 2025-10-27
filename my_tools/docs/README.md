@@ -184,18 +184,20 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	>
 	> # Reinstall the correct torch version from cache
 	> python -m pip install --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ --pre torch==2.10.0a0+rocm7.10.0a20251024
-	>
-	> # Make sure all installed packages are compatible
-	> # For example:
+	> ```
+	> Make sure the installed packages are compatible based on the rocm version.
+	> ```powershell
+	> # Check the installed packages
+	> # This should return:
 	> # rocm==7.10.0a20251024
 	> # rocm-sdk-core==7.10.0a20251024
 	> # rocm-sdk-devel==7.10.0a20251024
 	> # rocm-sdk-libraries-gfx110X-all==7.10.0a20251024
 	> # torch==2.10.0a0+rocm7.10.0a20251024
-	> # torchvision==0.25.0a0+rocm7.10.0a20251024 or torchvision @ file:///C:/Users/mayonnaisu/Downloads/manga-image-translator-main/torchvision-0.25.0a0%2Brocm7.10.0a20251024-cp312-cp312-win_amd64.whl#sha256=05d080af0bd09ba2af182ea62fd1dcb8b6c3ea3e00d6345d5f3aee619d755cd1
+	> # torchvision==0.25.0a0+rocm7.10.0a20251024 OR torchvision @ file:///C:/Users/mayonnaisu/Downloads/manga-image-translator-main/torchvision-0.25.0a0%2Brocm7.10.0a20251024-cp312-cp312-win_amd64.whl#sha256=05d080af0bd09ba2af182ea62fd1dcb8b6c3ea3e00d6345d5f3aee619d755cd1
 	> pip freeze | Select-String -Pattern "rocm"
 	> 
-	> # Clear cache
+	> # Clear cache if everything is good
 	> pip cache purge
 	> ```
 2. Verify PyTorch version.
