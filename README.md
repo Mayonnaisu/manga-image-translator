@@ -131,7 +131,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Check the PowerShell to see more detailed progress of the translation process.
 
 ## USAGE (GPU MODE)
-Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#usage-gpu-mode)
+Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#usage-gpu-mode).
 
 ## UPDATE
 > [!WARNING]

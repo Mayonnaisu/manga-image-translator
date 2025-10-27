@@ -139,7 +139,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## USAGE (GPU MODE)
 > [!NOTE]
-> Using GPU Mode may still not give you the speed increase you want. It's especially true if your configurations are not optimal or if the program and/or its dependencies themselves are unoptimized or unstable.
+> GPU Mode may still not give you the speed increase you want. It's especially true if your setups and/or configurations are not optimal or if the program and/or its dependencies themselves are unoptimized or unstable.
 
 ### NVIDIA
 1. Install the correct PyTorch version from https://pytorch.org/get-started/locally/ or https://pytorch.org/get-started/previous-versions/.
@@ -176,7 +176,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	> pip -r requirements.txt
 	> python -m pip install --upgrade --force-reinstall --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ "rocm[libraries,devel]" --pre torch torchvision
 	> ```
-	> If the torch & torchvision installation failed or you get `RuntimeError: operator torchvision::nms does not exist` during translation, try manually downloading the compatible .whl file from the index URL. Move it to MIT folder. For example, for rocm==7.10.0a20251024, download & move `torchvision-0.25.0a0+rocm7.10.0a20251024-cp312-cp312-win_amd64.whl`. Then, enter:
+	> If the torch & torchvision installation failed or you get `RuntimeError: operator torchvision::nms does not exist` during translation, try manually downloading the compatible .whl file from the index URL & move it to MIT folder. For example, for rocm==7.10.0a20251024, download & move `torchvision-0.25.0a0+rocm7.10.0a20251024-cp312-cp312-win_amd64.whl`. Then, enter:
 	> ```powershell
 	> # Reinstall failed torchvision from wheel file
 	> # This will also install incorrect torch version
@@ -185,6 +185,16 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	> # Reinstall the correct torch version from cache
 	> python -m pip install --index-url https://rocm.nightlies.amd.com/v2/gfx110X-all/ --pre torch==2.10.0a0+rocm7.10.0a20251024
 	>
+	> # Make sure all installed packages are compatible
+	> # For example:
+	> # rocm==7.10.0a20251024
+	> # rocm-sdk-core==7.10.0a20251024
+	> # rocm-sdk-devel==7.10.0a20251024
+	> # rocm-sdk-libraries-gfx110X-all==7.10.0a20251024
+	> # torch==2.10.0a0+rocm7.10.0a20251024
+	> # torchvision==0.25.0a0+rocm7.10.0a20251024 or torchvision @ file:///C:/Users/mayonnaisu/Downloads/manga-image-translator-main/torchvision-0.25.0a0%2Brocm7.10.0a20251024-cp312-cp312-win_amd64.whl#sha256=05d080af0bd09ba2af182ea62fd1dcb8b6c3ea3e00d6345d5f3aee619d755cd1
+	> pip freeze | Select-String -Pattern "rocm"
+	> 
 	> # Clear cache
 	> pip cache purge
 	> ```
