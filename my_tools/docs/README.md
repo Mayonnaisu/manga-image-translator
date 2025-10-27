@@ -251,25 +251,22 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Replace `MIT-input-path.txt` usage with folder selection feature. But, there will be new `MIT-input-path.txt` in `my_tools` folder to save the last selected folder path for persistence.
 > - Move `MIT-update-content.ps1` into `my_tools` folder.
 > - Add option to change server host/bind & port in `MIT-web-launcher.ps1`. For example, change `$ServerHost = "127.0.0.1"` to `$ServerHost = "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device on the same network via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000). **It's really important to note that using "IP Address" also allows others to access your program because the MIT server doesn't have a form of authentication. So, make sure you're at least on a trusted and secure network.**
-> - <mark>Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.</mark>
+> - Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.
+> - <mark>Improve `MIT-updater.ps1` and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.</mark>
+> - 
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
 >
 > **Impacted files:**
-> - <mark>`MIT-input-path.txt` (will be deleted if exists)</mark>
-> - `MIT-installer.ps1`
-> - `MIT-local-launcher.ps1`
-> - `MIT-local-webtoon-launcher.ps1`
-> - `MIT-web-launcher.ps1`
-> - `MIT-update-content.ps1`
-> - `MIT-deplist-updater` (will be deleted if exists)
-> - `requirements.txt`
-> - Files inside `my_tools` folder.
-> - `__main__.py` in `/manga_translator`
-> - `local.py` in `/manga_translator/mode`
+>
+> All files from repo (main), except:
+> - `.\.env`
+> - `.\examples\my-config.json`
+> - `.\examples\gpt_config-example.yaml`
+> - `.\my_tools\settings.json`
 1. Download `MIT-updater.ps1`.
-	> only if there is a newer version.
+	> only if there is no `### VERSION ###` in `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
