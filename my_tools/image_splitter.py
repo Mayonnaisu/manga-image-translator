@@ -71,7 +71,7 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
                 original_extension = file.split('.')[-1].lower()
                 original_extensions.append(original_extension.lower())
                 extension_counts = Counter(original_extensions)
-                most_extension, count = extension_counts.most_common(1)[0]
+                most_extension, counts = extension_counts.most_common(1)[0]
 
                 if file.lower().endswith(image_extensions):
                     count += 1
