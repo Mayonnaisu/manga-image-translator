@@ -104,6 +104,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
 3. Visit http://127.0.0.1:8000 (default).
+4. Press Q to stop the server.
 
 	#### Real-Time Translation
 	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.

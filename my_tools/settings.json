@@ -1,0 +1,29 @@
+{
+  "GlobalSettings": {
+    "gpu_mode": false,
+    "gpu_model": "?",
+    "supported_gpu_model": [
+      "nvidia",
+      "amd",
+      "intel"
+    ],
+    "clean_result_folder": true
+  },
+  "LocalLauncher": {
+    "gpu_mode": null,
+    "clean_result_folder": null
+  },
+  "LocalWebtoonLauncher": {
+    "gpu_mode": null,
+    "merged_image_number": 1,
+    "split_part_number": "original",
+    "delete_merged_images": true,
+    "clean_result_folder": null
+  },
+  "WebLauncher": {
+    "gpu_mode": null,
+    "server_host": "127.0.0.1",
+    "server_port": "8000",
+    "clean_result_folder": null
+  }
+}

@@ -21,9 +21,9 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Press Q to properly stop `MIT-web-launcher.ps1`.</mark>
-
 ### <mark>I have added Intel GPU support, but it may not work properly, if at all, as I don't have the GPU to test it with. I only have tested GPU Mode with someone's AMD RX 7800 XT with trials and errors before success X'D.</mark>
+
+### <mark>I have also integrated the use of `settings.json` to make launcher-related settings more convenient and persistent.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -109,6 +109,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 1. Right click on `MIT-web-launcher.ps1`.
 2. Select "Run with PowerShell".
 3. Visit http://127.0.0.1:8000 (default).
+4. Press Q to stop the server.
 
 	#### Real-Time Translation
 	There are a bunch of available browser extensions out there, but I will use [ComicReadScript](https://github.com/hymbz/ComicReadScript) here. In general, they have similar configurations.
@@ -153,10 +154,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. Modify every launcher with text/code editor.
-	- Add `--use-gpu` parameter to every MIT command in all launchers.
-		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
-	- Save.
 
 ### AMD
 1. Install the correct driver (if available for your GPU model) & PyTorch versions from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
@@ -202,18 +199,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. Modify every launcher with text/code editor.
-	- Add the following codes after venv activation code block in all launchers to improve performance:
-		```powershell
-		# Prebuild MIOpen database (may be slower the first time)
-		$MIOpenPath = ".\Temp\miopen_cache"
-		New-Item -Path $MIOpenPath -ItemType Directory -Force | Out-Null
-		$env:MIOPEN_USER_DB_PATH = $MIOpenPath
-		$env:MIOPEN_FIND_MODE = "FAST"
-		```
-	- Add `--use-gpu` parameter to every MIT command in all launchers.
-		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
-	- Save.
 
 ### INTEL
 1. Install the correct driver (if available for your GPU model) & PyTorch versions from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
@@ -230,11 +215,6 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. ~~Modify relevant codes in MIT files, see: https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html#minimum-code-change.~~
-4. Modify every launcher with text/code editor.
-	- Add `--use-gpu` parameter to every MIT command in all launchers.
-		> For example, `python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" --use-gpu` in `MIT-local-launcher.ps1`.
-	- Save.
 
 ## UPDATE
 > [!IMPORTANT]
@@ -251,6 +231,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.
 > - <mark>Add XPU (Intel GPU) support. Currently, it's still untested and its integration may break some other things, like [AttributeError: module 'torch.backends' has no attribute 'xpu'](https://github.com/Mayonnaisu/manga-image-translator/commit/b6a82830357f06fb93519f32a2602db4c4f92f1b). If you encounter any error, feel free to create an [issue about it](https://github.com/Mayonnaisu/manga-image-translator/issues). I will try my best to fix it.</mark>
 > - <mark>Improve `MIT-updater.ps1` and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.</mark>
+> - <mark>Integrate the use of `settings.json` to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode.</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
