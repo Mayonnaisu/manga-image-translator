@@ -154,6 +154,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
+3. Modify `settings.json` in `my_tools` folder.
+	- Change `gpu_mode` value from `false` to `true`.
+	- Change `gpu_model` value from `"?"` to one of the models in `supported_gpu_models`.
 
 ### AMD
 1. Install the correct driver (if available for your GPU model) & PyTorch versions from  https://www.amd.com/en/resources/support-articles/release-notes/RN-AMDGPU-WINDOWS-PYTORCH-PREVIEW.html or https://github.com/ROCm/TheRock/blob/main/RELEASES.md. Currently, the Windows support is still new and limited. So, PyTorch may be unstable as it's still in the preview version.
@@ -199,6 +202,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
+3. Modify `settings.json` in `my_tools` folder.
+	- Change `gpu_mode` value from `false` to `true`.
+	- Change `gpu_model` value from `"?"` to one of the models in `supported_gpu_models`.
 
 ### INTEL
 1. Install the correct driver (if available for your GPU model) & PyTorch versions from https://docs.pytorch.org/docs/stable/notes/get_start_xpu.html or https://pytorch-extension.intel.com/installation?platform=gpu.
@@ -215,6 +221,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	- Go to `my_tools` folder.
 	- Run `pytorch-checker.ps1`.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
+3. Modify `settings.json` in `my_tools` folder.
+	- Change `gpu_mode` value from `false` to `true`.
+	- Change `gpu_model` value from `"?"` to one of the models in `supported_gpu_models`.
 
 ## UPDATE
 > [!IMPORTANT]
