@@ -1,0 +1,19 @@
+name: Sync Feature Branch
+on:
+  push:
+    branches: [ main ]
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Merge main into feature
+        run: |
+          git fetch origin
+          git checkout feature/xpu-support
+          git rebase origin/main
+          git push -f origin feature/xpu-support
