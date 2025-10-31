@@ -18,7 +18,7 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
+### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
 
 ### Since the guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#-directory).
 
@@ -139,7 +139,7 @@ Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_t
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
 1. Download `MIT-updater.ps1`.
-	> only if there is no `### VERSION ###` in `MIT-updater.ps1`.
+	> only if there is no `### VERSION ###` in your `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.

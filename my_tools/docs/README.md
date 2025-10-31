@@ -21,9 +21,7 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>I have added Intel GPU support, but it may not work properly, if at all, as I don't have the GPU to test it with. I only have tested GPU Mode with someone's AMD RX 7800 XT with trials and errors before success X'D.</mark>
-
-### <mark>I have also integrated the use of `settings.json` to make launcher-related settings more convenient and persistent.</mark>
+### <mark>The use of `settings.json` has been integrated to make the launcher-related settings more convenient and persistent.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -253,7 +251,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `.\examples\gpt_config-example.yaml`
 > - `.\my_tools\settings.json`
 1. Download `MIT-updater.ps1`.
-	> only if there is no `### VERSION ###` in `MIT-updater.ps1`.
+	> only if there is no `### VERSION ###` in your `MIT-updater.ps1`.
 2. Move it to your `manga-image-translator-main` folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
