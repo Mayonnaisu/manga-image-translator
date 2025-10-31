@@ -2,7 +2,7 @@ import os
 import gc
 import pandas as pd
 import numpy as np
-from onnxruntime import InferenceSession
+import onnxruntime
 from typing import Tuple, List, Dict
 from io import BytesIO
 from PIL import Image
@@ -39,7 +39,7 @@ def smart_resize(img, size):
 
 class Tagger :
     def __init__(self, filename) -> None:
-        self.model = InferenceSession(filename, providers=['CUDAExecutionProvider'])
+        self.model = onnxruntime.InferenceSession(filename, providers=['CUDAExecutionProvider'])
         [root, _] = os.path.split(filename)
         self.tags = pd.read_csv(os.path.join(root, 'selected_tags.csv') if root else 'selected_tags.csv')
         _, self.height, _, _ = self.model.get_inputs()[0].shape
