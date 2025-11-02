@@ -10,11 +10,17 @@ param(
     [string]$ServerHost,
     [string]$Port,
     [string]$GpuMode,
-    [string]$GpuModel
+    [string]$GpuModel,
+    [string]$ExtraArgs
 )
 
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
+
+$ExtraArguments = @()
+foreach ($argument in $ExtraArgs.Replace("@", " ").Split(" ")) {
+    $ExtraArguments += $argument.Replace("'", "`"")
+}
 
 # Activate Python venv with another PowerShell script
 try {
@@ -31,7 +37,7 @@ try {
 # Set GPU-related configurations
 if ($([System.Convert]::ToBoolean($GpuMode))) {
     $Mode = "--use-gpu"
-    # For AMD Gpu
+    # For AMD GPU
     if (($GpuModel.ToLower()) -eq "amd") {
         # Prebuild MIOpen database (may be slower the first time)
         $MIOpenPath = ".\Temp\miopen_cache"
@@ -53,7 +59,7 @@ try {
         $Bind = $ServerHost
     }
 
-    python .\server\main.py --host $Bind --port $Port $Mode
+    python .\server\main.py --host $Bind --port $Port $Mode $ExtraArguments
     
     if ($LASTEXITCODE -ne 0) {
         Throw "Manga Image Translator Ran into Exception!`n$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
@@ -63,7 +69,7 @@ try {
         # handle the dynamic IP change when the server is running
         $NewBind = Get-NetIPAddress | Where-Object {$_.AddressFamily -eq 'IPv4' -and $_.IPAddress -like '192.168.1.*'} | Select-Object -ExpandProperty IPAddress
         if ($Bind -ne $NewBind) {
-            python .\server\main.py --host $NewBind --port $Port $Mode
+            python .\server\main.py --host $NewBind --port $Port $Mode $ExtraArguments
         }
     } else {
         Throw "ERROR: $($_.Exception.Message)"
@@ -92,7 +98,8 @@ try {
         "gpu_model",
         "server_host",
         "server_port",
-        "clean_result_folder"
+        "clean_result_folder",
+        "extra_arguments"
     )
 
     foreach ($key in $keyName) {
@@ -103,14 +110,22 @@ try {
         }
         Write-Host "$($key): $(Get-Variable -Name $key -ValueOnly)"
     }
-    
+
+    foreach ($argument in $extra_arguments) {
+        if ($extra_arguments -ne "") {
+            $ExtraArgs += "$($argument.Replace(" ","@"))@"
+        } else {
+            $ExtraArgs = "`"`""
+        }
+    }
+
     # Show tips message
     Write-Host "`nPRESS Q TO EXIT PROPERLY." -ForegroundColor Green
 
     # Create & run MIT-server.ps1
     Set-Content -Path $MITserverPath -Value $MITserver
 
-    $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -File `"$MITserverPath`" -ServerHost `"$server_host`" -Port `"$server_port`" -GpuMode $gpu_mode -GpuModel `"$gpu_model`"" -PassThru -NoNewWindow
+    $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -File `"$MITserverPath`" -ServerHost `"$server_host`" -Port `"$server_port`" -GpuMode $gpu_mode -GpuModel `"$gpu_model`" -ExtraArgs $ExtraArgs" -PassThru -NoNewWindow
 
     while ($process.HasExited -eq $false) {
         if ($Host.UI.RawUI.KeyAvailable) {
@@ -122,7 +137,7 @@ try {
                 break
             }
         }
-        Start-Sleep -Milliseconds 100
+        Start-Sleep -Milliseconds 50
     }
 
     if ($LASTEXITCODE -ne 0) {

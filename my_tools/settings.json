@@ -2,28 +2,44 @@
   "GlobalSettings": {
     "gpu_mode": false,
     "gpu_model": "?",
-    "supported_gpu_models": [
+    "supported_gpu_model": [
       "nvidia",
       "amd",
       "intel"
     ],
-    "clean_result_folder": true
+    "clean_result_folder": true,
+    "extra_arguments_example": [
+      "--config-file './examples/my-config.json'",
+      "--font-path './fonts/anime_ace_3.ttf'",
+      "--overwrite ",
+      "Refer to https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#basic-options",
+      "No global settings for extra arguments, btw."
+    ]
   },
   "LocalLauncher": {
     "gpu_mode": null,
-    "clean_result_folder": null
+    "clean_result_folder": null,
+    "extra_arguments": [
+      "--config-file './examples/my-config.json'"
+    ]
   },
   "LocalWebtoonLauncher": {
     "gpu_mode": null,
     "merged_image_number": 1,
     "split_part_number": "original",
-    "delete_merged_images": true,
-    "clean_result_folder": null
+    "delete_merged_images": false,
+    "clean_result_folder": null,
+    "extra_arguments": [
+      "--config-file './examples/my-config.json'"
+    ]
   },
   "WebLauncher": {
     "gpu_mode": null,
     "server_host": "127.0.0.1",
     "server_port": "8000",
-    "clean_result_folder": null
+    "clean_result_folder": null,
+    "extra_arguments": [
+      ""
+    ]
   }
 }

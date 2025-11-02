@@ -18,7 +18,8 @@ try {
     $keyName = @(
         "gpu_mode",
         "gpu_model",
-        "clean_result_folder"
+        "clean_result_folder",
+        "extra_arguments"
     )
 
     foreach ($key in $keyName) {
@@ -28,6 +29,11 @@ try {
             New-Variable -Name $key -Value $config.GlobalSettings.$key -Force
         }
         Write-Host "$($key): $(Get-Variable -Name $key -ValueOnly)"
+    }
+
+    $ExtraArgs = @()
+    foreach($argument in $extra_arguments.Split(' ')) {
+        $ExtraArgs += $argument.Replace("'","`"")
     }
 
     # Select folder with FolderBrowserDialog
@@ -69,7 +75,7 @@ try {
     # Set GPU-related configurations
     if ($gpu_mode) {
         $Mode = "--use-gpu"
-        # For AMD Gpu
+        # For AMD GPU
         if (($gpu_model.ToLower()) -eq "amd") {
             # Prebuild MIOpen database (may be slower the first time)
             $MIOpenPath = ".\Temp\miopen_cache"
@@ -85,7 +91,7 @@ try {
     try {
         Write-Host "`nRunning Manga Image Translator in Local Mode... " -ForegroundColor Yellow
 
-        python -m manga_translator local -v -i $InputPath --config-file ".\examples\my-config.json" $Mode
+        python -m manga_translator local -v -i $InputPath $Mode $ExtraArgs
 
         if ($LASTEXITCODE -ne 0) {
             Throw "Manga Image Translator Ran into Exception!`nEXIT CODE: $LASTEXITCODE."
