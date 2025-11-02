@@ -21,7 +21,7 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>The use of `settings.json` has been integrated to make the launcher-related settings more convenient and persistent.</mark>
+### <mark>The use of `settings.json` has been integrated to make the launcher-related settings more convenient and persistent. However, you need to download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) manually because it's excluded from the update.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -238,7 +238,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.
 > - <mark>Add XPU (Intel GPU) support. Currently, it's still untested and its integration may break some other things, like [AttributeError: module 'torch.backends' has no attribute 'xpu'](https://github.com/Mayonnaisu/manga-image-translator/commit/b6a82830357f06fb93519f32a2602db4c4f92f1b). If you encounter any error, feel free to create an [issue about it](https://github.com/Mayonnaisu/manga-image-translator/issues). I will try my best to fix it.</mark>
 > - <mark>Improve `MIT-updater.ps1` and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.</mark>
-> - <mark>Integrate the use of `settings.json` to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode.</mark>
+> - <mark>Integrate the use of `settings.json` to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode. However, since it's excluded from the update, you need to download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) manually.</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
