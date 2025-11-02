@@ -2,7 +2,7 @@
   "GlobalSettings": {
     "gpu_mode": false,
     "gpu_model": "?",
-    "supported_gpu_model": [
+    "supported_gpu_models": [
       "nvidia",
       "amd",
       "intel"
