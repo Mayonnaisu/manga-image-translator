@@ -27,7 +27,7 @@
     "gpu_mode": null,
     "merged_image_number": 1,
     "split_part_number": "original",
-    "delete_merged_images": false,
+    "delete_merged_images": true,
     "clean_result_folder": null,
     "extra_arguments": [
       "--config-file './examples/my-config.json'"
