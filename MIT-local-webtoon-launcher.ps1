@@ -109,7 +109,7 @@ try {
     try {
         Write-Host "`nRunning Manga Image Translator in Local Mode... " -ForegroundColor Yellow
 
-        & python -m manga_translator local -v -i "$($InputPath)_merged" $Mode $ExtraArgs
+        python -m manga_translator local -v -i "$($InputPath)_merged" $Mode $ExtraArgs
 
         if ($LASTEXITCODE -ne 0) {
             Throw "Manga Image Translator Ran into Exception!`nEXIT CODE: $LASTEXITCODE."

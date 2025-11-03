@@ -11,7 +11,7 @@
     "extra_arguments_example": [
       "--config-file './examples/my-config.json'",
       "--font-path './fonts/anime_ace_3.ttf'",
-      "--overwrite ",
+      "--overwrite",
       "Refer to https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#basic-options",
       "No global settings for extra arguments, btw."
     ]
