@@ -2,24 +2,7 @@
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
-# Get & display PowerShell version
-$PowerShellVersion = (Get-Host).Version.ToString()
-Write-Host "PowerShell $PowerShellVersion"
-
-# Start the installer
-Write-Host "`nStarting Installer..." -ForegroundColor Yellow
-
-# Clear previous errors
-$Error.Clear()
-
-$LogErrorInstallDependencyPath = ".\Temp\log_errors-install-dependency.txt"
-if (Test-Path -Path $LogErrorInstallDependencyPath -PathType Leaf) {
-    Remove-Item -Path $LogErrorInstallDependencyPath -Force
-}
-
-# Create separate script for installing MIT dependencies in new window later on
-New-Item -Path ".\Temp" -ItemType Directory -Force
-
+# Define separate script for installing MIT dependencies in a new window later
 $DependencyInstallerPath = ".\Temp\dependency-installer.ps1"
 
 $DependencyInstaller = @'
@@ -98,10 +81,27 @@ Write-Host "`nMIT Dependencies Installed." -ForegroundColor DarkGreen
 exit 0
 '@
 
-Set-Content -Path $DependencyInstallerPath -Value $DependencyInstaller
-
 # Start the installation
 try {
+    # Clear previous errors
+    $Error.Clear()
+
+    $LogErrorInstallDependencyPath = ".\Temp\log_errors-install-dependency.txt"
+    if (Test-Path -Path $LogErrorInstallDependencyPath -PathType Leaf) {
+        Remove-Item -Path $LogErrorInstallDependencyPath -Force
+    }
+
+    # Display PowerShell version & start message
+    $PowerShellVersion = (Get-Host).Version.ToString()
+    Write-Host "PowerShell $PowerShellVersion"
+
+    Write-Host "`nStarting Installer..." -ForegroundColor Yellow
+
+    # Create folder and dependency-installer.ps1
+    New-Item -Path ".\Temp" -ItemType Directory -Force
+
+    Set-Content -Path $DependencyInstallerPath -Value $DependencyInstaller
+
     # Install Microsoft C++ Build Tools
     Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
