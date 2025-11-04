@@ -1,6 +1,9 @@
-# Change global preference for all error to terminate the process
+# Change global preference for all errors to terminate the process
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
+
+# Suppress the default progress bar because it slows down process in stock PowerShell (5.1). See https://github.com/PowerShell/PowerShell/issues/2138.
+$ProgressPreference = 'SilentlyContinue'
 
 # Define separate script for installing MIT dependencies in a new window later
 $DependencyInstallerPath = ".\Temp\dependency-installer.ps1"
@@ -91,6 +94,9 @@ try {
         Remove-Item -Path $LogErrorInstallDependencyPath -Force
     }
 
+    # Import module
+    Import-Module ".\my_tools\downloader.psm1"
+
     # Display PowerShell version & start message
     $PowerShellVersion = (Get-Host).Version.ToString()
     Write-Host "PowerShell $PowerShellVersion"
@@ -105,14 +111,15 @@ try {
     # Install Microsoft C++ Build Tools
     Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
 
+    $MsixBundleUrl = "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
     $MsixBundlePath = ".\Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle"
 
     if (Test-Path $MsixBundlePath) {
         Write-Host "`nWinGet Already Exists at '$MsixBundlePath'. Skipping Download."
     } else {
-        Write-Host "`nWinGet Not Found at '$MsixBundlePath'. Initiating Download..."
+        Write-Host "`nWinGet Not Found at '$MsixBundlePath'.`n`nDownloading from '$MsixBundleUrl'..."
         try {
-            Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle" -OutFile $MsixBundlePath -ErrorAction Stop
+            Start-ResumableBitsDownload -JobName "WinGet" -SourceUrl $MsixBundleUrl -DestinationPath $MsixBundlePath
 
             Write-Host "`nWinGet Downloaded Successfully to '$MsixBundlePath'."
         } catch {
@@ -120,14 +127,15 @@ try {
         }
     }
 
+    $DependencyZipUrl = "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip"
     $DependencyZipPath = ".\Temp\DesktopAppInstaller_Dependencies.zip"
 
     if (Test-Path $DependencyZipPath) {
         Write-Host "`nWinGet Dependencies Already Exists at '$DependencyZipPath'. Skipping Download."
     } else {
-        Write-Host "`nWinGet Dependencies Not Found at '$DependencyZipPath'. Initiating Download..."
+        Write-Host "`nWinGet Dependencies Not Found at '$DependencyZipPath'.`n`nDownloading from '$DependencyZipUrl'..."
         try {
-            Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/latest/download/DesktopAppInstaller_Dependencies.zip" -OutFile $DependencyZipPath -ErrorAction Stop
+            Start-ResumableBitsDownload -JobName "WinGet-Depedencies" -SourceUrl $DependencyZipUrl -DestinationPath $DependencyZipPath
 
             Write-Host "`nWinGet Dependencies Downloaded Successfully to '$DependencyZipPath'."
         } catch {
@@ -140,7 +148,7 @@ try {
     try {
         Write-Host "`nInstalling WinGet..."
 
-        Expand-Archive -Path $DependencyZipPath -DestinationPath ".\Temp\DesktopAppInstaller_Dependencies" -Force
+        Expand-ArchiveWithProgress -ArchivePath $DependencyZipPath -DestinationPath ".\Temp\DesktopAppInstaller_Dependencies"
 
         $Dependencies = Get-ChildItem -Path $DependencyFolderPath -Filter "*.appx*" | Select-Object -ExpandProperty FullName
 

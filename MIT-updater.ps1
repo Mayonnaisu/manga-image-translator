@@ -1,8 +1,11 @@
-### VERSION 1.0 ###
+### VERSION 1.1 ###
 
 # Change global preference for all error to terminate the process
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
+
+# Suppress the default progress bar because it slows down process in stock PowerShell (5.1). See https://github.com/PowerShell/PowerShell/issues/2138.
+$ProgressPreference = 'SilentlyContinue'
 
 # Define update url & path
 $repoUrl = "https://github.com/Mayonnaisu/manga-image-translator/archive/refs/heads/main.zip"
@@ -14,25 +17,30 @@ try {
     Write-Host "PowerShell $PowerShellVersion"
 
     # Download the latest .zip file from my repo
+    Import-Module ".\my_tools\downloader.psm1"
     Write-Host "`nDownloading Update from $repoUrl..." -ForegroundColor Yellow
 
     if (-not (Test-Path -Path ".\Temp" -PathType Container)) {
         New-Item -Path ".\Temp" -ItemType Directory -Force | Out-Null
     }
 
-    Invoke-WebRequest -Uri $repoUrl -OutFile $downloadPath -ErrorAction Stop
+    Start-ResumableBitsDownload -JobName "Mayonnaisu-MIT" -SourceUrl $repoUrl -DestinationPath $downloadPath
 
     Write-Host "`nUpdate Downloaded to $downloadPath." -ForegroundColor Green
 
     try {
         # Extract repo.zip
+        Write-Host "`nExtracting Update Contents..." -ForegroundColor Yellow
+
         $extractPath = ".\Temp\repo"
 
-        Expand-Archive -Path $downloadPath -DestinationPath $extractPath -Force
+        Expand-ArchiveWithProgress -ArchivePath $downloadPath -DestinationPath $extractPath
 
-        $extractedContentPath = Get-ChildItem -Path $extractPath
+        Write-Host "`nUpdate Contents Extracted to $extractPath." -ForegroundColor Green
 
         # Delete the excluded files from the extracted content
+        $extractedContentPath = Get-ChildItem -Path $extractPath
+
         $filesToExclude = @(
             ".env",
             "examples\my-config.json",

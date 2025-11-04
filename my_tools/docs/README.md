@@ -226,7 +226,7 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ## UPDATE
 > [!IMPORTANT]
 > **Change Logs:**
-> - Improve error handling. Some errors are not captured properly by PowerShell. I'm still grappling with it ⚔️.
+> - Improve error handling. Some errors are not captured properly by Windows PowerShell (stock/5.1). I'm still grappling with it ⚔️.
 > - Change the default image merging function for `MIT-local-webtoon-launcher.ps1` back to merge into 1 image instead of 2 (**customizable:** in `settings.json`, change `"merged_image_number": 1`  to another number).
 > - After translation, images are merged into 1 before being splitted into the number of parts as the input images if the specified merged image number is greater than 1.
 > - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `settings.json`).
@@ -238,8 +238,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.
 > - Add XPU (Intel GPU) support. Currently, it's still untested and its integration may break some other things, like [AttributeError: module 'torch.backends' has no attribute 'xpu'](https://github.com/Mayonnaisu/manga-image-translator/commit/b6a82830357f06fb93519f32a2602db4c4f92f1b). If you encounter any error, feel free to create an [issue about it](https://github.com/Mayonnaisu/manga-image-translator/issues). I will try my best to fix it.
 > - Improve `MIT-updater.ps1` and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.
-> - <mark>Integrate the use of `settings.json` to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode. However, since it's excluded from the update, you need to manually download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to `my_tools` folder.</mark>
+> - Integrate the use of `settings.json` to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode. However, since it's excluded from the update, you need to manually download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to `my_tools` folder.
 > - <mark>Add `extra_arguments` to `settings.json` to accomodate other MIT arguments besides `-i/--input` & `--use-gpu`. Update and re-download/copy [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) to get it.</mark>
+> - <mark>Improve download and extraction speeds for `MIT-installer.ps1` and `MIT-updater.ps1`. I had to replace some functions and *optionally* add `downloader.psm1` to achieve that. All of these are caused by a bug in Windows PowerShell, which has been fixed in PowerShell Core. Basically, the bug causes the default progress bar to  significantly slow down the running process. See https://github.com/PowerShell/PowerShell/issues/2138.</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
