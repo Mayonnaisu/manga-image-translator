@@ -105,6 +105,7 @@ function Start-ResumableBitsDownload {
     }
 }
 
+# Define function to extract archive file
 function Expand-ArchiveWithProgress {
     param (
         [string]$ArchivePath,
