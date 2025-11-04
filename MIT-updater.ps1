@@ -12,12 +12,14 @@ $repoUrl = "https://github.com/Mayonnaisu/manga-image-translator/archive/refs/he
 $downloadPath = ".\Temp\repo.zip"
 
 try {
+    # Import module/s
+    Import-Module ".\my_tools\downloader.psm1"
+
     # Display PowerShell version
     $PowerShellVersion = (Get-Host).Version.ToString()
     Write-Host "PowerShell $PowerShellVersion"
 
     # Download the latest .zip file from my repo
-    Import-Module ".\my_tools\downloader.psm1"
     Write-Host "`nDownloading Update from $repoUrl..." -ForegroundColor Yellow
 
     if (-not (Test-Path -Path ".\Temp" -PathType Container)) {

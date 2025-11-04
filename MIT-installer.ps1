@@ -94,7 +94,7 @@ try {
         Remove-Item -Path $LogErrorInstallDependencyPath -Force
     }
 
-    # Import module
+    # Import module/s
     Import-Module ".\my_tools\downloader.psm1"
 
     # Display PowerShell version & start message
