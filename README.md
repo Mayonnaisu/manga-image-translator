@@ -18,6 +18,8 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
+### <mark>I just realized that the installer is broken. Not sure since when, but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one. The source of the error is pyenv-win requires the terminal to be closed and reopen for its installation. So, it still works as long as you run the installer 2x (you may need to remove `--force` from the command to install Microsoft C++ Build Tools if you don't want to redownload & reinstall it).</mark>
+
 ### <mark>Unblock `downloader.psm1` in `my_tools` folder to be able to run `MIT-installer.ps1` & `MIT-updater.ps1`. See [how](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
 
 ### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
