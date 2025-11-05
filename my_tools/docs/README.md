@@ -21,6 +21,8 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
+### <mark>Unblock `downloader.psm1` in `my_tools` folder to be able to run `MIT-installer.ps1` & `MIT-updater.ps1`. See [how](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
+
 ### <mark>The use of `settings.json` has been integrated to make the launcher-related settings more convenient and persistent. However, you need to download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to `my_tools` folder manually because it's excluded from the update.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
