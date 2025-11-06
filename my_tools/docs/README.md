@@ -5,7 +5,9 @@
 *   [INSTALLATION](#installation)
 *   [CONFIGURATION](#configuration)
     *   [Required](#required)
-    *   [Optional](#optional)   
+    *   [Optional](#optional)
+        * [MIT config](#mit-config)
+        * [Launcher config](#launcher-config)
 *   [USAGE (CPU MODE)](#usage-cpu-mode)
     *   [Local Mode](#local-mode)
     *   [Local Webtoon Mode](#local-webtoon-mode)
@@ -89,9 +91,31 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 3. Save.
 
 ### Optional
-1. Open **my-config.json** and **gpt_config-example.yaml** in **examples** folder & **settings.json** in **my_tools** folder with text/code editor.
+#### MIT config
+1. Open **my-config.json** and **gpt_config-example.yaml** in **examples** folder with text/code editor.
 2. Change the settings as you see fit.
 3. Save.
+
+See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#configuration-file and https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#gpt-configuration-reference.
+
+#### Launcher config
+1. Open **settings.json** in **my_tools** folder with text/code editor.
+2. Change the settings as you see fit.
+3. Save.
+
+```json
+gpu_mode							true/false
+gpu_model							"nvidia"/"amd"/"intel"
+clean_result_folder					true/false
+merged_image_number					number
+split_part_number					number/"original"
+delete_merged_images				true/false
+server_host							"127.0.0.1"/"IP Adress"/others
+server_port							"8000"/others
+extra_arguments						["--arg 1", "--arg 2", "--arg 3"]
+
+Use null to fall back to the value in GlobalSettings (if available)
+```
 
 ## USAGE (CPU MODE)
 > [!NOTE]
