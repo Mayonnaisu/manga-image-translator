@@ -21,9 +21,9 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Unblock `downloader.psm1` in `my_tools` folder to be able to run `MIT-installer.ps1` & `MIT-updater.ps1`. See [how](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
+### <mark>Unblock **downloader.psm1** in **my_tools** folder to be able to run **MIT-installer.ps1** & **MIT-updater.ps1**. See [how](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
 
-### <mark>The use of `settings.json` has been integrated to make the launcher-related settings more convenient and persistent. However, you need to download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to `my_tools` folder manually because it's excluded from the update.</mark>
+### <mark>The use of **settings.json** has been integrated to make the launcher-related settings more convenient and persistent. However, you need to download [settings.json](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to **my_tools** folder manually because it's excluded from the update.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
@@ -39,7 +39,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add .env file
 - Add PyTorch checker
 - Add folder selection feature
-- Add XPU (Intel GPU) support. (**untested**)
+- Add XPU (Intel GPU) support (**untested**)
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
 - Use recommended configurations by default
@@ -63,12 +63,12 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-5. <mark>Go to `my_tools` folder.</mark>
-6. <mark>Right click on `downloader.psm1`.</mark>
+5. <mark>Go to **my_tools** folder.</mark>
+6. <mark>Right click on **downloader.psm1**.</mark>
 7. <mark>Select "Properties".</mark>
 8. <mark>Check "Unblock" > Apply.</mark>
 9. Go back to main/root folder.
-10. Right click on `MIT-installer.ps1`.
+10. Right click on **MIT-installer.ps1**.
 11. Select "Run with PowerShell".
 12. Select "Yes" when UAC prompt pops up.
 13. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
@@ -84,34 +84,33 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## CONFIGURATION
 ### Required
-1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
+1. Open **.env** file with text/code editor (Notepad, VS Code, etc).
 2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
 
 ### Optional
-1. Go to examples folder.
-2. Open `my-config.json` & `gpt_config-example.yaml` with text/code editor.
-3. Change the settings as you see fit.
-4. Save.
+1. Open **my-config.json** and **gpt_config-example.yaml** in **examples** folder & **settings.json** in **my_tools** folder with text/code editor.
+2. Change the settings as you see fit.
+3. Save.
 
 ## USAGE (CPU MODE)
 > [!NOTE]
 > - All local modes support batch translation.
-> - The first time you run the program, it will automatically download the selected detection, OCR, & inpainting models. After that, it won't need to do it again, unless you have changed the relevant configurations in `my-config.json`.
+> - The first time you run the program, it will automatically download the selected detection, OCR, & inpainting models. After that, it won't need to do it again, unless you have changed the relevant configurations in **my-config.json**.
 ### Local Mode
-1. Right click on `MIT-local-launcher.ps1`.
+1. Right click on **MIT-local-launcher.ps1**.
 2. Select "Run with PowerShell".
 3. Select a folder containing your manga/hwa/hua.
 
 ### Local Webtoon Mode
 > [!WARNING]
 > This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#webtoon-mode)
-1. Right click on `MIT-local-webtoon-launcher.ps1`.
+1. Right click on **MIT-local-webtoon-launcher.ps1**.
 2. Select "Run with PowerShell".
 3. Select a folder containing your manga/hwa/hua.
 
 ### Web Mode
-1. Right click on `MIT-web-launcher.ps1`.
+1. Right click on **MIT-web-launcher.ps1**.
 2. Select "Run with PowerShell".
 3. Visit http://127.0.0.1:8000 (default).
 4. Press Q to stop the server.
@@ -156,10 +155,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	> python -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/cu130
 	> ```
 2. Verify PyTorch version.
-	- Go to `my_tools` folder.
-	- Run `pytorch-checker.ps1`.
+	- Go to **my_tools** folder.
+	- Run **pytorch-checker.ps1**.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. Modify `settings.json` in `my_tools` folder.
+3. Modify **settings.json** in **my_tools** folder.
 	- Change `gpu_mode` value from `false` to `true`.
 	- Change `gpu_model` value from `"?"` to one of the models in `supported_gpu_models`.
 
@@ -204,10 +203,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	> pip cache purge
 	> ```
 2. Verify PyTorch version.
-	- Go to `my_tools` folder.
-	- Run `pytorch-checker.ps1`.
+	- Go to **my_tools** folder.
+	- Run **pytorch-checker.ps1**.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. Modify `settings.json` in `my_tools` folder.
+3. Modify **settings.json** in **my_tools** folder.
 	- Change `gpu_mode` value from `false` to `true`.
 	- Change `gpu_model` value from `"?"` to one of the models in `supported_gpu_models`.
 
@@ -223,10 +222,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 	> python -m pip install --upgrade --force-reinstall torch torchvision --index-url https://download.pytorch.org/whl/xpu
 	> ```
 2. Verify PyTorch version.
-	- Go to `my_tools` folder.
-	- Run `pytorch-checker.ps1`.
+	- Go to **my_tools** folder.
+	- Run **pytorch-checker.ps1**.
 	- Make sure it shows ${{\color{lightgreen}{\textsf{PyTorch GPU}}}}\$.
-3. Modify `settings.json` in `my_tools` folder.
+3. Modify **settings.json** in **my_tools** folder.
 	- Change `gpu_mode` value from `false` to `true`.
 	- Change `gpu_model` value from `"?"` to one of the models in `supported_gpu_models`.
 
@@ -234,20 +233,20 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > [!IMPORTANT]
 > **Change Logs:**
 > - Improve error handling. Some errors are not captured properly by Windows PowerShell (stock/5.1). I'm still grappling with it ⚔️.
-> - Change the default image merging function for `MIT-local-webtoon-launcher.ps1` back to merge into 1 image instead of 2 (**customizable:** in `settings.json`, change `"merged_image_number": 1`  to another number).
+> - Change the default image merging function for **MIT-local-webtoon-launcher.ps1** back to merge into 1 image instead of 2 (**customizable:** in **settings.json**, change `"merged_image_number": 1`  to another number).
 > - After translation, images are merged into 1 before being splitted into the number of parts as the input images if the specified merged image number is greater than 1.
-> - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in `settings.json`).
-> - Set the option to automatically clean up MIT `result` folder, excluding log files, by default (**customizable** globally or individually in `settings.json`).
+> - Remove delete confirmation for merged images & set the option to automatically delete by default (**customizable** in **settings.json**).
+> - Set the option to automatically clean up MIT **result** folder, excluding log files, by default (**customizable** globally or individually in **settings.json**).
 > - Add support for processing single folder to Webtoon Mode.
-> - Add option to specify the number of split parts for `MIT-local-webtoon-launcher.ps1` in `settings.json` (Change "original" in `"split_part_number": "original"` to a number without quotes).
-> - Replace `MIT-input-path.txt` usage with folder selection feature. But, there will be new `MIT-input-path.txt` in `my_tools` folder to save the last selected folder path for persistence.
-> - Add option to change server host/bind & port for `MIT-web-launcher.ps1` in `settings.json`. For example, change `"server_host": "127.0.0.1"` to `"server_host": "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device on the same network via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000). **It's really important to note that using "IP Address" also allows others to access your program because the MIT server doesn't have a form of authentication. So, make sure you're at least on a trusted and secure network.**
-> - Use Q keypress to properly stop `MIT-web-launcher.ps1`, preventing the terminal from getting closed before cleaning up `result` folder.
+> - Add option to specify the number of split parts for **MIT-local-webtoon-launcher.ps1** in **settings.json** (Change "original" in `"split_part_number": "original"` to a number without quotes).
+> - Replace **MIT-input-path.txt** usage with folder selection feature. But, there will be new **MIT-input-path.txt** in **my_tools** folder to save the last selected folder path for persistence.
+> - Add option to change server host/bind & port for **MIT-web-launcher.ps1** in **settings.json**. For example, change `"server_host": "127.0.0.1"` to `"server_host": "IP Address"` to automatically get your PC internal IP address and make the program accessible from another device on the same network via `http://<your actual IP address>:8000` (e.g. http://192.168.1.3:8000). **It's really important to note that using "IP Address" also allows others to access your program because the MIT server doesn't have a form of authentication. So, make sure you're at least on a trusted and secure network.**
+> - Use Q keypress to properly stop **MIT-web-launcher.ps1**, preventing the terminal from getting closed before cleaning up **result** folder.
 > - Add XPU (Intel GPU) support. Currently, it's still untested and its integration may break some other things, like [AttributeError: module 'torch.backends' has no attribute 'xpu'](https://github.com/Mayonnaisu/manga-image-translator/commit/b6a82830357f06fb93519f32a2602db4c4f92f1b). If you encounter any error, feel free to create an [issue about it](https://github.com/Mayonnaisu/manga-image-translator/issues). I will try my best to fix it.
-> - Improve `MIT-updater.ps1` and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.
-> - Integrate the use of `settings.json` to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode. However, since it's excluded from the update, you need to manually download [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to `my_tools` folder.
-> - <mark>Add `extra_arguments` to `settings.json` to accomodate other MIT arguments besides `-i/--input` & `--use-gpu`. Update and re-download/copy [`settings.json`](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) to get it.</mark>
-> - <mark>Improve download and extraction speeds for `MIT-installer.ps1` and `MIT-updater.ps1`. I had to disable progress bar, replace some functions, and *optionally* add `downloader.psm1` to achieve that. All of these are caused by a bug in Windows PowerShell, which has been fixed in PowerShell Core. Basically, the bug causes the default progress bar to  significantly slow down the running process. See https://github.com/PowerShell/PowerShell/issues/2138. To use the module, you need to [unblock `downloader.psm1`](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation)</mark>
+> - Improve **MIT-updater.ps1** and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.
+> - Integrate the use of **settings.json** to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode. However, since it's excluded from the update, you need to manually download [settings.json](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to **my_tools** folder.
+> - <mark>Add `extra_arguments` to **settings.json** to accomodate other MIT arguments besides `-i/--input` & `--use-gpu`. Update and re-download/copy [**settings.json**](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) to get it.</mark>
+> - <mark>Improve download and extraction speeds for **MIT-installer.ps1** and **MIT-updater.ps1**. I had to disable progress bar, replace some functions, and *optionally* add **downloader.psm1** to achieve that. All of these are caused by a bug in Windows PowerShell, which has been fixed in PowerShell Core. Basically, the bug causes the default progress bar to  significantly slow down the running process. See https://github.com/PowerShell/PowerShell/issues/2138. To use the module, you need to [unblock **downloader.psm1**](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation)</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
@@ -259,9 +258,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 > - `.\examples\my-config.json`
 > - `.\examples\gpt_config-example.yaml`
 > - `.\my_tools\settings.json`
-1. Download `MIT-updater.ps1`.
-	> only if there is no `### VERSION ###` in your `MIT-updater.ps1`.
-2. Move it to your `manga-image-translator-main` folder.
+1. Download **MIT-updater.ps1**.
+	> only if there is no `### VERSION ###` in your **MIT-updater.ps1**.
+2. Move it to your **manga-image-translator-main** folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
 
@@ -308,9 +307,9 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 #### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
-- Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in `my-config.json` to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
+- Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in **my-config.json** to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file, or the translator in `my-config.json`.
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in **.env** file, or the translator in **my-config.json**.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
 - ~~Error when MIT inpainting an extremely long image. MIT inpainter (or PyTorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**

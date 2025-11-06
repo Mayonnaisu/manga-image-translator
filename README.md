@@ -18,9 +18,9 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>I just realized that the installer is broken. Not sure since when (probably since I improved the error handling 🙃), but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one. The source of the error is pyenv-win requires the terminal to be closed and reopened for its installation. So, it still works as long as you run the installer 2x (you may need to remove the commands for installing Microsoft C++ Build Tools if you don't want to redownload & reinstall it).</mark>
+### <mark>I just realized that the installer is broken. Not sure since when (probably since I improved the error handling 🙃), but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one. The source of the error is pyenv-win requires the terminal to be closed and reopened for its installation. So, it still works as long as you run the installer 2x (you may need to remove the commands for installing Microsoft C++ Build Tools if you don't want to redownload & reinstall it). See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
 
-### <mark>Unblock `downloader.psm1` in `my_tools` folder to be able to run `MIT-installer.ps1` & `MIT-updater.ps1`. See [how](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
+### <mark>Unblock **downloader.psm** in **my_tools** folder to be able to run MIT-installer.ps1 & **MIT-updater.ps1**. See [how](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
 
 ### <mark>Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
 
@@ -38,7 +38,7 @@ This fork doesn't change the core functions of the original program. This is sti
 - Add .env file
 - Add PyTorch checker
 - Add folder selection feature
-- Add XPU (Intel GPU) support. (**untested**)
+- Add XPU (Intel GPU) support (**untested**)
 - Improve handling of webtoon format (🛠️**working but need improvement**)
 - Sort input folders in natural order
 - Use recommended configurations by default
@@ -62,12 +62,12 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-5. <mark>Go to `my_tools` folder.</mark>
-6. <mark>Right click on `downloader.psm1`.</mark>
+5. <mark>Go to **my_tools** folder.</mark>
+6. <mark>Right click on **downloader.psm1**.</mark>
 7. <mark>Select "Properties".</mark>
 8. <mark>Check "Unblock" > Apply.</mark>
 9. Go back to main/root folder.
-10. Right click on `MIT-installer.ps1`.
+10. Right click on **MIT-installer.ps1**.
 11. Select "Run with PowerShell".
 12. Select "Yes" when UAC prompt pops up.
 13. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
@@ -83,34 +83,33 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
 ## CONFIGURATION
 ### Required
-1. Open `.env` file with text/code editor (Notepad, VS Code, etc).
+1. Open **.env** file with text/code editor (Notepad, VS Code, etc).
 2. Paste your [Gemini API key](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#how-to-get-gemini-api-key) between the quotation marks.
 3. Save.
 
 ### Optional
-1. Go to examples folder.
-2. Open `my-config.json` & `gpt_config-example.yaml` with text/code editor.
-3. Change the settings as you see fit.
-4. Save.
+1. Open **my-config.json** and **gpt_config-example.yaml** in **examples** folder & **settings.json** in **my_tools** folder with text/code editor.
+2. Change the settings as you see fit.
+3. Save.
 
 ## USAGE (CPU MODE)
 > [!NOTE]
 > - All local modes support batch translation.
-> - The first time you run the program, it will automatically download the selected detection, OCR, & inpainting models. After that, it won't need to do it again, unless you have changed the relevant configurations in `my-config.json`.
+> - The first time you run the program, it will automatically download the selected detection, OCR, & inpainting models. After that, it won't need to do it again, unless you have changed the relevant configurations in **my-config.json**.
 ### Local Mode
-1. Right click on `MIT-local-launcher.ps1`.
+1. Right click on **MIT-local-launcher.ps1**.
 2. Select "Run with PowerShell".
 3. Select a folder containing your manga/hwa/hua.
 
 ### Local Webtoon Mode
 > [!WARNING]
 > This launcher has [a really high RAM usage!](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#webtoon-mode)
-1. Right click on `MIT-local-webtoon-launcher.ps1`.
+1. Right click on **MIT-local-webtoon-launcher.ps1**.
 2. Select "Run with PowerShell".
 3. Select a folder containing your manga/hwa/hua.
 
 ### Web Mode
-1. Right click on `MIT-web-launcher.ps1`.
+1. Right click on **MIT-web-launcher.ps1**.
 2. Select "Run with PowerShell".
 3. Visit http://127.0.0.1:8000 (default).
 4. Press Q to stop the server.
@@ -147,9 +146,9 @@ Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_t
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first. For more info, see [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools?tab=readme-ov-file#update).
 
-1. Download `MIT-updater.ps1`.
-	> only if there is no `### VERSION ###` in your `MIT-updater.ps1`.
-2. Move it to your `manga-image-translator-main` folder.
+1. Download **MIT-updater.ps1**.
+	> only if there is no `### VERSION ###` in your **MIT-updater.ps1**.
+2. Move it to your **manga-image-translator-main** folder.
 3. Right click on it > Run with PowerShell.
 4. Wait until you get ${{\color{lightgreen}{\textsf{UPDATE COMPLETED!}}}}\$ message.
 
@@ -196,9 +195,9 @@ Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_t
 #### Cons
 - Slower and heavier.
 - Speech bubbles are dirtier.
-- Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in `my-config.json` to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
+- Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in **my-config.json** to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in `.env` file or the translator in `my-config.json`.
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in **.env** file or the translator in **my-config.json**.
 
 > [!NOTE]
 > The webtoon mode can use up to around 20GB RAM on my laptop.
