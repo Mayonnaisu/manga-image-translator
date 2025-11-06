@@ -118,8 +118,6 @@ function Expand-ArchiveWithProgress {
     $totalEntries = $zipFile.Entries.Count
     $i = 0
 
-    Write-Progress -Activity "Expanding Archive" -Status "Initializing..." -PercentComplete 0
-
     foreach ($entry in $zipFile.Entries) {
         $i++
         $percentComplete = [int](($i / $totalEntries) * 100)
@@ -141,7 +139,6 @@ function Expand-ArchiveWithProgress {
     }
 
     $zipFile.Dispose()
-    Write-Progress -Activity "Expanding Archive" -Status "Extraction Complete" -PercentComplete 100 -Completed
 }
 
 Export-ModuleMember -Function Start-ResumableBitsDownload, Expand-ArchiveWithProgress
