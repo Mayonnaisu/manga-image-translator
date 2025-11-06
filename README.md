@@ -20,8 +20,6 @@
 ## NOTICE
 ### <mark>I just realized that the installer is broken. Not sure since when (probably since I improved the error handling 🙃), but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one. The source of the error is pyenv-win requires the terminal to be closed and reopened for its installation. So, it still works as long as you run the installer 2x (you may need to remove the commands for installing Microsoft C++ Build Tools if you don't want to redownload & reinstall it). See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
 
-### <mark>Unblock **downloader.psm** in **my_tools** folder to be able to run MIT-installer.ps1 & **MIT-updater.ps1**. See [how](https://github.com/Mayonnaisu/manga-image-translator?tab=readme-ov-file#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
-
 ### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 
 ### Since the guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#-directory).
@@ -62,15 +60,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-5. <mark>Go to **my_tools** folder.</mark>
-6. <mark>Right click on **downloader.psm1**.</mark>
-7. <mark>Select "Properties".</mark>
-8. <mark>Check "Unblock" > Apply.</mark>
-9. Go back to main/root folder.
-10. Right click on **MIT-installer.ps1**.
-11. Select "Run with PowerShell".
-12. Select "Yes" when UAC prompt pops up.
-13. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
+5. Right click on **MIT-installer.ps1**.
+6. Select "Run with PowerShell".
+7. Select "Yes" when UAC prompt pops up.
+8. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
 > [!TIP]
 > If you get a warning when opening the installer, uncheck the option, then Open. If you don't do this, the script won't be able to run properly.
 	<details>

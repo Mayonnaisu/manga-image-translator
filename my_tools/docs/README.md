@@ -23,8 +23,6 @@
     *   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>Unblock **downloader.psm1** in **my_tools** folder to be able to run **MIT-installer.ps1** & **MIT-updater.ps1**. See [how](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation) and [why](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).</mark>
-
 ### <mark>The use of **settings.json** has been integrated to make the launcher-related settings more convenient and persistent. However, you need to download [settings.json](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to **my_tools** folder manually because it's excluded from the update.</mark>
 
 ### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
@@ -65,15 +63,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 ```
 3. Enter y or yes.
 4. Close the PowerShell.
-5. <mark>Go to **my_tools** folder.</mark>
-6. <mark>Right click on **downloader.psm1**.</mark>
-7. <mark>Select "Properties".</mark>
-8. <mark>Check "Unblock" > Apply.</mark>
-9. Go back to main/root folder.
-10. Right click on **MIT-installer.ps1**.
-11. Select "Run with PowerShell".
-12. Select "Yes" when UAC prompt pops up.
-13. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
+5. Right click on **MIT-installer.ps1**.
+6. Select "Run with PowerShell".
+7. Select "Yes" when UAC prompt pops up.
+8. Wait until you get ${{\color{lightgreen}{\textsf{INSTALLATION COMPLETED!}}}}\$ message.
 > [!TIP]
 > If you get a warning when opening the installer, uncheck the option, then Open. If you don't do this, the script won't be able to run properly.
 	<details>
@@ -270,7 +263,7 @@ Use null to fall back to the value in GlobalSettings (if available)
 > - Improve **MIT-updater.ps1** and remove `MIT-update-content.ps1`. As the number of modified files increases, I decided to just download all files from the repo as .zip file. Unfortunately, in some locations, downloading from GitHub can be extremely slow, so it's recommened to use VPN/proxy when updating.
 > - Integrate the use of **settings.json** to make the launcher-related settings convenient to change and unaltered by the update. This also eliminates the need to modify MIT commands and codes in every launcher when using GPU Mode. However, since it's excluded from the update, you need to manually download [settings.json](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to **my_tools** folder.
 > - <mark>Add `extra_arguments` to **settings.json** to accomodate other MIT arguments besides `-i/--input` & `--use-gpu`. Update and re-download/copy [**settings.json**](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) to get it.</mark>
-> - <mark>Improve download and extraction speeds for **MIT-installer.ps1** and **MIT-updater.ps1**. I had to disable progress bar, replace some functions, and *optionally* add **downloader.psm1** to achieve that. All of these are caused by a bug in Windows PowerShell, which has been fixed in PowerShell Core. Basically, the bug causes the default progress bar to  significantly slow down the running process. See https://github.com/PowerShell/PowerShell/issues/2138. To use the module, you need to [unblock **downloader.psm1**](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation)</mark>
+> - <mark>Improve download and extraction speeds for **MIT-installer.ps1** and **MIT-updater.ps1**. I had to disable progress bar, replace some functions, and *optionally* add **downloader.psm1** to achieve that. All of these are caused by a bug in Windows PowerShell, which has been fixed in PowerShell Core. Basically, the bug causes the default progress bar to  significantly slow down the running process. See https://github.com/PowerShell/PowerShell/issues/2138. ~~To use the module, you may need to [unblock **downloader.psm1**](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#installation)~~</mark>
 
 > [!WARNING]
 > This updater will replace the old files with the newer ones, so make sure to back up the files you want to keep first.
