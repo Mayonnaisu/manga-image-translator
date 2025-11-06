@@ -143,14 +143,26 @@ try {
         }
     }
 
-    $DependencyFolderPath = ".\Temp\DesktopAppInstaller_Dependencies\x64"
+    $DependencyFolder = ".\Temp\DesktopAppInstaller_Dependencies"
 
     try {
         Write-Host "`nInstalling WinGet..."
 
-        Expand-ArchiveWithProgress -ArchivePath $DependencyZipPath -DestinationPath ".\Temp\DesktopAppInstaller_Dependencies"
+        $OSArchitecture = (Get-CimInstance -ClassName Win32_OperatingSystem).OSArchitecture
 
-        $Dependencies = Get-ChildItem -Path $DependencyFolderPath -Filter "*.appx*" | Select-Object -ExpandProperty FullName
+        if ($OSArchitecture -eq "ARM64") {
+            $DependencyPath = "$DependencyFolder\arm64"
+        } elseif ($OSArchitecture -eq "64-bit") {
+            $DependencyPath = "$DependencyFolder\x64"
+        } elseif ($OSArchitecture -eq "32-bit") {
+            $DependencyPath = "$DependencyFolder\x86"
+        } else {
+            $DependencyPath = "$DependencyFolder\x64"
+        }
+
+        Expand-ArchiveWithProgress -ArchivePath $DependencyZipPath -DestinationPath $DependencyFolder
+
+        $Dependencies = Get-ChildItem -Path $DependencyPath -Filter "*.appx*" | Select-Object -ExpandProperty FullName
 
         Add-AppxPackage -Path $MsixBundlePath -DependencyPath $Dependencies -Confirm:$False
 
