@@ -103,7 +103,7 @@ See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#configu
 2. Change the settings as you see fit.
 3. Save.
 
-```json
+```
 gpu_mode							true/false
 gpu_model							"nvidia"/"amd"/"intel"
 clean_result_folder					true/false
