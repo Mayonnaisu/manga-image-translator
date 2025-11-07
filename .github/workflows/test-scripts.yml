@@ -17,46 +17,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Run MIT-installer.ps1
+    - name: Modify files for testing
       shell: powershell
       run: |
-        # Change Execution Policy for Pyenv Windows
-        Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
-
-        Write-Host "$(where.exe python)`n"
-
-        $ErrorLogPath = ".\Temp\log_errors-install.txt"
-
         # Disable Clear-HostLine in downloader.psm1
         $downloaderPath = ".\my_tools\downloader.psm1"
         $oldString = "Clear-HostLine 1"
         $newString = "# Clear-HostLine 1"
 
         (Get-Content -Path $downloaderPath) -replace $oldString, $newString | Set-Content -Path $downloaderPath
-
-        Start-Sleep -Seconds 10
-
-        # Run the installer
-        .\MIT-installer.ps1
-
-        if (Test-Path -Path $ErrorLogPath) {
-            $ErrorLog = Get-Content -Path $ErrorLogPath
-            $ErrorMatch = $ErrorLog -notmatch "log_error"
-            if ($ErrorMatch -match "error") {
-              Write-Host "`nError Found in '$ErrorLogPath'!"
-            }
-        }
-
-        Write-Host "`n$(python --version)"
-
-        Write-Host "`n$(where.exe python)"
-
-    - name: Run MIT-local-launcher.ps1
-      shell: powershell
-      run: |
-        Write-Host "$(python --version)`n"
-
-        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
 
         # Replace my-config.json
         Copy-Item -Path ".\my_tools\test\my-config.json" -Destination ".\examples\" -Recurse -Force
@@ -76,8 +45,40 @@ jobs:
 
         (Get-Content -Path $filePath -Raw) -replace $findPattern, $replaceText | Set-Content -Path $filePath
 
+    - name: Run MIT-installer.ps1
+      shell: powershell
+      run: |
+        # Change Execution Policy for Pyenv Windows
+        Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
+
+        Write-Host "$(where.exe python)`n"
+
+        # Run the installer
+        .\MIT-installer.ps1
+
+        $ErrorLogPath = ".\Temp\log_errors-install.txt"
+
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            if ($ErrorLog -match "Error") {
+                $ErrorLog
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }
+
+        Write-Host "`n$(python --version)"
+
+        Write-Host "`n$(where.exe python)"
+
+    - name: Run MIT-local-launcher.ps1
+      shell: powershell
+      run: |
+        Write-Host "$(python --version)`n"
+
         # Run the launcher
         .\MIT-local-launcher.ps1 > $ErrorLogPath
+
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
         
         if (Test-Path -Path $ErrorLogPath) {
             $ErrorLog = Get-Content -Path $ErrorLogPath
