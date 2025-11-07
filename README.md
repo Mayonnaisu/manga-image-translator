@@ -18,7 +18,7 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>I just realized that the installer is broken. Not sure since when (probably since I improved the error handling 🙃), but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one. The source of the error is pyenv-win requires the terminal to be closed and reopened for its installation. So, it still works as long as you run the installer 2x (you may need to remove the commands for installing Microsoft C++ Build Tools if you don't want to redownload & reinstall it). See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
+### <mark>I just realized that the installer is broken. Not sure since when, but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one. The source of the error is pyenv-win requires the terminal to be closed and reopened for its installation. So, it still works as long as you run the installer 2x (you may need to remove the commands for installing Microsoft C++ Build Tools if you don't want to redownload & reinstall it). See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
 
 ### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
 

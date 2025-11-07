@@ -22,6 +22,9 @@ $PSNativeCommandUseErrorActionPreference = $True
 $host.PrivateData.ErrorForegroundColor = "Red"
 
 $LogErrorInstallDependencyPath = ".\Temp\log_errors-install-dependency.txt"
+Start-Transcript -Path $LogErrorInstallDependencyPath -Append
+
+Write-Host "`nSYSTEM PATH: $([Environment]::GetEnvironmentVariable("Path", "Machine"))"
 
 # Install Python 3.10.11
 try {
@@ -36,8 +39,16 @@ try {
     if ($LASTEXITCODE -ne 0) {
         Throw "`nFailed to Install Python 3.10.11!`nEXIT CODE: $LASTEXITCODE"
     }
+    
+    pyenv versions
+
+    python --version
+
+    if ($? -eq $true) {
+        where.exe python
+    }
 } catch {
-    Write-Error "`nERROR: $($_.Exception.Message)"
+    Write-Host "`nERROR: $($_.Exception.Message)"
     exit 1
 }
 Write-Host "`nPython 3.10.11 Installed." -ForegroundColor DarkGreen
@@ -58,8 +69,8 @@ try {
 
     .\venv\Scripts\Activate.ps1 -ErrorAction Stop 
 } catch {
-    Write-Error "`nERROR: $($_.Exception.Message)"
-    exit 1
+    Write-Host "`nERROR: $($_.Exception.Message)"
+    exit 2
 }
 Write-Host "`nPython Virtual Environment Created & Activated." -ForegroundColor DarkGreen
 
@@ -79,10 +90,12 @@ try {
         Throw "`nFailed to Install MIT Dependencies!`nEXIT CODE: $LASTEXITCODE"
     }
 } catch {
-    Write-Error "`nERROR: $($_.Exception.Message)"
-    exit 1
+    Write-Host "`nERROR: $($_.Exception.Message)"
+    exit 3
 }
 Write-Host "`nMIT Dependencies Installed." -ForegroundColor DarkGreen
+
+Stop-Transcript
 
 exit 0
 '@
@@ -200,9 +213,18 @@ try {
     try {
         Write-Host "`nInstalling Pyenv Windows..." -ForegroundColor Yellow
 
+        $pathToadd = "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims"
+
+        $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+        $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
+
+        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
+        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$userPath", 'User')
+
         Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./Temp/install-pyenv-win.ps1"; &"./Temp/install-pyenv-win.ps1" -ErrorAction Stop
 
         Write-Host "`nPyenv Windows Installed Successfully." -ForegroundColor DarkGreen
+
     } catch {
         Throw "`nFailed to Install Pyenv Windows!`nERROR: $($_.Exception.Message)"
     }
@@ -211,16 +233,53 @@ try {
     try {
         Write-Host "`nInstalling Python, Setting Up Python Virtual Environment, & Installing MIT Dependencies..." -ForegroundColor Yellow
 
-        $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `"$DependencyInstallerPath`"" -PassThru -RedirectStandardError $LogErrorInstallDependencyPath
+        $taskName = "Install-MIT-Dependencies"
+        $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)
+        $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries
 
-        $process | Wait-Process
+        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'$DependencyInstallerPath' | Out-String -Stream | Write-Host"
 
-        $exitCode = $process.ExitCode
+        Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Settings $taskSettings -Description "Temporary task to install MIT dependencies." -Force
 
-        if ($exitCode -ne 0) {
-            Throw "Failed to Install Python, Create Virtual Environment, & Install MIT Dependencies.`nEXIT CODE: $exitCode."
+        $scheduledTask = Get-ScheduledTask -TaskName $taskName -ErrorAction Stop
+
+        Start-ScheduledTask -TaskName $taskName
+
+        while ($scheduledTask.State -ne 'Running') {
+            Start-Sleep -Seconds 5
+            Write-Host "`nSTATUS: $($scheduledTask.State) | Starting scheduled task..."
+            $scheduledTask = Get-ScheduledTask -TaskName $taskName
+        }
+
+        Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
+
+        while ($scheduledTask.State -eq 'Running') {
+            Start-Sleep -Seconds 5
+            $scheduledTask = Get-ScheduledTask -TaskName $taskName
+        }
+
+        if ($scheduledTask.State -ne 'Running') {
+            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
         } else {
-            Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed Successfully." -ForegroundColor DarkGreen
+            Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
+            while (($scheduledTask.State -eq 'Running')) {
+                Start-Sleep -Seconds 5
+                $scheduledTask = Get-ScheduledTask -TaskName $taskName
+            }
+            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+        }
+
+        if (Test-Path -Path $LogErrorInstallDependencyPath) {
+            $LogErrorInstallDependency = Get-Content -Path $LogErrorInstallDependencyPath
+            $ErrorMatch = $LogErrorInstallDependency -notmatch "log_error"
+            if ($ErrorMatch -match "Error") {
+                Throw "Failed to Install Python, Create Virtual Environment, & Install MIT Dependencies."
+            } else {
+                Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed Successfully." -ForegroundColor DarkGreen
+            }
+            $LogErrorInstallDependency
         }
 
         Remove-Item -Path $DependencyInstallerPath -Force
@@ -228,14 +287,6 @@ try {
         Throw "`nERROR: $($_.Exception.Message)"
     }
 
-    if (Test-Path -Path $LogErrorInstallDependencyPath) {
-        $LogErrorInstallDependency = Get-Content -Path $LogErrorInstallDependencyPath
-        
-        if ($LogErrorInstallDependency -match "Error") {
-            Throw "`nError Found in '$LogErrorInstallDependencyPath'!"
-        }
-    } 
-        
     Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
 } catch {
     if (Test-Path -Path $LogErrorInstallDependencyPath -PathType Leaf) {
