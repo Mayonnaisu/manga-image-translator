@@ -8,8 +8,6 @@ on:
       - ".github/workflows/*"
       - "my_tools/*"
       - "MIT*"
-    paths-ignore:
-      - "my_tools/docs/*"
 
 jobs:
   build:
