@@ -6,6 +6,7 @@ result
 __pycache__
 ocrs
 Manga
+!my_tools/test/manga
 Manga-translated
 /models
 .env
