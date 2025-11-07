@@ -31,7 +31,7 @@ function Show-Progress {
     $percent = ($Job.BytesTransferred / $Job.BytesTotal) * 100
     Write-Host "Status: $($Job.JobState) | Progress: $($percent.ToString("F2"))% (Transferred: $($Job.BytesTransferred), Total: $($Job.BytesTotal))"
     Start-Sleep -Seconds 3
-    Clear-HostLine $Line
+    # Clear-HostLine $Line
 }
 
 # Define function to download file with BitsTransfer
