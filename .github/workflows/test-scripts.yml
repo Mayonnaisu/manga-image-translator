@@ -1,0 +1,87 @@
+name: Test Scripts
+
+on:
+  push:
+    branches: 
+      - main
+    paths:
+      - ".github/workflows/*"
+      - "my_tools/*"
+      - "MIT*"
+    paths-ignore:
+      - "my_tools/docs/*"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Run MIT-installer.ps1
+      shell: powershell
+      run: |
+        Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
+
+        Write-Host "$(where.exe python)`n"
+
+        $ErrorLogPath = ".\Temp\log_errors-install.txt"
+
+        # Disable Clear-HostLine in downloader.psm1
+        $downloaderPath = ".\my_tools\downloader.psm1"
+        $oldString = "Clear-HostLine 1"
+        $newString = "# Clear-HostLine 1"
+
+        (Get-Content -Path $downloaderPath) -replace $oldString, $newString | Set-Content -Path $downloaderPath
+
+        # Run the installer
+        .\MIT-installer.ps1
+
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            $ErrorMatch = $ErrorLog -notmatch "log_error"
+            if ($ErrorMatch -match "error") {
+              Write-Host "`nError Found in '$ErrorLogPath'!"
+            }
+        }
+
+        Write-Host "`n$(python --version)"
+
+        Write-Host "`n$(where.exe python)"
+
+    - name: Run MIT-local-launcher.ps1
+      shell: powershell
+      run: |
+        Write-Host "$(python --version)`n"
+
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+
+        # Replace my-config.json
+        Copy-Item -Path ".\my_tools\test\my-config.json" -Destination ".\examples\" -Recurse -Force
+
+        # Replace folder selection with path string
+        $filePath = ".\MIT-local-launcher.ps1"
+
+        $findPattern = @"
+        (?s)Select folder with FolderBrowserDialog.*Activate Python venv with another PowerShell script
+        "@
+
+        $replaceText = @'
+
+            $InputPath = ".\my_tools\test\manga\RAW\"
+
+        '@
+
+        (Get-Content -Path $filePath -Raw) -replace $findPattern, $replaceText | Set-Content -Path $filePath
+
+        # Run the launcher
+        .\MIT-local-launcher.ps1 > $ErrorLogPath
+        
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            if ($ErrorLog -match "Error") {
+                $ErrorLog
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }

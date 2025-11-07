@@ -1,3 +1,5 @@
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Mayonnaisu/manga-image-translator/test-scripts.yml?branch=main&label=test%20install%2C%20launch%2C%20%26%20update)
+
 ## 📂 Directory
 *   [NOTICE](#notice)
 *   [ABOUT](#about)
