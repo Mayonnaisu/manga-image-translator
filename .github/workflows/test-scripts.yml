@@ -22,6 +22,7 @@ jobs:
     - name: Run MIT-installer.ps1
       shell: powershell
       run: |
+        # Change Execution Policy for Pyenv Windows
         Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
         Write-Host "$(where.exe python)`n"
