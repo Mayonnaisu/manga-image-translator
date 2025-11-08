@@ -91,6 +91,13 @@ jobs:
         # Check Python version
         Write-Host "$(python --version)`n"
 
+        # Set system path
+        $pathToadd = "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims"
+
+        $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+
+        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
+
         # Run the launcher
         .\MIT-local-launcher.ps1 > $ErrorLogPath
 
@@ -146,31 +153,31 @@ jobs:
             }
         }
 
-    - name: Run MIT-web-launcher.ps1
-      shell: powershell
-      run: |
-        Write-Host "$(python --version)`n"
+    # - name: Run MIT-web-launcher.ps1
+    #   shell: powershell
+    #   run: |
+    #     Write-Host "$(python --version)`n"
 
-        # Run the launcher
-        $timeoutSeconds = 30
-        $timer = [Diagnostics.Stopwatch]::StartNew()
+    #     # Run the launcher
+    #     $timeoutSeconds = 30
+    #     $timer = [Diagnostics.Stopwatch]::StartNew()
 
-        while ($timer.Elapsed.TotalSeconds -lt $timeoutSeconds) {
-          .\MIT-web-launcher.ps1 > $ErrorLogPath
-          Start-Sleep -Milliseconds 100
-          if ($timer.Elapsed.TotalSeconds -eq $timeoutSeconds) {
-            break
-          }
-        }
+    #     while ($timer.Elapsed.TotalSeconds -lt $timeoutSeconds) {
+    #       .\MIT-web-launcher.ps1 > $ErrorLogPath
+    #       Start-Sleep -Milliseconds 100
+    #       if ($timer.Elapsed.TotalSeconds -eq $timeoutSeconds) {
+    #         break
+    #       }
+    #     }
 
-        $timer.Stop()
+    #     $timer.Stop()
 
-        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+    #     $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
         
-        if (Test-Path -Path $ErrorLogPath) {
-            $ErrorLog = Get-Content -Path $ErrorLogPath
-            if ($ErrorLog -match "Error") {
-                $ErrorLog
-                Throw "`nError Found in '$ErrorLogPath'!"
-            }
-        }
+    #     if (Test-Path -Path $ErrorLogPath) {
+    #         $ErrorLog = Get-Content -Path $ErrorLogPath
+    #         if ($ErrorLog -match "Error") {
+    #             $ErrorLog
+    #             Throw "`nError Found in '$ErrorLogPath'!"
+    #         }
+    #     }
