@@ -1,4 +1,4 @@
-![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Mayonnaisu/manga-image-translator/test-scripts.yml?branch=main&label=test%20install%2C%20launch%2C%20%26%20update)
+[![Test Scripts](https://github.com/Mayonnaisu/manga-image-translator/actions/workflows/test-scripts.yml/badge.svg)](https://github.com/Mayonnaisu/manga-image-translator/actions/workflows/test-scripts.yml)
 
 ## 📂 Directory
 *   [NOTICE](#notice)

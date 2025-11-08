@@ -22,16 +22,25 @@ jobs:
       run: |
         # Disable Clear-HostLine in downloader.psm1
         $downloaderPath = ".\my_tools\downloader.psm1"
-        $oldString = "Clear-HostLine 1"
-        $newString = "# Clear-HostLine 1"
 
-        (Get-Content -Path $downloaderPath) -replace $oldString, $newString | Set-Content -Path $downloaderPath
+        $oldString = @"
+            Clear-HostLine $Line
+        "@
+
+        $newString = @"
+            # Clear-HostLine $Line
+        "@
+
+        (Get-Content -Path $downloaderPath -Raw) -replace $oldString, $newString | Set-Content -Path $downloaderPath
 
         # Replace my-config.json
         Copy-Item -Path ".\my_tools\test\my-config.json" -Destination ".\examples\" -Recurse -Force
 
-        # Replace folder selection with path string
-        $filePath = ".\MIT-local-launcher.ps1"
+        # Replace folder selection with regular path string
+        $filePath = @(
+            ".\MIT-local-launcher.ps1",
+            ".\MIT-local-webtoon-launcher.ps1"
+        )
 
         $findPattern = @"
         (?s)Select folder with FolderBrowserDialog.*Activate Python venv with another PowerShell script
@@ -43,7 +52,9 @@ jobs:
 
         '@
 
-        (Get-Content -Path $filePath -Raw) -replace $findPattern, $replaceText | Set-Content -Path $filePath
+        foreach ($path in $filePath) {
+            (Get-Content -Path $path -Raw) -replace $findPattern, $replaceText | Set-Content -Path $path
+        }
 
     - name: Run MIT-installer.ps1
       shell: powershell
@@ -73,10 +84,86 @@ jobs:
     - name: Run MIT-local-launcher.ps1
       shell: powershell
       run: |
+        # Change encoding to display non-ASCII chars properly
+        [Console]::InputEncoding = [System.Text.Encoding]::UTF8
+        [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+        # Check Python version
         Write-Host "$(python --version)`n"
 
         # Run the launcher
         .\MIT-local-launcher.ps1 > $ErrorLogPath
+
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            if ($ErrorLog -match "Error") {
+                $ErrorLog
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }
+
+    - name: Run MIT-updater.ps1
+      shell: powershell
+      run: |
+        Write-Host "$(python --version)`n"
+
+        # Run the updater
+        .\MIT-updater.ps1 > $ErrorLogPath
+
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            if ($ErrorLog -match "Error") {
+                $ErrorLog
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }
+
+    - name: Run MIT-local-webtoon-launcher.ps1
+      shell: powershell
+      run: |
+        Write-Host "$(python --version)`n"
+
+        $translatedFolder = ".\my_tools\test\manga\RAW-translated"
+
+        if (Test-Path -Path $translatedFolder) {
+            Remove-Item -Path $translatedFolder -Force -Recurse -Force -Confirm:$false
+        }
+
+        # Run the launcher
+        .\MIT-local-webtoon-launcher.ps1 > $ErrorLogPath
+
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            if ($ErrorLog -match "Error") {
+                $ErrorLog
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }
+
+    - name: Run MIT-web-launcher.ps1
+      shell: powershell
+      run: |
+        Write-Host "$(python --version)`n"
+
+        # Run the launcher
+        $timeoutSeconds = 30
+        $timer = [Diagnostics.Stopwatch]::StartNew()
+
+        while ($timer.Elapsed.TotalSeconds -lt $timeoutSeconds) {
+          .\MIT-web-launcher.ps1 > $ErrorLogPath
+          Start-Sleep -Milliseconds 100
+          if ($timer.Elapsed.TotalSeconds -eq $timeoutSeconds) {
+            break
+          }
+        }
+
+        $timer.Stop()
 
         $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
         
