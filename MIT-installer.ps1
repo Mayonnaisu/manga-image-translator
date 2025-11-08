@@ -243,7 +243,7 @@ try {
 
         $taskName = "Install-MIT-Dependencies"
         $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)
-        $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries
+        $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
         $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'$DependencyInstallerPath' | Out-String -Stream | Write-Host"
 
