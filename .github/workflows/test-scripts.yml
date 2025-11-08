@@ -62,6 +62,9 @@ jobs:
         # Change Execution Policy for Pyenv Windows
         Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine
 
+        # Check GitHub Actions Python version
+        Write-Host "$(python --version)`n"
+
         Write-Host "$(where.exe python)`n"
 
         # Run the installer
@@ -77,10 +80,6 @@ jobs:
             }
         }
 
-        Write-Host "`n$(python --version)"
-
-        Write-Host "`n$(where.exe python)"
-
     - name: Run MIT-local-launcher.ps1
       shell: powershell
       run: |
@@ -88,7 +87,7 @@ jobs:
         [Console]::InputEncoding = [System.Text.Encoding]::UTF8
         [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
-        # Check Python version
+        # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
 
         # Run the launcher
@@ -107,6 +106,7 @@ jobs:
     - name: Run MIT-local-webtoon-launcher.ps1
       shell: powershell
       run: |
+        # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
 
         $translatedFolder = ".\my_tools\test\manga\RAW-translated"
@@ -128,42 +128,69 @@ jobs:
             }
         }
 
-    # - name: Run MIT-web-launcher.ps1
-    #   shell: powershell
-    #   run: |
-    #     Write-Host "$(python --version)`n"
+    - name: Run MIT-web-launcher.ps1
+      shell: powershell
+      run: |
+        # Check GitHub Actions Python version
+        Write-Host "$(python --version)`n"
 
-    #     # Run the launcher
-    #     $timeoutSeconds = 30
-    #     $timer = [Diagnostics.Stopwatch]::StartNew()
+        # Run the launcher with ScheduledTasks
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
 
-    #     while ($timer.Elapsed.TotalSeconds -lt $timeoutSeconds) {
-    #       .\MIT-web-launcher.ps1 > $ErrorLogPath
-    #       Start-Sleep -Milliseconds 100
-    #       if ($timer.Elapsed.TotalSeconds -eq $timeoutSeconds) {
-    #         break
-    #       }
-    #     }
+        $taskName = "Test-Web-Launcher"
+        $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)
+        $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 3)
 
-    #     $timer.Stop()
+        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'.\MIT-web-launcher.ps1' > $ErrorLogPath"
 
-    #     $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Settings $taskSettings -Description "Test MIT-web-launcher.ps1 with the time limit." -Force
+
+        $scheduledTask = Get-ScheduledTask -TaskName $taskName -ErrorAction Stop
+
+        Start-ScheduledTask -TaskName $taskName
+
+        while ($scheduledTask.State -ne 'Running') {
+            Start-Sleep -Seconds 5
+            Write-Host "`nSTATUS: $($scheduledTask.State) | Starting scheduled task..."
+            $scheduledTask = Get-ScheduledTask -TaskName $taskName
+        }
+
+        Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
+
+        while ($scheduledTask.State -eq 'Running') {
+            Start-Sleep -Seconds 5
+            $scheduledTask = Get-ScheduledTask -TaskName $taskName
+        }
+
+        if ($scheduledTask.State -ne 'Running') {
+            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+        } else {
+            Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
+            while (($scheduledTask.State -eq 'Running')) {
+                Start-Sleep -Seconds 5
+                $scheduledTask = Get-ScheduledTask -TaskName $taskName
+            }
+            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
+            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+        }
         
-    #     if (Test-Path -Path $ErrorLogPath) {
-    #         $ErrorLog = Get-Content -Path $ErrorLogPath
-    #         if ($ErrorLog -match "Error") {
-    #             $ErrorLog
-    #             Throw "`nError Found in '$ErrorLogPath'!"
-    #         }
-    #     }
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            $ErrorLog
+            if ($ErrorLog -match "Error") {
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }
 
     - name: Run MIT-updater.ps1
       shell: powershell
       run: |
+        # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
 
         # Run the updater
-        .\MIT-updater.ps1 > $ErrorLogPath
+        .\MIT-updater.ps1 | Out-String -Stream | Write-Host > $ErrorLogPath
 
         $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
         
