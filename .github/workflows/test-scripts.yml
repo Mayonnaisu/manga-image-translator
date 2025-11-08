@@ -17,7 +17,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Modify files for testing
+    - name: Modify variables for testing
       shell: powershell
       run: |
         # Disable Clear-HostLine in downloader.psm1
@@ -56,6 +56,13 @@ jobs:
             (Get-Content -Path $path -Raw) -replace $findPattern, $replaceText | Set-Content -Path $path
         }
 
+        # Set system path
+        $pathToadd = "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims"
+
+        $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+
+        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
+
     - name: Run MIT-installer.ps1
       shell: powershell
       run: |
@@ -90,13 +97,6 @@ jobs:
 
         # Check Python version
         Write-Host "$(python --version)`n"
-
-        # Set system path
-        $pathToadd = "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims"
-
-        $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
-
-        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
 
         # Run the launcher
         .\MIT-local-launcher.ps1 > $ErrorLogPath
