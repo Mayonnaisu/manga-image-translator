@@ -104,24 +104,6 @@ jobs:
             }
         }
 
-    - name: Run MIT-updater.ps1
-      shell: powershell
-      run: |
-        Write-Host "$(python --version)`n"
-
-        # Run the updater
-        .\MIT-updater.ps1 > $ErrorLogPath
-
-        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
-        
-        if (Test-Path -Path $ErrorLogPath) {
-            $ErrorLog = Get-Content -Path $ErrorLogPath
-            if ($ErrorLog -match "Error") {
-                $ErrorLog
-                Throw "`nError Found in '$ErrorLogPath'!"
-            }
-        }
-
     - name: Run MIT-local-webtoon-launcher.ps1
       shell: powershell
       run: |
@@ -174,3 +156,21 @@ jobs:
     #             Throw "`nError Found in '$ErrorLogPath'!"
     #         }
     #     }
+
+    - name: Run MIT-updater.ps1
+      shell: powershell
+      run: |
+        Write-Host "$(python --version)`n"
+
+        # Run the updater
+        .\MIT-updater.ps1 > $ErrorLogPath
+
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        
+        if (Test-Path -Path $ErrorLogPath) {
+            $ErrorLog = Get-Content -Path $ErrorLogPath
+            if ($ErrorLog -match "Error") {
+                $ErrorLog
+                Throw "`nError Found in '$ErrorLogPath'!"
+            }
+        }
