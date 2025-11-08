@@ -56,13 +56,6 @@ jobs:
             (Get-Content -Path $path -Raw) -replace $findPattern, $replaceText | Set-Content -Path $path
         }
 
-        # Set system path
-        $pathToadd = "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims"
-
-        $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
-
-        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
-
     - name: Run MIT-installer.ps1
       shell: powershell
       run: |
@@ -137,7 +130,7 @@ jobs:
         $translatedFolder = ".\my_tools\test\manga\RAW-translated"
 
         if (Test-Path -Path $translatedFolder) {
-            Remove-Item -Path $translatedFolder -Force -Recurse -Force -Confirm:$false
+            Remove-Item -Path $translatedFolder -Recurse -Force -Confirm:$false
         }
 
         # Run the launcher

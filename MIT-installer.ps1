@@ -219,6 +219,16 @@ try {
 
         [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$userPath", 'User')
 
+        $id = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+        $p = New-Object System.Security.Principal.WindowsPrincipal($id)
+        $isAdmin = $p.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+
+        if ($isAdmin) {
+            $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
+
+            [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
+        }
+
         Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./Temp/install-pyenv-win.ps1"; &"./Temp/install-pyenv-win.ps1" -ErrorAction Stop
 
         Write-Host "`nPyenv Windows Installed Successfully." -ForegroundColor DarkGreen
