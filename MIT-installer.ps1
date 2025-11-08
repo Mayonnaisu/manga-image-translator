@@ -215,10 +215,8 @@ try {
 
         $pathToadd = "$env:USERPROFILE\.pyenv\pyenv-win\bin;$env:USERPROFILE\.pyenv\pyenv-win\shims"
 
-        $systemPath = [Environment]::GetEnvironmentVariable('Path', 'Machine')
         $userPath = [Environment]::GetEnvironmentVariable('Path', 'User')
 
-        [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$systemPath", 'Machine')
         [Environment]::SetEnvironmentVariable('Path', "$pathToadd;$userPath", 'User')
 
         Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/pyenv-win/pyenv-win/master/pyenv-win/install-pyenv-win.ps1" -OutFile "./Temp/install-pyenv-win.ps1"; &"./Temp/install-pyenv-win.ps1" -ErrorAction Stop
