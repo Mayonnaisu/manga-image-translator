@@ -22,7 +22,7 @@ $PSNativeCommandUseErrorActionPreference = $True
 $host.PrivateData.ErrorForegroundColor = "Red"
 
 $LogErrorInstallDependencyPath = ".\Temp\log_errors-install-dependency.txt"
-Start-Transcript -Path $LogErrorInstallDependencyPath -Append
+Start-Transcript -Path $LogErrorInstallDependencyPath
 
 Write-Host "`nSYSTEM PATH: $([Environment]::GetEnvironmentVariable("Path", "Machine"))"
 
