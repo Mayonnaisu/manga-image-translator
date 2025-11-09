@@ -12,11 +12,6 @@ $ProgressPreference = 'SilentlyContinue'
 $DependencyInstallerPath = ".\Temp\dependency-installer.ps1"
 
 $DependencyInstaller = @'
-$PowerShellVersion = (Get-Host).Version.ToString()
-Write-Host "PowerShell $PowerShellVersion"
-
-Write-Host "$PWD"
-
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 $host.PrivateData.ErrorForegroundColor = "Red"
@@ -24,7 +19,7 @@ $host.PrivateData.ErrorForegroundColor = "Red"
 $LogErrorInstallDependencyPath = ".\Temp\log_errors-install-dependency.txt"
 Start-Transcript -Path $LogErrorInstallDependencyPath
 
-Write-Host "`nSYSTEM PATH: $([Environment]::GetEnvironmentVariable("Path", "Machine"))"
+Write-Host "`n$PWD"
 
 # Install Python 3.10.11
 try {
@@ -245,7 +240,7 @@ try {
         $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)
         $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 
-        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'$DependencyInstallerPath' | Out-String -Stream | Write-Host"
+        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command &'$DependencyInstallerPath' | Out-String -Stream | Write-Host" -WorkingDirectory $PWD
 
         Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Settings $taskSettings -Description "Temporary task to install MIT dependencies." -Force
 
