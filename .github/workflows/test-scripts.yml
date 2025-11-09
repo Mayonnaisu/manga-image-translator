@@ -48,7 +48,7 @@ jobs:
 
         $replaceText = @'
 
-            $InputPath = ".\my_tools\test\manga\RAW\"
+            $InputPath = ".\my_tools\test\manga\RAW"
 
         '@
 
@@ -128,6 +128,7 @@ jobs:
         # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
 
+        # Delete previously translated images
         $translatedFolder = ".\my_tools\test\manga\RAW-translated"
 
         if (Test-Path -Path $translatedFolder) {
