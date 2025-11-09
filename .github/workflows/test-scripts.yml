@@ -36,7 +36,7 @@ jobs:
         # Replace my-config.json
         Copy-Item -Path ".\my_tools\test\my-config.json" -Destination ".\examples\" -Recurse -Force
 
-        # Replace folder selection with regular path string
+        # Replace folder selection with plain path string
         $filePath = @(
             ".\MIT-local-launcher.ps1",
             ".\MIT-local-webtoon-launcher.ps1"
@@ -55,6 +55,23 @@ jobs:
         foreach ($path in $filePath) {
             (Get-Content -Path $path -Raw) -replace $findPattern, $replaceText | Set-Content -Path $path
         }
+
+        # Replace keypress input with plain character string
+        $filePath = ".\MIT-web-launcher.ps1"
+
+        $searchString = @'
+        (?s)while\ \(\$process\.HasExited.*KeyChar\ -eq\ "Q"
+        '@
+
+        $replaceString = @'
+        Start-Sleep -Seconds 120
+
+            while ($process.HasExited -eq $false) {
+                $key = "q"
+                if ($key -eq "q"
+        '@
+
+        (Get-Content -Path $filePath -Raw) -replace $searchString, $replaceString | Set-Content -Path $filePath
 
     - name: Run MIT-installer.ps1
       shell: powershell
@@ -90,9 +107,9 @@ jobs:
         Write-Host "$(python --version)`n"
 
         # Run the launcher
-        .\MIT-local-launcher.ps1 > $ErrorLogPath
-
         $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+
+        .\MIT-local-launcher.ps1 > $ErrorLogPath
         
         if (Test-Path -Path $ErrorLogPath) {
             $ErrorLog = Get-Content -Path $ErrorLogPath
@@ -118,9 +135,9 @@ jobs:
         }
 
         # Run the launcher
-        .\MIT-local-webtoon-launcher.ps1 | Out-String -Stream | Write-Host > $ErrorLogPath
+        $ErrorLogPath = ".\Temp\log_errors-launcher-local-webtoon.txt"
 
-        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        .\MIT-local-webtoon-launcher.ps1 | Out-String -Stream | Write-Host > $ErrorLogPath
         
         if (Test-Path -Path $ErrorLogPath) {
             $ErrorLog = Get-Content -Path $ErrorLogPath
@@ -136,51 +153,15 @@ jobs:
         # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
 
-        # Run the launcher with ScheduledTasks
-        $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
+        # Run the launcher
+        $ErrorLogPath = ".\Temp\log_errors-launcher-web.txt"
 
-        $taskName = "Test-Web-Launcher"
-        $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)
-        $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 3)
+        .\MIT-web-launcher.ps1 | Out-String -Stream | Write-Host > $ErrorLogPath
 
-        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'.\MIT-web-launcher.ps1' | Out-String -Stream | Write-Host > $ErrorLogPath"
-
-        Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Settings $taskSettings -Description "Test MIT-web-launcher.ps1 with the time limit." -Force
-
-        $scheduledTask = Get-ScheduledTask -TaskName $taskName -ErrorAction Stop
-
-        Start-ScheduledTask -TaskName $taskName
-
-        while ($scheduledTask.State -ne 'Running') {
-            Start-Sleep -Seconds 5
-            Write-Host "`nSTATUS: $($scheduledTask.State) | Starting scheduled task..."
-            $scheduledTask = Get-ScheduledTask -TaskName $taskName
-        }
-
-        Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
-
-        while ($scheduledTask.State -eq 'Running') {
-            Start-Sleep -Seconds 5
-            $scheduledTask = Get-ScheduledTask -TaskName $taskName
-        }
-
-        if ($scheduledTask.State -ne 'Running') {
-            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
-            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
-        } else {
-            Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
-            while (($scheduledTask.State -eq 'Running')) {
-                Start-Sleep -Seconds 5
-                $scheduledTask = Get-ScheduledTask -TaskName $taskName
-            }
-            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
-            Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
-        }
-        
         if (Test-Path -Path $ErrorLogPath) {
             $ErrorLog = Get-Content -Path $ErrorLogPath
-            $ErrorLog
             if ($ErrorLog -match "Error") {
+                $ErrorLog
                 Throw "`nError Found in '$ErrorLogPath'!"
             }
         }
