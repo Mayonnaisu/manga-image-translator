@@ -130,7 +130,7 @@ try {
     while ($process.HasExited -eq $false) {
         if ($Host.UI.RawUI.KeyAvailable) {
             $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-            if ($key.Character -eq 'q' -or $key.Character -eq 'Q') {
+            if ($key.Character -eq "q" -or $key.Character -eq "Q") {
                 Write-Host "`nStopping the Server..." -ForegroundColor Yellow
                 taskkill /PID $process.Id /F /T
                 Write-Host "`nServer Stopped." -ForegroundColor Green
