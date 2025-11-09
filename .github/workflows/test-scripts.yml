@@ -84,8 +84,7 @@ jobs:
       shell: powershell
       run: |
         # Change encoding to display non-ASCII chars properly
-        [Console]::InputEncoding = [System.Text.Encoding]::UTF8
-        [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+        $OutputEncoding = [Console]::InputEncoding = [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 
         # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
@@ -106,6 +105,9 @@ jobs:
     - name: Run MIT-local-webtoon-launcher.ps1
       shell: powershell
       run: |
+        # Change encoding to display non-ASCII chars properly
+        $OutputEncoding = [Console]::InputEncoding = [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding
+
         # Check GitHub Actions Python version
         Write-Host "$(python --version)`n"
 
