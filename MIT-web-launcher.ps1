@@ -128,16 +128,14 @@ try {
     $process = Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -File `"$MITserverPath`" -ServerHost `"$server_host`" -Port `"$server_port`" -GpuMode $gpu_mode -GpuModel `"$gpu_model`" -ExtraArgs $ExtraArgs" -PassThru -NoNewWindow
 
     while ($process.HasExited -eq $false) {
-        if ($Host.UI.RawUI.KeyAvailable) {
-            $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-            if ($key.Character -eq "q" -or $key.Character -eq "Q") {
-                Write-Host "`nStopping the Server..." -ForegroundColor Yellow
-                taskkill /PID $process.Id /F /T
-                Write-Host "`nServer Stopped." -ForegroundColor Green
-                break
-            }
+        $key = [Console]::ReadKey()
+        if ($key.KeyChar -eq "q" -or $key.KeyChar -eq "Q") {
+            Write-Host "`nStopping the Server..." -ForegroundColor Yellow
+            taskkill /PID $process.Id /F /T
+            Write-Host "`nServer Stopped." -ForegroundColor Green
+            break
         }
-        Start-Sleep -Milliseconds 50
+        Start-Sleep -Milliseconds 100
     }
 
     if ($LASTEXITCODE -ne 0) {
