@@ -116,7 +116,7 @@ jobs:
         }
 
         # Run the launcher
-        .\MIT-local-webtoon-launcher.ps1 > $ErrorLogPath
+        .\MIT-local-webtoon-launcher.ps1 | Out-String -Stream | Write-Host > $ErrorLogPath
 
         $ErrorLogPath = ".\Temp\log_errors-launcher-local.txt"
         
@@ -141,7 +141,7 @@ jobs:
         $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddSeconds(30)
         $taskSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 3)
 
-        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'.\MIT-web-launcher.ps1' > $ErrorLogPath"
+        $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -ExecutionPolicy Bypass -Command cd $PWD; &'.\MIT-web-launcher.ps1' | Out-String -Stream | Write-Host > $ErrorLogPath"
 
         Register-ScheduledTask -TaskName $taskName -Trigger $trigger -Action $action -Settings $taskSettings -Description "Test MIT-web-launcher.ps1 with the time limit." -Force
 
@@ -200,4 +200,17 @@ jobs:
                 $ErrorLog
                 Throw "`nError Found in '$ErrorLogPath'!"
             }
+        }
+
+    - name: Check result folder
+      shell: powershell
+      run: |
+        $result =  Get-ChildItem -Path ".\result" -Recurse | Where-Object { $_.Name -notlike "log_*.txt" }
+
+        $result | Select-Object FullName
+
+        if ($result) {
+            Throw "Failed to Clean Up MIT result Folder!"
+        } else {
+            Write-Host "MIT result Folder Cleaned Up Successfully."
         }
