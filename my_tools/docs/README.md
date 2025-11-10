@@ -14,7 +14,7 @@
     *   [Local Mode](#local-mode)
     *   [Local Webtoon Mode](#local-webtoon-mode)
     *   [Web Mode](#web-mode)
-		*	[Real Time Translation](#real-time-translation)
+		*	[Real-Time Translation](#real-time-translation)
 *   [USAGE (GPU MODE)](#usage-gpu-mode)
     *   [NVIDIA](#nvidia)
     *   [AMD](#amd)
