@@ -262,7 +262,7 @@ try {
         }
 
         if ($scheduledTask.State -ne 'Running') {
-            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
+            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)`n"
             Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
         } else {
             Write-Host "Scheduled task '$taskName' started. Waiting for completion..."
@@ -270,19 +270,19 @@ try {
                 Start-Sleep -Seconds 5
                 $scheduledTask = Get-ScheduledTask -TaskName $taskName
             }
-            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)"
+            Write-Host "Scheduled task '$taskName' completed. Final state: $($scheduledTask.State)`n"
             Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
         }
 
         if (Test-Path -Path $LogErrorInstallDependencyPath) {
             $LogErrorInstallDependency = Get-Content -Path $LogErrorInstallDependencyPath
+            $LogErrorInstallDependency
             $ErrorMatch = $LogErrorInstallDependency -notmatch "log_error"
             if ($ErrorMatch -match "Error") {
                 Throw "Failed to Install Python, Create Virtual Environment, & Install MIT Dependencies."
             } else {
                 Write-Host "`nPython Installed, Virtual Environment Created, & MIT Dependencies Installed Successfully." -ForegroundColor DarkGreen
             }
-            $LogErrorInstallDependency
         }
 
         Remove-Item -Path $DependencyInstallerPath -Force
