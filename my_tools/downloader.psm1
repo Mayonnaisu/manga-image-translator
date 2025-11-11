@@ -23,25 +23,22 @@ function Clear-HostLine {
 function Show-Progress {
     param(
         [Parameter(Mandatory=$true)]
-        [object]$MyJobId,
+        [object]$JobId,
         [Parameter(Mandatory=$true)]
         [int32]$Line
     )
 
-    $Job = Get-BitsTransfer -JobId $MyJobId
-    $bytesTotal = $Job.BytesTotal
-    if ($bytesTotal -gt 0) {
-        if ($bytesTotal -eq 18446744073709551615) {
-            $percent = "?"
-            $bytesTotal = "Unknown"
-        } else {
-            $percent = (($Job.BytesTransferred / $Job.BytesTotal) * 100).ToString("F2")
-        }
+    $Job = Get-BitsTransfer -JobId $JobId
+    $bytesTransferredMB = [math]::Round($job.BytesTransferred / 1MB, 2)
+    $bytesTotalMB = [math]::Round($job.BytesTotal / 1MB, 2)
+
+    if ($bytesTotalMB -gt 0) {
+        $percentComplete = [math]::Round(($job.BytesTransferred / $job.BytesTotal) * 100, 2)
     } else {
-        $percent = "?"
-        $bytesTotal = "Unknown"
+        $percentComplete = "?"
+        $bytesTotalMB = "Unknown"
     }
-    Write-Host "Status: $($Job.JobState) | Progress: $($percent)% (Transferred: $($Job.BytesTransferred), Total: $($bytesTotal))"
+    Write-Host "Status: $($Job.JobState) | Progress: $($percentComplete)% (Transferred: $($bytesTransferredMB) MB, Total: $($bytesTotalMB))"
     Start-Sleep -Seconds 3
     Clear-HostLine $Line
 }
@@ -85,7 +82,7 @@ function Start-ResumableBitsDownload {
 
     # Monitor the job status
     while ($job.JobState -eq 'Transferring' -or $job.JobState -eq 'Connecting') {
-        Show-Progress -MyJobId $MyJobId -Line 1
+        Show-Progress -JobId $MyJobId -Line 1
     }
 
     # Handle completion or errors
@@ -94,7 +91,7 @@ function Start-ResumableBitsDownload {
         $retryCount = 0
         while ($job.JobState -match 'TransientError' -and $retryCount -lt $maxRetries) {
             Write-Host "Retrying... ($($retryCount+1)/${maxRetries})"
-            Show-Progress -MyJobId $MyJobId -Line 2
+            Show-Progress -JobId $MyJobId -Line 2
             $retryCount++
         }
         if (($job.JobState -eq 'TransientError') -and ($retryCount -eq $maxRetries)) {
@@ -105,7 +102,7 @@ function Start-ResumableBitsDownload {
 
     # Monitor the job status
     while ($job.JobState -eq 'Transferring' -or $job.JobState -eq 'Connecting') {
-        Show-Progress -MyJobId $MyJobId -Line 1
+        Show-Progress -JobId $MyJobId -Line 1
     }
 
     if ($job.JobState -match 'Error') {
