@@ -41,7 +41,7 @@ function Show-Progress {
         $percent = "?"
         $bytesTotal = "Unknown"
     }
-    Write-Host "Status: $($Job.JobState) | Progress: $($percent)% (Transferred: $($Job.BytesTransferred), Total: $($bytesTotal)"
+    Write-Host "Status: $($Job.JobState) | Progress: $($percent)% (Transferred: $($Job.BytesTransferred), Total: $($bytesTotal))"
     Start-Sleep -Seconds 3
     Clear-HostLine $Line
 }
