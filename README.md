@@ -192,7 +192,7 @@ Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_t
 - Speech bubbles are dirtier.
 - Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in **my-config.json** to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in **.env** file or the translator in **my-config.json**.
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in **.env** file (see: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#latest-stable) or the translator in **my-config.json** (see: https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#translator-reference).
 
 > [!NOTE]
 > The webtoon mode can use up to around 20GB RAM on my laptop.
@@ -203,6 +203,6 @@ It seems that it's not really caused by the launcher, or is it? 🤔, since even
 > - GPU: 512MB AMD Radeon™ Vega 7 Graphics (integrated)
 > - RAM: 24GB DDR4 3200 MT/s
 > - Storage: 512GB M.2 NVMe™ PCIe® 3.0 SSD
-> - OS: Windows 11 Home Single Language 64-bit
+> - OS: Windows 11 Home Single Language 64-bit (25H2)
 >
 > If your PC specs are equal or better than mine, then you should be fine, probably 😅.
