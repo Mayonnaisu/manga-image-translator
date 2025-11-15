@@ -23,8 +23,6 @@ try {
         Write-Host "`nPyTorch GPU" -ForegroundColor Green
 
         & python -c "import torch; print(f'device name [0]:', torch.cuda.get_device_name(0))" | Out-String -Stream | Write-Host
-
-        & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
         
         if ($LASTEXITCODE -ne 0) {
             Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
@@ -35,20 +33,18 @@ try {
 
         & python -c "import torch; print(f'device name [0]:', torch.xpu.get_device_name(0))" | Out-String -Stream | Write-Host
 
-        & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
-
         if ($LASTEXITCODE -ne 0) {
             Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
         }
     # CPU
     } else {
         Write-Host "`nPyTorch CPU" -ForegroundColor Red
+    }
 
-        & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
+    & python -m torch.utils.collect_env | Out-String -Stream | Write-Host
 
-        if ($LASTEXITCODE -ne 0) {
-            Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
-        }
+    if ($LASTEXITCODE -ne 0) {
+        Throw "$($_.Exception.Message)`nEXIT CODE: $LASTEXITCODE."
     }
 
     Write-Host "`nPyTorch Checker Run Successfully.`n" -ForegroundColor Green
