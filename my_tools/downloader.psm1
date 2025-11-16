@@ -29,17 +29,17 @@ function Show-Progress {
     )
 
     $Job = Get-BitsTransfer -JobId $JobId
-    $bytesTransferredMB = [math]::Round($job.BytesTransferred / 1MB, 2)
-    $bytesTotalMB = [math]::Round($job.BytesTotal / 1MB, 2)
+    $bytesTransferredMB = [math]::Round($Job.BytesTransferred / 1MB, 2)
+    $bytesTotalMB = [math]::Round($Job.BytesTotal / 1MB, 2)
 
-    if ($bytesTotalMB -gt 0) {
-        $percentComplete = [math]::Round(($job.BytesTransferred / $job.BytesTotal) * 100, 2)
-    } else {
+    if ($bytesTotalMB -eq 17592186044416) {
         $percentComplete = "?"
         $bytesTotalMB = "Unknown"
+    } else {
+        $percentComplete = [math]::Round(($Job.BytesTransferred / $Job.BytesTotal) * 100, 2)
     }
-    Write-Host "Status: $($Job.JobState) | Progress: $($percentComplete)% (Transferred: $($bytesTransferredMB) MB, Total: $($bytesTotalMB))"
-    Start-Sleep -Seconds 3
+    Write-Host "Status: $($Job.JobState) | Progress: $($percentComplete)% ($($bytesTransferredMB)/$($bytesTotalMB) MB)"
+    Start-Sleep -Seconds 1
     Clear-HostLine $Line
 }
 
