@@ -95,6 +95,12 @@ Stop-Transcript
 exit 0
 '@
 
+# Define .env file content
+$envFile = @"
+GEMINI_API_KEY=''
+GEMINI_MODEL='gemini-2.5-flash'
+"@
+
 # Start the installation
 try {
     # Clear previous errors
@@ -114,10 +120,12 @@ try {
 
     Write-Host "`nStarting Installer..." -ForegroundColor Yellow
 
-    # Create folder and dependency-installer.ps1
+    # Create folder, dependency-installer.ps1, & .env file
     New-Item -Path ".\Temp" -ItemType Directory -Force
 
     Set-Content -Path $DependencyInstallerPath -Value $DependencyInstaller
+
+    Set-Content -Path ".\.env" -Value $envFile
 
     # Install Microsoft C++ Build Tools
     Write-Host "`nInstalling Microsoft C++ Build Tools..." -ForegroundColor Yellow
