@@ -160,7 +160,7 @@ def split_images_horizontally(input_root_folder, split_parts, string_to_find, st
                             # Crop and save
                             cropped_img = img.crop((left, upper, right, lower))
                             
-                            cropped_img.save(output_image_path)
+                            cropped_img.save(output_image_path, quality=100)
                             print(f"  - Saved split part to '{output_image_path}'")
                     
                 except Exception as e:
