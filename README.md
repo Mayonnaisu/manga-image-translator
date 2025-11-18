@@ -20,9 +20,9 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>~~I just realized that the installer is broken. Not sure since when, but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one.~~ See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
+### <mark>~~I just realized that the installer is broken. Not sure since when, but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one~~ **(fixed)**. See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
 
-### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
+### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update) section for more info.
 
 ### Since the guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#readme).
 
@@ -192,7 +192,7 @@ Go to [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_t
 - Speech bubbles are dirtier.
 - Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in **my-config.json** to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in **.env** file (see https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#gemini-auto-updated) or the translator in **my-config.json** (see https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#translator-reference).
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the [model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#gemini-auto-updated) in **.env** file or the [translator](https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#translator-reference) in **my-config.json**.
 
 > [!NOTE]
 > The webtoon mode can use up to around 20GB RAM on my laptop.

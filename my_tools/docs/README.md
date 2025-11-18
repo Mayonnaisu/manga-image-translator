@@ -27,7 +27,7 @@
 ## NOTICE
 ### <mark>The use of **settings.json** has been integrated to make the launcher-related settings more convenient and persistent. However, you need to download [settings.json](https://github.com/Mayonnaisu/manga-image-translator/blob/main/my_tools/settings.json) and move it to **my_tools** folder manually because it's excluded from the update.</mark>
 
-### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE section for more info](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update).
+### Some things have been changed and fixed, so it's recommended to update to newer components. See the [UPDATE](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update) section for more info.
 
 ## ABOUT
 This fork doesn't change the core functions of the original program. This is still Manga Image Translator, but with some minor tweaks & extra components to make it easier and more convenient to set up and use.
@@ -99,15 +99,15 @@ See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#configu
 3. Save.
 
 ```
-gpu_mode							true/false
-gpu_model							"nvidia"/"amd"/"intel"
-clean_result_folder					true/false
-merged_image_number					number
-split_part_number					number/"original"
-delete_merged_images				true/false
-server_host							"127.0.0.1"/"IP Adress"/others
-server_port							"8000"/others
-extra_arguments						["--arg 1", "--arg 2", "--arg 3"]
+gpu_mode					true/false
+gpu_model					"nvidia"/"amd"/"intel"
+clean_result_folder			true/false
+merged_image_number			number
+split_part_number			number/"original"
+delete_merged_images		true/false
+server_host					"127.0.0.1"/"IP Adress"/others
+server_port					"8000"/others
+extra_arguments				["--arg 1", "--arg 2", "--arg 3"]
 
 Use null to fall back to the value in GlobalSettings (if available)
 ```
@@ -328,7 +328,7 @@ Use null to fall back to the value in GlobalSettings (if available)
 - Speech bubbles are dirtier.
 - Some texts are not detected and/or inpainted at all just like in regular mode. It's just that the missed areas will be different because the difference in their image heights. That's why it's recommended to increase or decrease `detection_size` & `inpainting_size` in **my-config.json** to improve the result. See https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#tips-to-improve-translation-quality.
 - ~~Prone to server overloaded error.~~ **(just retry it XD)**<br>
-It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the model in **.env** file (see https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#gemini-auto-updated) or the translator in **my-config.json** (see https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#translator-reference).
+It seems that it's not really caused by the launcher, or is it? 🤔, since even the paid users are experiencing the same issue, see: https://github.com/google-gemini/gemini-cli/issues/4360. Alternatively, you can change the [model](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions#gemini-auto-updated) in **.env** file or the [translator](https://github.com/zyddnys/manga-image-translator?tab=readme-ov-file#translator-reference) in **my-config.json**.
 - ~~Image size gets significantly bigger because images are converted to .png format to handle extremely long images since the supported maximum dimension for .jpg format is too limited.~~ **(fixed)**
 - ~~Reading position may not be saved properly if your reading app uses the last page opened instead of something like the last scroll position.~~ **(fixed)**
 - ~~Error when MIT inpainting an extremely long image. MIT inpainter (or PyTorch to be exact) can't handle too long images produced by `MIT-local-webtoon-launcher.ps1 > image_merger.py`. So far, the longest images it has successfully inpainted in my testing were around 150,000 pixels. It fails when I tested it on around 180k px images 🤣. I guess I have to limit the maximum height when merging images 😩.~~ **(fixed)**
