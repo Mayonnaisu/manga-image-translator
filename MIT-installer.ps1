@@ -300,10 +300,6 @@ try {
 
     Write-Host "`nINSTALLATION COMPLETED!" -ForegroundColor Green
 } catch {
-    if (Test-Path -Path $LogErrorInstallDependencyPath -PathType Leaf) {
-        Get-Content $LogErrorInstallDependencyPath
-    }
-
     Write-Host "`n$($_.Exception.Message)`n`nINSTALLATION NOT COMPLETED!" -ForegroundColor Red
     # Save the contents of the $Error variable to a text file
     $ErrorLogPath = ".\Temp\log_errors-install.txt"
