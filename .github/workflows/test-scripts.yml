@@ -5,9 +5,9 @@ on:
     branches: 
       - main
     paths:
-      - ".github/workflows/*"
-      - "manga_translator/*"
-      - "my_tools/*"
+      - ".github/workflows/**"
+      - "manga_translator/**"
+      - "my_tools/**"
       - "MIT*"
 
 jobs:
