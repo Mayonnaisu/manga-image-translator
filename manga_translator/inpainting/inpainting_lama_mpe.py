@@ -107,8 +107,9 @@ class LamaMPEInpainter(OfflineInpainter):
                     device_type = "cuda"
                 elif (self.device.startswith('xpu')):
                     device_type = "xpu"
-                    with torch.autocast(device_type=device_type, dtype=precision):
-                        img_inpainted_torch = self.model(img_torch, mask_torch)
+
+                with torch.autocast(device_type=device_type, dtype=precision):
+                    img_inpainted_torch = self.model(img_torch, mask_torch)
 
         if isinstance(self.model, LamaFourier):
             img_inpainted_torch = img_inpainted_torch.to(torch.float32)
