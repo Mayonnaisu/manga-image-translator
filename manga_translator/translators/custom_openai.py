@@ -17,7 +17,7 @@ from .keys import CUSTOM_OPENAI_API_KEY, CUSTOM_OPENAI_API_BASE, CUSTOM_OPENAI_M
 class CustomOpenAiTranslator(ConfigGPT, CommonTranslator):
     _INVALID_REPEAT_COUNT = 2  # 如果检测到"无效"翻译，最多重复 2 次
     _MAX_REQUESTS_PER_MINUTE = 40  # 每分钟最大请求次数
-    _TIMEOUT = 40  # 在重试之前等待服务器响应的时间（秒）
+    _TIMEOUT = 60  # 在重试之前等待服务器响应的时间（秒）
     _RETRY_ATTEMPTS = 3  # 在放弃之前重试错误请求的次数
     _TIMEOUT_RETRY_ATTEMPTS = 3  # 在放弃之前重试超时请求的次数
     _RATELIMIT_RETRY_ATTEMPTS = 3  # 在放弃之前重试速率限制请求的次数
