@@ -63,8 +63,9 @@ try {
                     Write-Host "Excluding '$item'..." -ForegroundColor DarkYellow
 
                     Remove-Item -Path $itemPath -Recurse -Force
+
+                    Write-Host "'$item' Excluded.`n" -ForegroundColor DarkGreen
                 }
-                Write-Host "'$item' Excluded.`n" -ForegroundColor DarkGreen
             }
         }
 
