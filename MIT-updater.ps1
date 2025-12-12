@@ -44,7 +44,7 @@ try {
         Write-Host "`nUpdate Contents Extracted to $extractPath." -ForegroundColor Green
 
         # Delete the excluded files from the extracted content if already exist
-        Write-Host "`nExcluding Files from Update..." -ForegroundColor Yellow
+        Write-Host "`nExcluding Files from Update...`n" -ForegroundColor Yellow
 
         $extractedContentPath = Get-ChildItem -Path $extractPath
 
