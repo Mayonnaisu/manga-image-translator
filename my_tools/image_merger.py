@@ -143,6 +143,7 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
 
             # Save the combined image
             final_image.save(output_path, quality=100)
+            final_image.close()
 
             print(f"Merged {len(part_images)} Images & Saved into '{output_path}'.")
 
