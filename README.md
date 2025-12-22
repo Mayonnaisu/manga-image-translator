@@ -20,8 +20,6 @@
 	*   [Webtoon Mode](#webtoon-mode)
 
 ## NOTICE
-### <mark>~~I just realized that the installer is broken. Not sure since when, but it worked the last time I tested it lol. My bad X'D. Let me figure out how to fix this one~~ **(fixed)**. See https://github.com/Mayonnaisu/manga-image-translator/issues/2.</mark>
-
 ### Some things have been changed & fixed, so it's recommended to update to newer components if you have installed it before. See the [UPDATE](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#update) section for more info.
 
 ### Since the guide has become too long and complex than originally intended, I decided to simplify it. You can see the more detailed version of this guide [here](https://github.com/Mayonnaisu/manga-image-translator/tree/main/my_tools#readme).
