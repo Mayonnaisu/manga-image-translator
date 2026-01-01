@@ -2,9 +2,6 @@
 $ErrorActionPreference = "Stop"
 $PSNativeCommandUseErrorActionPreference = $True
 
-# Temporarily set the policy to 'Bypass' for the current process
-Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
-
 # Suppress the default progress bar because it slows down process in stock PowerShell (5.1). See https://github.com/PowerShell/PowerShell/issues/2138.
 $ProgressPreference = 'SilentlyContinue'
 
@@ -111,7 +108,10 @@ try {
         Remove-Item -Path $LogErrorInstallDependencyPath -Force
     }
 
-    # Import module/s
+    # Unblock module
+    Unblock-File -Path ".\my_tools\downloader.psm1"
+
+    # Import module
     Import-Module ".\my_tools\downloader.psm1"
 
     # Display PowerShell version & start message
