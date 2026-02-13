@@ -52,13 +52,12 @@ def combine_images_in_subfolders(input_root_folder, output_root_folder, parts):
         output_subfolder = os.path.join(output_root_folder, relative_path)
         os.makedirs(output_subfolder, exist_ok=True)
 
-        # Filter for image files
+        # Filter for and sort image files to ensure consistent order
         image_files = [
             f
-            for f in filenames
+            for f in natsorted(filenames)
             if f.lower().endswith(image_extensions)
         ]
-        natsorted(image_files) # Sort to ensure consistent order
 
         if not image_files:
             print(f"No images found in '{relative_path}'. Skipping.")
